@@ -1,0 +1,1 @@
+module.exports.arrEmotions = ["Felicidad","Tristeza","Enojo","Miedo","Sorpresa","Amor","Alegría","Preocupación","Ansiedad","Desesperación","Culpa","Vergüenza","Aburrimiento","Confusión","Gratitud","Entusiasmo","Indiferencia","Aprecio","Empatía","Orgullo","Inseguridad","Alivio","Hostilidad","Esperanza","Asombro","Incredulidad","Irritación","Soledad","Confianza","Inquietud"]
