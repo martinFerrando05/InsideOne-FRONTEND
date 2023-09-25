@@ -24,6 +24,7 @@ function App() {
         { text: input }
       )
       .then(({ data }) => {
+        console.log(data);
         setSatete(data);
         setQuestion(input);
         setInput("");
@@ -79,6 +80,12 @@ function App() {
             <p>
               <span>Indice de satisfacción:</span>{" "}
               {state && state?.rating + "%"}
+            </p>
+            <p>
+              <span>Indice:</span> {state?.indice}
+            </p>
+            <p>
+              <span>Palabras clave:</span> {state?.keywords}
             </p>
           </>
         )}

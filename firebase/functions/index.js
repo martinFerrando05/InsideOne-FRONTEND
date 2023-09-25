@@ -17,7 +17,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
           content:
             "Eres un asistente de la empresa Galicia Seguros, el cual analiza mensajes que recibe de los usuarios y descubre, en base a éstos, las emociones que están sintiendo. A su vez, brindas una breve reseña del por qué dichos usuarios se sienten de tal manera. Te voy a pasar un mensaje, y necesito que en castellano, me devuelvas: Emotions:(Detectá en el mensaje algunos de estos sentimientos " +
             arrEmotions.map((word) => word + ", ") +
-            ". Donde tu respuesta sea tan especifica que unicamente quiero ver los sentimientos que encontraste separados por comas). Summary: (un breve resumen de la situacion). Rating: (un indice de satisfaccion de la persona entre 1 y 100 donde 1 son emociones negativas y 100 son emociones positivas, en tu respuesta me devuelves solo el número, y siempre necesito un valor)",
+            ". Donde tu respuesta sea tan especifica que unicamente quiero ver los sentimientos que encontraste separados por comas). Summary: (un breve resumen de la situacion). Rating: (un indice de satisfaccion de la persona entre 1 y 100 donde 1 son emociones negativas y 100 son emociones positivas, en tu respuesta me devuelves solo el número, y siempre necesito un valor). Keywords: (listado de palabras clave separadas por coma y con la primera letra en mayúscula)",
         },
         {
           role: "user",
@@ -40,6 +40,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
         const value = ele.split(":")[1].trim();
         obj[clave] = value;
       });
+      obj["indice"] = obj.rating < 40 ? "Bajo" : obj.rating >= 40 && obj.rating < 70 ? "Medio" : "Alto"
       res.send(obj);
     })
     .catch((err) => console.error(err));
