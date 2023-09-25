@@ -23,7 +23,9 @@ const Reports = () => {
 
     console.log(firestore);
 
-    return <div>Reports</div>;
+    return <div>
+        
+    </div>;
 };
 
 export default Reports;

@@ -1,0 +1,19 @@
+.filters__ {
+  &main {
+    width: 80%;
+    height: 5rem;
+
+    border: 1px solid black;
+   
+  
+
+    input {
+      background-color: rgb(229, 229, 229);
+      color: black;
+
+      outline: none;
+      height: 2rem;
+      border-radius: 5px;
+    }
+  }
+}
