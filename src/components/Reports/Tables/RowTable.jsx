@@ -2,7 +2,7 @@ import React from "react";
 import "./rowTable.scss";
 import { useSelector } from "react-redux";
 
-const RowTable = () => {
+const RowTable = ({ openModal }) => {
   const items = useSelector(store=> store.firestoreReducer.data)
   
   // Opciones para formatear la fecha y hora en español
@@ -30,7 +30,7 @@ const RowTable = () => {
         }
 
         return (
-          <tr key={i} className="item">
+          <tr key={i} className="item" onClick={()=> openModal(el)}>
             <td>{el.fecha ? fechaHoraFormateada.split("G")[0] : "Fecha no registrada"}</td>
             <td>{el.rating}%</td>
             <td>
