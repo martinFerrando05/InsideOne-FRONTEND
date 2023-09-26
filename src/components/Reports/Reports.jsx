@@ -1,13 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../../store/slice/firestore/firestoreSlice";
 import { db } from "../../config/firebase";
 import Table from "./Tables/Table";
+import SingleView from '../../commons/SingleView'
 
 const Reports = () => {
   const dispatch = useDispatch();
   const firestore = useSelector((store) => store.firestoreReducer);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
+
+  const openModal = (report) => {
+    setSelectedReport(report);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedReport(null);
+    setModalIsOpen(false);
+  };
 
   useEffect(() => {
     const queryRef = collection(db, "pruebas-p5");
@@ -22,9 +35,18 @@ const Reports = () => {
     });
   }, []);
 
-  return <div>
-    <Table items={firestore.data}/>
-  </div>;
+
+ return (
+    <div>
+      {/* <div>
+          <button onClick={() => openModal()}>Modal</button>
+      </div> */}
+     <Table items={firestore.data}/>
+      {modalIsOpen && (
+        <SingleView isOpen={modalIsOpen} onClose={closeModal} selectedReport={firestore.data[6]} />
+      )}
+    </div>
+  );
 };
 
 export default Reports;
