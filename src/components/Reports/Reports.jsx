@@ -8,16 +8,15 @@ import SingleView from '../../commons/SingleView'
 
 const Reports = () => {
   const dispatch = useDispatch();
-  const firestore = useSelector((store) => store.firestoreReducer);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
 
-  const openModal = (report) => {
+  const handleOpenModal = (report) => {
     setSelectedReport(report);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const handleCloseModal = () => {
     setSelectedReport(null);
     setModalIsOpen(false);
   };
@@ -38,12 +37,9 @@ const Reports = () => {
 
  return (
     <div>
-      {/* <div>
-          <button onClick={() => openModal()}>Modal</button>
-      </div> */}
-     <Table items={firestore.data}/>
+     <Table openModal={handleOpenModal} />
       {modalIsOpen && (
-        <SingleView isOpen={modalIsOpen} onClose={closeModal} selectedReport={firestore.data[6]} />
+        <SingleView isOpen={modalIsOpen} onClose={handleCloseModal} selectedReport={selectedReport} />
       )}
     </div>
   );
