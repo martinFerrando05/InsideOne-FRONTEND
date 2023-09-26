@@ -1,11 +1,9 @@
-td {
-  padding: 1rem;
-  text-align: left;
-}
+
 
 td {
   padding: 20px;
   border-bottom: 1px solid rgb(158, 158, 158);
+  
 }
 
 .status-positive {
@@ -14,6 +12,8 @@ td {
   text-align: center;
   background-color: #86e49d;
   color: #006b21;
+  font-weight: bold;
+
 }
 
 .status-negative {
@@ -22,6 +22,7 @@ td {
   text-align: center;
   background-color: #da7990;
   color: #b30021;
+  font-weight: bold;
 }
 
 .status-medium {
@@ -30,6 +31,8 @@ td {
   text-align: center;
   color: #b37b0c;
   background-color: #f4c871;
+  font-weight: bold;
+
 }
 
 tbody {
@@ -38,4 +41,9 @@ tbody {
 
 .center-text {
   text-align: center;
+}
+
+tr:hover{
+  background-color: rgb(242, 242, 242);
+  cursor: pointer;
 }
