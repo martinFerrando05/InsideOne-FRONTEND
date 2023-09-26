@@ -33,7 +33,6 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
       let date = new Date(timestamp * 1000); // Multiplicamos por 1000 para convertir segundos en milisegundos
       const message = completion.choices[0].message.content;
       const messageArr = message.split("\n");
-
       let obj = { fecha: date };
       messageArr.forEach((ele) => {
         const clave = ele.split(":")[0].trim().toLowerCase();
