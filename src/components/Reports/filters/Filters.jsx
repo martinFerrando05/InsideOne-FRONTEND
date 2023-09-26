@@ -17,7 +17,7 @@ const filtersInitialValues = {
 
 const Filters = () => {
     const [filters, setFilters] = useState(filtersInitialValues);
-    //rating
+
     return (
         <div className="filters__main">
             <FiltersDate filters={filters} setFilters={setFilters} />
