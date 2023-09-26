@@ -1,0 +1,23 @@
+.filters__ {
+    &main {
+        width: 70%;
+        height: 5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding: 10px;
+        align-items: center;
+
+        input {
+            background-color: rgb(229, 229, 229);
+            color: black;
+
+            outline: none;
+            height: 2rem;
+            border-radius: 5px;
+        }
+    }
+}
+
+

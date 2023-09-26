@@ -1,0 +1,28 @@
+.filterButtons__ {
+  &main {
+    display: flex;
+  }
+  &buttons {
+    background-color: rgba(107, 192, 236, 255);
+    margin: 10px;
+    font-weight: bold;
+    outline: none;
+    border: transparent;
+    &:hover {
+      border: none;
+      background-color: rgb(0, 147, 197);
+      transition: all ease-in 0.3s;
+    }
+
+    &.clear {
+      background-color: white;
+      border: 1px solid rgba(107, 192, 236, 255);
+      color: rgba(107, 192, 236, 255);
+
+      &:hover {
+        background-color: rgba(164, 164, 164, 0.51);
+        transition: all ease-in 0.3s;
+      }
+    }
+  }
+}
