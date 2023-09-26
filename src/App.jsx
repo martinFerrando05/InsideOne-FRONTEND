@@ -1,5 +1,4 @@
-import './App.scss';
-
+import "./App.scss";
 import EmotionAnalysis from './components/Example/EmotionAnalysis';
 import Reports from './components/Reports/Reports';
 import Filters from './components/Reports/Filters'

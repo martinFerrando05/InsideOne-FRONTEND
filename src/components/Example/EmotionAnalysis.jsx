@@ -24,10 +24,10 @@ function EmotionAnalysis() {
             .then(({ data }) => {
                 setSatete(data);
                 setQuestion(input);
-                setInput('');
                 setLoading(false);
                 const queryRef = collection(db, 'pruebas-p5');
-                addDoc(queryRef, data);
+                addDoc(queryRef, {...data, question: input});
+                setInput('');
             })
             .catch((err) => console.error(err));
     };
