@@ -1,0 +1,46 @@
+.table__body {
+  width: 68%;
+  background-color: #fffb;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  color: black;
+}
+
+.table__cell {
+  padding: 20px 16px 20px 16px;
+}
+
+table,
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+}
+
+td {
+  padding: 20px;
+  border-bottom: 1px solid rgb(158, 158, 158);
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: rgb(237, 237, 237);
+}
+
+table, th {
+  border-collapse: collapse;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 10px 10px 10px 10px; /* Ajusta el radio de borde según lo desees */
+}
+
+
+.center-text{
+  text-align: center;
+}

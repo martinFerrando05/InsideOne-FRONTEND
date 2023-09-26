@@ -3,8 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../../store/slice/firestore/firestoreSlice";
 import { db } from "../../config/firebase";
+import Table from "./Tables/Table";
 import SingleView from '../../commons/SingleView'
-
 
 const Reports = () => {
   const dispatch = useDispatch();
@@ -35,13 +35,13 @@ const Reports = () => {
     });
   }, []);
 
-  console.log(firestore);
 
  return (
     <div>
       {/* <div>
           <button onClick={() => openModal()}>Modal</button>
       </div> */}
+     <Table items={firestore.data}/>
       {modalIsOpen && (
         <SingleView isOpen={modalIsOpen} onClose={closeModal} selectedReport={firestore.data[6]} />
       )}
