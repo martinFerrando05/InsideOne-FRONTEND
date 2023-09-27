@@ -47,8 +47,7 @@ const RowTable = ({ openModal }) => {
                 className={
                   parseInt(el.datos.rating) < 40
                     ? "status-negative"
-                    : parseInt(el.datos.rating) >= 40 &&
-                      parseInt(el.rating) < 70
+                    : parseInt(el.datos.rating) >= 40 && parseInt(el.datos.rating) < 70
                     ? "status-medium"
                     : "status-positive"
                 }
@@ -59,7 +58,7 @@ const RowTable = ({ openModal }) => {
             <td className="center-text">{el.datos.emotions}</td>
           </tr>
         ) : (
-          <tr key={i} className="item" onClick={() => openModal(el)}>
+          <tr key={i} className="item">
             <td>{el.fecha}</td>
             <td>{el.numero}</td>
             <td>{el.dni}</td>
