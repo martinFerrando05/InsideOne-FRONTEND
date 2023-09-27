@@ -1,4 +1,4 @@
-// estilos
+import { Routes, Route } from "react-router";
 import "./App.scss";
 // riat
 import React, { useEffect } from 'react';
@@ -12,10 +12,11 @@ import { db } from "./config/firebase";
 import { useDispatch } from 'react-redux';
 import { setData } from "./store/slice/firestore/firestoreSlice";
 
+
 function App() {
   const dispatch = useDispatch();
       useEffect(() => {
-          const queryRef = collection(db, 'pruebas-p5');
+          const queryRef = collection(db, 'respuestas-reportes');
           getDocs(queryRef).then((res) => {
               const data = res.docs;
               const docs = data.map((doc) => {
@@ -29,8 +30,11 @@ function App() {
 
   return (
     <main className="app__main">
+      <Routes>
+      <Route path="/answers" element={<Reports/>}/>
+      <Route path="/reports" element={<Reports/>}/>
       {/*     <EmotionAnalysis /> */}
-      <Reports />
+      </Routes>
       {/* <Metrics /> */}
     </main>
   );
