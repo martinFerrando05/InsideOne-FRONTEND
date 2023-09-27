@@ -2,16 +2,16 @@ import React from "react";
 //styles
 import "./singleViewStyles.scss";
 //img
-import icon from "../assets/icons/el_bichito.png";
+import icon from '../../assets/icons/el_bichito.png'
 //icons
-import face from "../assets/icons/face.svg";
-import battery from "../assets/icons/battery.svg";
-import calendar from "../assets/icons/calendar.svg";
-import chart from "../assets/icons/chart.svg";
-import key from "../assets/icons/key.svg";
-import message from "../assets/icons/message.svg";
-import paper from "../assets/icons/paper.svg";
-import cross from "../assets/icons/cross.svg";
+import face from "../../assets/icons/face.svg";
+import battery from "../../assets/icons/battery.svg";
+import calendar from "../../assets/icons/calendar.svg";
+import chart from "../../assets/icons/chart.svg";
+import key from "../../assets/icons/key.svg";
+import message from "../../assets/icons/message.svg";
+import paper from "../../assets/icons/paper.svg";
+import cross from "../../assets/icons/cross.svg";
 
 const SingleView = ({ isOpen, onClose, selectedReport }) => {
   if (!isOpen) return null;
@@ -31,7 +31,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
             <h3>Análisis de emociones</h3>
           </div>
 
-          <li className="container-options">
+          <div className="container-options">
           <li className="options">
             <img src={battery} />
             <p>Indice: {selectedReport?.indice}</p>
@@ -60,7 +60,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
             <img src={message} />
             <p>Comentarios: {selectedReport?.question}</p>
           </li>
-          </li>
+          </div>
         </ul>
       </div>
     </div>
