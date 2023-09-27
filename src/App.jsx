@@ -1,5 +1,6 @@
 // estilos
-import './App.scss';
+import { Routes, Route } from "react-router";
+import "./App.scss";
 // riat
 import React, { useEffect, useRef } from 'react';
 import EmotionAnalysis from './components/Example/EmotionAnalysis';
@@ -17,7 +18,7 @@ function App() {
   const isFirstLoadRef = useRef(true);
 
     useEffect(() => {
-        const queryRef = collection(db, 'pruebas-p5');
+        const queryRef = collection(db, 'respuestas-reportes');
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
                 return {
@@ -46,13 +47,16 @@ function App() {
         };
     }, [dispatch]);
 
-    return (
-        <main className="app__main">
-            <EmotionAnalysis />
-            <Reports />
-            <Metrics />
-        </main>
-    );
+  return (
+    <main className="app__main">
+      <Routes>
+      <Route path="/answers" element={<Reports/>}/>
+      <Route path="/reports" element={<Reports/>}/>
+      <Route path="/metrics" element={<Metrics />}/>
+      {/*     <EmotionAnalysis /> */}
+      </Routes>
+    </main>
+  );
 }
 
 export default App;
