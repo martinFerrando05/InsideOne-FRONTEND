@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const RowTable = ({ openModal }) => {
   const items = useSelector(store=> store.firestoreReducer.data)
-  
   // Opciones para formatear la fecha y hora en español
   const opciones = {
     year: "numeric",
