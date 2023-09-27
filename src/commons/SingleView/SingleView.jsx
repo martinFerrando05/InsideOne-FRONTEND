@@ -50,19 +50,19 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
           <div className="container-options" >
           <li className="options" >
             <img src={battery} />
-            <p>Indice: {selectedReport?.datos.indice}</p>
+            <p>Indice: {selectedReport?.client.satisfaction_index}</p>
           </li>
           <li className="options">
             <img src={chart} />
-            <p>Rating: {selectedReport?.datos.rating}</p>
+            <p>Rating: {selectedReport?.client.rating}</p>
           </li>
           <li className="options">
             <img src={face} />
-            <p>Emociones: {selectedReport?.datos.emotions}</p>
+            <p>Emociones: {selectedReport?.client.emotions}</p>
           </li>
           <li className="options">
             <img src={key} />
-            <p>Palabras clave: {selectedReport?.datos.keywords}</p>
+            <p>Palabras clave: {selectedReport?.client.keywords}</p>
           </li>
           <li className="options">
             <img src={calendar} />
@@ -70,11 +70,11 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
           </li>
           <li className="options">
             <img src={paper} />
-            <p>Resumen: {selectedReport?.datos.summary}</p>
+            <p>Resumen: {selectedReport?.client.summary}</p>
           </li>
           <li className="options">
             <img src={message} />
-            <p>Comentarios: {selectedReport?.datos.question}</p>
+            <p>Comentarios: {selectedReport?.client.question}</p>
           </li>
           </div>
         </ul>

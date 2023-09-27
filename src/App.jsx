@@ -33,9 +33,9 @@ function App() {
       <Routes>
       <Route path="/answers" element={<Reports/>}/>
       <Route path="/reports" element={<Reports/>}/>
+      <Route path="/metrics" element={<Metrics />}/>
       {/*     <EmotionAnalysis /> */}
       </Routes>
-      {/* <Metrics /> */}
     </main>
   );
 }
