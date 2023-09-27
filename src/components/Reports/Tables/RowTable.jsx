@@ -32,7 +32,7 @@ const RowTable = ({ openModal }) => {
         //   fechaHoraFormateada = formateador.format(fechaHora);
         // }
 
-        return el.datos && isReportsView ? (
+        return el.client && isReportsView ? (
           <tr key={i} className="item" onClick={() => openModal(el)}>
             <td>
               {
