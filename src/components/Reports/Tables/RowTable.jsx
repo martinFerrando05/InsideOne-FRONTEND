@@ -21,32 +21,32 @@ const RowTable = ({ openModal }) => {
   return (
     <tbody>
       {items?.map((el, i) => {
-        let fechaHora;
+        /* let fechaHora;
         let formateador = new Intl.DateTimeFormat("es-ES", opciones);
         let fechaHoraFormateada;
         if (el.fecha) {
            fechaHora = new Date(el.fecha);
           fechaHoraFormateada = formateador.format(fechaHora);
-        }
+        } */
 
-        return (
+        return el.datos && (
           <tr key={i} className="item" onClick={()=> openModal(el)}>
-            <td>{el.fecha ? fechaHoraFormateada.split("G")[0] : "Fecha no registrada"}</td>
-            <td>{el.rating}%</td>
+            <td>{el.fecha /* ? fechaHoraFormateada.split("G")[0] : "Fecha no registrada" */}</td>
+            <td>{el.datos.rating}%</td>
             <td>
               <p
                 className={
-                  parseInt(el.rating) < 40
+                  parseInt(el.datos.rating) < 40
                     ? "status-negative"
-                    : parseInt(el.rating) >= 40 && parseInt(el.rating) < 70
+                    : parseInt(el.datos.rating) >= 40 && parseInt(el.datos.rating) < 70
                     ? "status-medium"
                     : "status-positive"
                 }
               >
-                {el.indice}
+                {el.datos.indice}
               </p>
             </td>
-            <td className="center-text">{el.emotions}</td>
+            <td className="center-text">{el.datos.emotions}</td>
           </tr>
         );
       })}

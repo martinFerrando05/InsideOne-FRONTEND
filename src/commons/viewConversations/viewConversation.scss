@@ -1,0 +1,45 @@
+.modal-conversation {
+  position: relative;
+  width: 55%; 
+  height: 90%;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  color: black;
+}
+
+.modal-overlay-conversation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.box-conversation p{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+}
+
+.box-conversation{
+  padding: 40px;
+}
+
+.close-button-conversation {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: -8px;
+  color: #555;
+  &:active{border: none;};
+}

@@ -26,7 +26,7 @@ const Reports = () => {
   };
 
   useEffect(() => {
-    const queryRef = collection(db, "pruebas-p5");
+    const queryRef = collection(db, "respuestas-reportes");
     getDocs(queryRef).then((res) => {
       const data = res.docs;
       const docs = data.map((doc) => {
