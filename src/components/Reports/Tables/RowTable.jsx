@@ -3,8 +3,10 @@ import "./rowTable.scss";
 import { useSelector } from "react-redux";
 
 const RowTable = ({ openModal }) => {
-  const items = useSelector(store=> store.firestoreReducer.data)
-  
+  const items = useSelector((store) => store.firestoreReducer.data);
+  const location = useLocation();
+  const isIndividualView = location.pathname === "/individual";
+
   // Opciones para formatear la fecha y hora en español
   const opciones = {
     year: "numeric",
@@ -25,13 +27,17 @@ const RowTable = ({ openModal }) => {
         let formateador = new Intl.DateTimeFormat("es-ES", opciones);
         let fechaHoraFormateada;
         if (el.fecha) {
-           fechaHora = new Date(el.fecha);
+          fechaHora = new Date(el.fecha);
           fechaHoraFormateada = formateador.format(fechaHora);
         }
 
-        return (
-          <tr key={i} className="item" onClick={()=> openModal(el)}>
-            <td>{el.fecha ? fechaHoraFormateada.split("G")[0] : "Fecha no registrada"}</td>
+        return isIndividualView ? (
+          <tr key={i} className="item" onClick={() => openModal(el)}>
+            <td>
+              {el.fecha
+                ? fechaHoraFormateada.split("G")[0]
+                : "Fecha no registrada"}
+            </td>
             <td>{el.rating}%</td>
             <td>
               <p
@@ -47,6 +53,14 @@ const RowTable = ({ openModal }) => {
               </p>
             </td>
             <td className="center-text">{el.emotions}</td>
+          </tr>
+        ) : (
+          <tr key={i} className="item" onClick={() => openModal(el)}>
+            <td>{el.fecha}</td>
+            <td>{el.numero}</td>
+            <td>{el.dni}</td>
+            <td>{el.agente}</td>
+            <td>{el.canal}</td>
           </tr>
         );
       })}

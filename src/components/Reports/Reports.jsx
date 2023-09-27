@@ -9,11 +9,16 @@ import { setData } from "../../store/slice/firestore/firestoreSlice";
 import Table from "./Tables/Table";
 import SingleView from '../../commons/SingleView';
 import Filters from "./filters/Filters";
+import { useLocation } from "react-router";
 
 const Reports = () => {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
+
+  const location = useLocation();
+  const isIndividualView = location.pathname === '/individual'
+
 
   const handleOpenModal = (report) => {
     setSelectedReport(report);
@@ -24,9 +29,10 @@ const Reports = () => {
     setSelectedReport(null);
     setModalIsOpen(false);
   };
+ 
 
   useEffect(() => {
-    const queryRef = collection(db, "pruebas-p5");
+    const queryRef = collection(db, isIndividualView ? "respuestas" : "pruebas-p5");
     getDocs(queryRef).then((res) => {
       const data = res.docs;
       const docs = data.map((doc) => {
