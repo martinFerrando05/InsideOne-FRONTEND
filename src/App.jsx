@@ -1,39 +1,58 @@
 // estilos
-import "./App.scss";
+import './App.scss';
 // riat
-import React, { useEffect } from 'react';
-import EmotionAnalysis from "./components/Example/EmotionAnalysis";
-import Reports from "./components/Reports/Reports";
-import Metrics from "./components/Metrics/Metrics";
+import React, { useEffect, useRef } from 'react';
+import EmotionAnalysis from './components/Example/EmotionAnalysis';
+import Reports from './components/Reports/Reports';
+import Metrics from './components/Metrics/Metrics';
 //firestore
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from "./config/firebase";
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './config/firebase';
 //redux
 import { useDispatch } from 'react-redux';
-import { setData } from "./store/slice/firestore/firestoreSlice";
+import { setData } from './store/slice/firestore/firestoreSlice';
 
 function App() {
   const dispatch = useDispatch();
-      useEffect(() => {
-          const queryRef = collection(db, 'pruebas-p5');
-          getDocs(queryRef).then((res) => {
-              const data = res.docs;
-              const docs = data.map((doc) => {
-                  return {
-                      ...doc.data(),
-                  };
-              });
-              dispatch(setData(docs));
-          });
-      }, []);
+  const isFirstLoadRef = useRef(true);
 
-  return (
-    <main className="app__main">
-      {/*     <EmotionAnalysis /> */}
-      <Reports />
-      {/* <Metrics /> */}
-    </main>
-  );
+    useEffect(() => {
+        const queryRef = collection(db, 'pruebas-p5');
+        const unsub = onSnapshot(queryRef, (snapshot) => {
+            const docs = snapshot.docs.map((doc) => {
+                return {
+                    ...doc.data(),
+                    id: doc.id,
+                };
+            });
+          dispatch(setData(docs))
+
+              snapshot.docChanges().forEach((change) => {
+                  if (!isFirstLoadRef.current) {
+                      if (change.type === 'added') {
+                          const newDoc = change.doc.data();
+                          if (newDoc.indice === 'Bajo') {
+                            // alert('Documento nuevo con indice bajo');
+                            console.log('DOCUMENTO NUEVO CON INDICE BAJO');
+                          }
+                      }
+                  }
+              });
+            isFirstLoadRef.current = false;
+        });
+
+        return () => {
+            unsub();
+        };
+    }, [dispatch]);
+
+    return (
+        <main className="app__main">
+            <EmotionAnalysis />
+            <Reports />
+            <Metrics />
+        </main>
+    );
 }
 
 export default App;
