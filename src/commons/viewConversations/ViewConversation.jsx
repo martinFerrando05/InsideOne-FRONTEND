@@ -17,8 +17,8 @@ const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
             <h3>Agente</h3>
           </div>
           <div className="conversation">
-            {conversacion.map((dialogo) => {
-              return <p style={{ marginTop: "40px" }}>{dialogo}</p>;
+            {conversacion.map((dialogo, i) => {
+              return <p key={i} style={{ marginTop: "40px" }}>{dialogo}</p>;
             })}
           </div>
         </div>

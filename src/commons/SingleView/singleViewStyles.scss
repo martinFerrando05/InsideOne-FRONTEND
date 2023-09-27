@@ -1,3 +1,5 @@
+@import "../../assets/styles/mixins";
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -103,5 +105,9 @@
 
 .main-icon {
   height: 150px;
+}
+
+.showConversationButton{
+  @include defaultButton;
 }
 

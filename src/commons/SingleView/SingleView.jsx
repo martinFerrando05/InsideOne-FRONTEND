@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 //styles
 import "./singleViewStyles.scss";
-import "../components/Reports/filters/scss/filterButtons.scss"
 //img
-import icon from "../assets/icons/el_bichito.png";
+import icon from '../../assets/icons/el_bichito.png'
 //icons
-import face from "../assets/icons/face.svg";
-import battery from "../assets/icons/battery.svg";
-import calendar from "../assets/icons/calendar.svg";
-import chart from "../assets/icons/chart.svg";
-import key from "../assets/icons/key.svg";
-import message from "../assets/icons/message.svg";
-import paper from "../assets/icons/paper.svg";
-import cross from "../assets/icons/cross.svg";
-import ViewConversation from "./viewConversations/ViewConversation";
+import face from "../../assets/icons/face.svg";
+import battery from "../../assets/icons/battery.svg";
+import calendar from "../../assets/icons/calendar.svg";
+import chart from "../../assets/icons/chart.svg";
+import key from "../../assets/icons/key.svg";
+import message from "../../assets/icons/message.svg";
+import paper from "../../assets/icons/paper.svg";
+import cross from "../../assets/icons/cross.svg";
+import ViewConversation from "../viewConversations/ViewConversation";
 
 const SingleView = ({ isOpen, onClose, selectedReport }) => {
   if (!isOpen) return null;
@@ -38,8 +37,8 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
             <h3>Análisis de emociones</h3>
           </div>
 
-          <div className="filterButtons" style={{marginTop:"10px"}}>
-            <button className="filterButtons__buttons" onClick={handleDisplayConversation}>
+          <div style={{marginTop:"10px"}}>
+            <button className="showConversationButton" onClick={handleDisplayConversation}>
               Ver Conversación
             </button> 
           </div>
@@ -48,7 +47,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
             conversationModal ? <ViewConversation handleDisplayConversation={handleDisplayConversation} selectedReport={selectedReport}/> : ""
           }
 
-          <li className="container-options" >
+          <div className="container-options" >
           <li className="options" >
             <img src={battery} />
             <p>Indice: {selectedReport?.datos.indice}</p>
@@ -77,7 +76,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
             <img src={message} />
             <p>Comentarios: {selectedReport?.datos.question}</p>
           </li>
-          </li>
+          </div>
         </ul>
       </div>
     </div>
