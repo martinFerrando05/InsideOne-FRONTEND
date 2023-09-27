@@ -36,34 +36,34 @@ const RowTable = ({ openModal }) => {
           <tr key={i} className="item" onClick={() => openModal(el)}>
             <td>
               {
-                el.fecha
+                el.date
                 // ? fechaHoraFormateada.split("G")[0]
                 // : "Fecha no registrada"
               }
             </td>
-            <td>{el.datos.rating}%</td>
+            <td>{el.client.rating}%</td>
             <td>
               <p
                 className={
-                  parseInt(el.datos.rating) < 40
+                  parseInt(el.client.rating) < 40
                     ? "status-negative"
-                    : parseInt(el.datos.rating) >= 40 && parseInt(el.datos.rating) < 70
+                    : parseInt(el.client.rating) >= 40 && parseInt(el.client.rating) < 70
                     ? "status-medium"
                     : "status-positive"
                 }
               >
-                {el.datos.indice}
+                {el.client.satisfaction_index}
               </p>
             </td>
-            <td className="center-text">{el.datos.emotions}</td>
+            <td className="center-text">{el.client.emotions}</td>
           </tr>
         ) : (
           <tr key={i} className="item">
-            <td>{el.fecha}</td>
-            <td>{el.numero}</td>
+            <td>{el.date}</td>
+            <td>{el.phone_number}</td>
             <td>{el.dni}</td>
-            <td>{el.agente}</td>
-            <td>{el.canal}</td>
+            <td>{el.agent}</td>
+            <td>{el.channel}</td>
           </tr>
         );
       })}

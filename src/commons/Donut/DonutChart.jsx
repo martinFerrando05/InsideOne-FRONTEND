@@ -15,8 +15,8 @@ const DoughnutChart = () => {
     };
 
     items?.forEach((el) => {
-        if (el.indice in counts) {
-            counts[el.indice]++
+        if (el.client?.satisfaction_index in counts) {
+            counts[el.client?.satisfaction_index]++
         }
     })
     

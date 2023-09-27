@@ -12,7 +12,7 @@ const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
         </button>
 
         <div className="modal-cont-item box-conversation">
-          <h1>{selectedReport.agente}</h1>
+          <h1>{selectedReport.agent}</h1>
           <div className="subtitle">
             <h3>Agente</h3>
           </div>
