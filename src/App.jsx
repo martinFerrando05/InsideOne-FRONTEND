@@ -12,20 +12,30 @@ import { db } from './config/firebase';
 //redux
 import { useDispatch } from 'react-redux';
 import { setData } from './store/slice/firestore/firestoreSlice';
+import { dateFormater } from "./utils/dateFormater";
+
 
 function App() {
   const dispatch = useDispatch();
   const isFirstLoadRef = useRef(true);
 
     useEffect(() => {
+     
         const queryRef = collection(db, 'respuestas-reportes');
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
+              const timestamp = doc.data().date
+              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
+              
                 return {
                     ...doc.data(),
-                    id: doc.id,
+                    id: doc.id,  
+                    date,
+                    dateFormated: dateFormater(new Date(date))
                 };
             });
+
+            
           dispatch(setData(docs))
 
               snapshot.docChanges().forEach((change) => {
@@ -45,15 +55,15 @@ function App() {
         return () => {
             unsub();
         };
-    }, [dispatch]);
+    }, []);
 
   return (
     <main className="app__main">
+      {/* <EmotionAnalysis /> */}
       <Routes>
       <Route path="/answers" element={<Reports/>}/>
       <Route path="/reports" element={<Reports/>}/>
       <Route path="/metrics" element={<Metrics />}/>
-      {/*     <EmotionAnalysis /> */}
       </Routes>
     </main>
   );

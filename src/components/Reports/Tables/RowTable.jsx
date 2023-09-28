@@ -2,6 +2,7 @@ import React from 'react';
 import './rowTable.scss';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { dateFormater } from '../../../utils/dateFormater';
 
 const RowTable = ({ openModal }) => {
 
@@ -32,12 +33,11 @@ const RowTable = ({ openModal }) => {
                 //   fechaHora = new Date(el.fecha);
                 //   fechaHoraFormateada = formateador.format(fechaHora);
                 // }
-
                 return el.client && isReportsView ? (
                     <tr key={i} className="item" onClick={() => openModal(el)}>
                         <td>
                             {
-                                el.date
+                                el?.dateFormated
                                 // ? fechaHoraFormateada.split("G")[0]
                                 // : "Fecha no registrada"
                             }
@@ -50,7 +50,7 @@ const RowTable = ({ openModal }) => {
                     </tr>
                 ) : (
                     <tr key={i} className="item">
-                        <td>{el.date}</td>
+                        <td>{el?.dateFormated}</td>
                         <td>{el.phone_number}</td>
                         <td>{el.dni}</td>
                         <td>{el.agent}</td>
