@@ -1,0 +1,28 @@
+.filterInputsResponse__main{
+ 
+  justify-content: space-around;
+  display: flex;
+
+  input{ 
+    width: calc(90% / 3);
+    text-align: center;
+    outline: none;
+    border: none;
+    font-size: .9rem;
+    height: 2.3rem;
+  }
+
+  /* Estilo para quitar las flechas del input tipo number */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+  }
+  
+  /* Estilo adicional para Firefox */
+  input[type="number"] {
+      -moz-appearance: textfield;
+  }
+
+}
