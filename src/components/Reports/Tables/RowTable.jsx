@@ -25,21 +25,12 @@ const RowTable = ({ openModal }) => {
 
     return (
         <tbody>
-            {items?.map((el, i) => {
-                // let fechaHora;
-                // let formateador = new Intl.DateTimeFormat("es-ES", opciones);
-                // let fechaHoraFormateada;
-                // if (el.fecha) {
-                //   fechaHora = new Date(el.fecha);
-                //   fechaHoraFormateada = formateador.format(fechaHora);
-                // }
+            {items && items?.map((el, i) => {
                 return el.client && isReportsView ? (
                     <tr key={i} className="item" onClick={() => openModal(el)}>
                         <td>
                             {
-                                el?.dateFormated
-                                // ? fechaHoraFormateada.split("G")[0]
-                                // : "Fecha no registrada"
+                                el.dateFormated
                             }
                         </td>
                         <td>{el.client.rating}%</td>
@@ -50,9 +41,9 @@ const RowTable = ({ openModal }) => {
                     </tr>
                 ) : (
                     <tr onClick={()=>openModal(el)} key={i} className="item">
-                        <td>{el?.dateFormated}</td>
-                        <td>{el.phone_number}</td>
-                        <td>{el.dni}</td>
+                        <td>{el.dateFormated}</td>
+                        <td>{el.client.phone_number}</td>
+                        <td>{el.client.dni}</td>
                         <td>{el.agent}</td>
                         <td>{el.channel}</td>
                     </tr>

@@ -17,6 +17,7 @@ import cross from '../../assets/icons/cross.svg';
 import phone from '../../assets/icons/phone.svg'
 import dni from '../../assets/icons/dni.svg'
 import support from '../../assets/icons/support.svg'
+import clock from '../../assets/icons/clock.svg'
 
 
 const SingleView = ({ isOpen, onClose, selectedReport }) => {
@@ -107,7 +108,11 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                                 </li>
                                 <li className="options">
                                     <img src={calendar} alt="Calendar" />
-                                    <p>Fecha: {date}</p>
+                                    <p>Fecha: {selectedReport?.dateFormated.split(' ')[0]}</p>
+                                </li>
+                                <li className="options">
+                                    <img src={clock} alt="Calendar" />
+                                    <p>Hora: {selectedReport?.dateFormated.split(' ')[1]}</p>
                                 </li>
                             </div>
                         </div>
