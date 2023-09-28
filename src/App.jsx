@@ -1,33 +1,42 @@
-// estilos
-import { Routes, Route } from "react-router";
+// estail
 import "./App.scss";
 // riat
 import React, { useEffect, useRef } from "react";
-import EmotionAnalysis from "./components/Example/EmotionAnalysis";
-import Reports from "./components/Reports/Reports";
-import Metrics from "./components/Metrics/Metrics";
+import { Routes, Route } from "react-router";
 //firestore
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 //redux
-import { useDispatch } from "react-redux";
-import { setData } from "./store/slice/firestore/firestoreSlice";
+import { useDispatch } from 'react-redux';
+import { setData } from './store/slice/firestore/firestoreSlice';
+//components
 import Sidebar from "./components/Sidebar/Sidebar";
+import { dateFormater } from "./utils/dateFormater";
+import EmotionAnalysis from "./components/Example/EmotionAnalysis";
+import Reports from "./components/Reports/Reports";
+import Metrics from "./components/Metrics/Metrics";
 
 function App() {
   const dispatch = useDispatch();
   const isFirstLoadRef = useRef(true);
 
-  useEffect(() => {
-    const queryRef = collection(db, "respuestas-reportes-base");
-    const unsub = onSnapshot(queryRef, (snapshot) => {
-      const docs = snapshot.docs.map((doc) => {
-        return {
-          ...doc.data(),
-          id: doc.id,
-        };
-      });
-      dispatch(setData(docs));
+    useEffect(() => {     
+        const queryRef = collection(db, 'respuestas-reportes');
+        const unsub = onSnapshot(queryRef, (snapshot) => {
+            const docs = snapshot.docs.map((doc) => {
+              const timestamp = doc.data().date
+              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString()
+              
+                return {
+                    ...doc.data(),
+                    id: doc.id,  
+                    date,
+                    dateFormated: dateFormater(new Date(date))
+                };
+            });
+
+            
+          dispatch(setData(docs))
 
       snapshot.docChanges().forEach((change) => {
         if (!isFirstLoadRef.current) {
@@ -43,10 +52,11 @@ function App() {
       isFirstLoadRef.current = false;
     });
 
+
     return () => {
       unsub();
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <main className="app__main">
@@ -56,7 +66,6 @@ function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} /> 
-        {/*     <EmotionAnalysis /> */}
       </Routes>
     </main>
   );

@@ -6,6 +6,7 @@ import Table from "./Tables/Table";
 import SingleView from "../../commons/SingleView/SingleView";
 import Filters from "./filters/Filters";
 
+
 const Reports = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
