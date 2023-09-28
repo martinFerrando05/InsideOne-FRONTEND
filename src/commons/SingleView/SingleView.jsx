@@ -16,7 +16,7 @@ import ViewConversation from "../viewConversations/ViewConversation";
 
 const SingleView = ({ isOpen, onClose, selectedReport }) => {
   if (!isOpen) return null;
-  const date = selectedReport.fecha.split("T")[0];
+  const date = selectedReport?.date.split("T")[0];
   const [conversationModal, setConversationModal] = useState(false)
 
   const handleDisplayConversation = () => {

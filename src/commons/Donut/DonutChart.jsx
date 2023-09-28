@@ -42,7 +42,7 @@ const DoughnutChart = () => {
     };
 
     return (
-        <div className="dona">
+        <div className="donut">
             <Doughnut data={data} options={options} />
         </div>
     );
