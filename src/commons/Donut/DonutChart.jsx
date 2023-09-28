@@ -18,7 +18,7 @@ const DoughnutChart = () => {
     };
 
     return (
-        <div className="dona">
+        <div className="donut">
             <Doughnut data={indexData} options={options} />
             <Doughnut data={hoursData} options={options} />
         </div>
