@@ -1,6 +1,6 @@
 .modal-conversation {
   position: relative;
-  width: 55%; 
+  width: 55%;
   height: 90%;
   background-color: #fff;
   border-radius: 20px;
@@ -21,14 +21,13 @@
   z-index: 100;
 }
 
-.box-conversation p{
+.box-conversation p {
   display: flex;
   flex-direction: column;
   text-align: left;
-
 }
 
-.box-conversation{
+.box-conversation {
   padding: 40px;
 }
 
@@ -41,5 +40,12 @@
   top: 5px;
   left: -8px;
   color: #555;
-  &:active{border: none;};
+  &:active {
+    border: none;
+  }
+}
+
+span {
+  font-weight: bold;
+  color: #62d6f9;
 }
