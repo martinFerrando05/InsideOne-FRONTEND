@@ -18,18 +18,18 @@ const FiltersSelects = ({ filters, setFilters }) => {
   return (
       <div className="filterSelect__main">
           <select className="filterSelect__select index-select" name="satisfaction-index" value={filters.indexSatisfaction} onChange={handleSatisfactionIndex}>
-              <option value="">Índice de satisfacción</option>
+              <option value="index">Índice de satisfacción</option>
               {satisfactionIndexArr.map((indexSatisfaction, i) => (
-                  <option value={indexSatisfaction.toLowerCase()} key={i}>
+                  <option value={indexSatisfaction} key={i}>
                       {indexSatisfaction}
                   </option>
               ))}
           </select>
 
           <select className="filterSelect__select emotion-select" name="select-emotion" value={filters.emotion} onChange={handleSelectEmotionChange}>
-              <option value="emociones">Emociones</option>
+              <option value="emotions">Emociones</option>
               {emotionsArr.map((emotion, i) => (
-                  <option key={i} value={emotion.toLowerCase()}>
+                  <option key={i} value={emotion}>
                       {emotion}
                   </option>
               ))}

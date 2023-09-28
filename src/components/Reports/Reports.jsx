@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 //firestore
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs , query , where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,8 @@ const Reports = () => {
   };
 
   useEffect(() => {
-    const queryRef = collection(db, "pruebas-p5");
+     const queryRef = collection(db, "pruebas-p5");
+    // const queryRef = query(collection(db, "pruebas-p5"), where('rating'  , '==' , '20'))
     getDocs(queryRef).then((res) => {
       const data = res.docs;
       const docs = data.map((doc) => {
