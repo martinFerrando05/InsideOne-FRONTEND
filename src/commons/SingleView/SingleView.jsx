@@ -74,7 +74,11 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                                 </li>
                                 <li className="options">
                                     <img src={calendar} alt="Calendar" />
-                                    <p>Fecha: {date}</p>
+                                    <p>Fecha: {selectedReport?.dateFormated.split(' ')[0]}</p>
+                                </li>
+                                <li className="options">
+                                    <img src={clock} alt="Calendar" />
+                                    <p>Hora: {selectedReport?.dateFormated.split(' ')[1]}</p>
                                 </li>
                                 <li className="options">
                                     <img src={paper} alt="Paper" />
