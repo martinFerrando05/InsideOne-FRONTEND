@@ -49,7 +49,7 @@ const RowTable = ({ openModal }) => {
                         <td className="center-text">{el.client.emotions}</td>
                     </tr>
                 ) : (
-                    <tr key={i} className="item">
+                    <tr onClick={()=>openModal(el)} key={i} className="item">
                         <td>{el?.dateFormated}</td>
                         <td>{el.phone_number}</td>
                         <td>{el.dni}</td>
