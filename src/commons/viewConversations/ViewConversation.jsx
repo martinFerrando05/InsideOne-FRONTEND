@@ -18,7 +18,12 @@ const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
           </div>
           <div className="conversation">
             {conversacion.map((dialogo, i) => {
-              return <p key={i} style={{ marginTop: "40px" }}>{dialogo}</p>;
+              return (
+                  <p key={i} style={{ marginTop: '40px' }}>
+                      <span style={{ fontWeight: 'bold', color: 'lightblue' }}>{dialogo.split(':')[0]}:</span>
+                      {dialogo.split(':')[1]}
+                  </p>
+              );
             })}
           </div>
         </div>
