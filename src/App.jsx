@@ -18,7 +18,7 @@ function App() {
   const isFirstLoadRef = useRef(true);
 
     useEffect(() => {
-        const queryRef = collection(db, 'respuestas-reportes');
+        const queryRef = collection(db, 'respuestas-reportes-base');
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
                 return {
@@ -45,7 +45,7 @@ function App() {
         return () => {
             unsub();
         };
-    }, [dispatch]);
+    }, []);
 
   return (
     <main className="app__main">
