@@ -12,6 +12,7 @@ import { db } from './config/firebase';
 //redux
 import { useDispatch } from 'react-redux';
 import { setData } from './store/slice/firestore/firestoreSlice';
+import { dateFormater } from "./utils/dateFormater";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,9 +22,14 @@ function App() {
         const queryRef = collection(db, 'respuestas-reportes');
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
+              const timestamp = doc.data().date
+              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
+
                 return {
                     ...doc.data(),
                     id: doc.id,
+                    date,
+                    dateFormated: dateFormater(new Date(date))
                 };
             });
           dispatch(setData(docs))

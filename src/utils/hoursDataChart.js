@@ -1,13 +1,13 @@
 export function hoursDataChart(items) {
   const length = items?.length;
-
+  
   const counts = {
     EnHorario: 0,
     FueraDeHorario: 0,
   };
 
   let hours = items?.map((item) => {
-    return item.date.split(" ")[1].slice(0, 2);
+    return item.dateFormated?.split(" ")[1].slice(0, 2);
   });
 
   hours?.forEach((el) => {
