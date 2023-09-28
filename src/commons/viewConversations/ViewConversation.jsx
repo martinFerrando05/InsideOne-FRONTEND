@@ -1,7 +1,7 @@
 import React from "react";
 import leftArrow from "../../assets/icons/leftArrow.svg";
 import "./viewConversation.scss";
-import { conversacion } from "../../utils/fakeData";
+import { conversacion } from "../../utils/fakeData"
 
 const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
   return (
