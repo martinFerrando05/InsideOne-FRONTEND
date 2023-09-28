@@ -1,7 +1,7 @@
 import React from "react";
 import leftArrow from "../../assets/icons/leftArrow.svg";
 import "./viewConversation.scss";
-import { conversacion } from "../../utils/fakeData";
+import { conversacion } from "../../utils/fakeData"
 
 const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
   return (
@@ -18,7 +18,12 @@ const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
           </div>
           <div className="conversation">
             {conversacion.map((dialogo, i) => {
-              return <p key={i} style={{ marginTop: "40px" }}>{dialogo}</p>;
+              return (
+                  <p key={i} style={{ marginTop: '40px' }}>
+                      <span style={{ fontWeight: 'bold', color: 'lightblue' }}>{dialogo.split(':')[0]}:</span>
+                      {dialogo.split(':')[1]}
+                  </p>
+              );
             })}
           </div>
         </div>
