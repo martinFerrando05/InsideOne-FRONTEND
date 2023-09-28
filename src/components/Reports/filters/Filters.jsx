@@ -8,16 +8,17 @@ import FilterRating from './FilterRating';
 import FiltersSelects from './FiltersSelects';
 import FilterButtons from './FilterButtons';
 
+
 const filtersInitialValues = {
     date: { start: new Date(), end: new Date() },
     rating: '',
-    emotion: 'Emotiones',
-    indexSatisfaction: 'Índice de satisfacción',
-};
+    emotion: 'emotions',
+    indexSatisfaction: 'index',
+  };
 
 const Filters = () => {
     const [filters, setFilters] = useState(filtersInitialValues);
-    //rating
+
     return (
         <div className="filters__main">
             <FiltersDate filters={filters} setFilters={setFilters} />

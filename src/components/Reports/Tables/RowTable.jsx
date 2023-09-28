@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 const RowTable = ({ openModal }) => {
+
     const items = useSelector((store) => store.firestoreReducer.data);
     const location = useLocation();
     const isReportsView = location.pathname === '/reports';

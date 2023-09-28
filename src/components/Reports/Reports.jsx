@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+
 //components
 import Table from './Tables/Table';
 import SingleView from '../../commons/SingleView/SingleView';
@@ -18,6 +20,7 @@ const Reports = () => {
         setModalIsOpen(false);
     };
 
+
     return (
         <div>
             <Filters />
@@ -25,6 +28,7 @@ const Reports = () => {
             {modalIsOpen && <SingleView isOpen={modalIsOpen} onClose={handleCloseModal} selectedReport={selectedReport} />}
         </div>
     );
+
 };
 
 export default Reports;
