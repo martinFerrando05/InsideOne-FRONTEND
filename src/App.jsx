@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { setData } from './store/slice/firestore/firestoreSlice';
 import { dateFormater } from "./utils/dateFormater";
 
-
 function App() {
   const dispatch = useDispatch();
   const isFirstLoadRef = useRef(true);
@@ -24,7 +23,7 @@ function App() {
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
               const timestamp = doc.data().date
-              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
+              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString()
               
                 return {
                     ...doc.data(),
