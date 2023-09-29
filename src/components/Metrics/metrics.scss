@@ -1,7 +1,14 @@
-.titleazo{
-    color: black;
-}
-
-div{
+.metrics__main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 0 auto;
+    height: fit-content;
+    margin-left: 300px;
+    padding: 30px;
+    width: 70%;
+
+    h1{
+        color: black;
+    }
 }
