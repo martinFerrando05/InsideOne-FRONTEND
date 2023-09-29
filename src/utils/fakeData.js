@@ -273,7 +273,7 @@ const dataResponses = [
   return addDoc(queryRef, { ...doc });
  })  */
 
-export const conversacion = [
+ export const conversacion = [
   "Cliente: Buenas tardes. Estoy buscando información sobre los diferentes tipos de seguros que ofrecen para hogar y automóvil.",
   "Agente: Buenas tardes. Claro, estaré encantado de ayudarte con eso. Para empezar, ¿podrías decirme cuál es la cobertura que tienes en mente para tu hogar y tu vehículo?",
   "Cliente: Para mi hogar, estoy interesado en una cobertura que incluya daños por incendio, robo y posibles daños naturales. En cuanto al automóvil, necesito una cobertura completa que incluya daños por accidentes y robo.",

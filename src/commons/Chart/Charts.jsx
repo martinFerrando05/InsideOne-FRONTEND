@@ -1,5 +1,5 @@
 import React from 'react';
-import './donutChart.scss';
+import './chart.scss';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto';
 import { useSelector } from 'react-redux';

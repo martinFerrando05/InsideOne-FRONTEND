@@ -1,6 +1,6 @@
 import React from 'react';
 import './metrics.scss';
-import DonutChart from '../../commons/Donut/DonutChart';
+import DonutChart from '../../commons/Chart/Charts';
 
 const Metrics = () => {
     return (

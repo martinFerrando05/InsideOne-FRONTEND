@@ -7,16 +7,19 @@ export function interactionsDataChart(items) {
     const formatedWeekendDate = dateFormater(weekEndDate)
     const formatedStartDate = dateFormater(weekStartDate)
 
-
     const interactionsThisWeek = items?.filter((interaction) => {
+      
       const interactionDate = interaction?.dateFormated
       return interactionDate >= formatedStartDate && interactionDate < formatedWeekendDate;
     });
-  
+    
+    
+
     const interactionsByDay = {};
-  
+    
     interactionsThisWeek?.forEach((interaction) => {
       const interactionDate = new Date(interaction?.date);
+      
       const dayKey = interactionDate.toLocaleDateString();
   
       if (interactionsByDay[dayKey]) {
@@ -45,8 +48,8 @@ export function interactionsDataChart(items) {
           {
             label: "Interacciones semanales",
             data: data,
-            backgroundColor: ["rgba(108, 190, 191, 0.7)", "rgba(248, 206, 107, 0.7)", "rgba(255, 99, 132, 0.7)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
-            borderColor: ["rgba(108, 190, 191, 1)", "rgba(248, 206, 107, 1)", "rgba(255, 99, 132, 1)"],
+            backgroundColor: ["rgb(255, 123, 0)"],
+            borderColor: ["rgb(255, 123, 0)"],
             borderWidth: 1
           }
         ]
