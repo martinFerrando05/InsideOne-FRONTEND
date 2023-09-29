@@ -268,10 +268,10 @@ const dataResponses = [
 ];
 
 
-// const queryRef = collection(db, 'respuestas-reportes');
-// export default dataResponses.forEach((doc)=>{
-//   return addDoc(queryRef, { ...doc });
-// }) 
+/*  const queryRef = collection(db, 'respuestas-reportes');
+ export default dataResponses.forEach((doc)=>{
+  return addDoc(queryRef, { ...doc });
+ })  */
 
 export const conversacion = [
   "Cliente: Buenas tardes. Estoy buscando información sobre los diferentes tipos de seguros que ofrecen para hogar y automóvil.",
