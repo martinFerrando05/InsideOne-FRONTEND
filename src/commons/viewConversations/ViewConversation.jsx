@@ -20,7 +20,7 @@ const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
             {conversacion.map((dialogo, i) => {
               return (
                   <p key={i} style={{ marginTop: '40px' }}>
-                      <span style={{ fontWeight: 'bold', color: 'lightblue' }}>{dialogo.split(':')[0]}:</span>
+                      <span >{dialogo.split(':')[0]}:</span>
                       {dialogo.split(':')[1]}
                   </p>
               );
