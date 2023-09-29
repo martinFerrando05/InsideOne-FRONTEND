@@ -1,26 +1,23 @@
 .filters__ {
-    
-    &main {
-        width: 90%;
-        height: 5rem;
-        display: flex;
-        flex-direction: row;
-        margin: 0 auto;
-        padding: 10px;
-        align-items: center;
-        justify-content: start;
-        flex-wrap: wrap;
-        min-height: 100px;     
- 
+  &main {
+     
+      height: 5rem;
+      display: flex;
+      flex-direction: row;
+      margin: 0 auto;
+      padding: 10px;
+      align-items: center;
+      justify-content: start;
+      min-height: 100px;     
+   
  input {
-            background-color: rgb(229, 229, 229);
-            color: black;
-
-            outline: none;
-            height: 2rem;
-            border-radius: 5px;
-        }
+      background-color: rgb(229, 229, 229);
+      color: black;
+      outline: none;
+      height: 2rem;
+      border-radius: 5px;
     }
+  }
 }
 
 
