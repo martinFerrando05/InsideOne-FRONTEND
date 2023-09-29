@@ -66,7 +66,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                                 </li>
                                 <li className="options">
                                     <img src={face} alt="Face" />
-                                    <p>Emociones: {selectedReport?.client.emotions}</p>
+                                    <p>Emociones: {selectedReport?.client.emotions.join(", ")}</p>
                                 </li>
                                 <li className="options">
                                     <img src={key} alt="Key" />
