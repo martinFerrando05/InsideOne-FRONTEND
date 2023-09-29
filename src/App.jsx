@@ -42,7 +42,8 @@ function App() {
         if (!isFirstLoadRef.current) {
           if (change.type === "added") {
             const newDoc = change.doc.data();
-            if (newDoc.indice === "Bajo") {
+           
+            if (newDoc.client.satisfaction_index === "Bajo") {
               // alert('Documento nuevo con indice bajo');
               console.log("DOCUMENTO NUEVO CON INDICE BAJO");
             }
