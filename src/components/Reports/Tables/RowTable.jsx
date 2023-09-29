@@ -26,6 +26,7 @@ const RowTable = ({ openModal }) => {
     return (
         <tbody>
             {items && items?.map((el, i) => {
+                
                 return el.client && isReportsView ? (
                     <tr key={i} className="item" onClick={() => openModal(el)}>
                         <td>
@@ -37,7 +38,7 @@ const RowTable = ({ openModal }) => {
                         <td>
                             <p className={parseInt(el.client.rating) < 40 ? 'status-negative' : parseInt(el.client.rating) >= 40 && parseInt(el.client.rating) < 70 ? 'status-medium' : 'status-positive'}>{el.client.satisfaction_index}</p>
                         </td>
-                        <td className="center-text">{el.client.emotions}</td>
+                        <td className="center-text">{el.client.emotions.join(", ")}</td>
                     </tr>
                 ) : (
                     <tr onClick={()=>openModal(el)} key={i} className="item">
