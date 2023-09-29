@@ -20,14 +20,12 @@ const FilterInputsResoponse = ({
         placeholder="Número telefónico"
         onChange={handleChangeInputs}
         name="phoneNumber"
-
         value={filters?.phoneNumber}
       />
       <input
         type="number"
         className="filterInputsResoponse__input"
         placeholder="DNI"
-
         onChange={handleChangeInputs}
         name="dni"
         value={filters?.dni}
