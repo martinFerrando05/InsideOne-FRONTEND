@@ -4,9 +4,11 @@ import DonutChart from '../../commons/Donut/DonutChart';
 
 const Metrics = () => {
     return (
-        <div>
-            <h1 className='titleazo'>METRICAS</h1>
+        <div className='metrics__main'>
+            <h1>METRICAS</h1>
+            <div className='chart__main'>
             <DonutChart />
+            </div>
         </div>
     );
 };

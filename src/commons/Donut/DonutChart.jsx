@@ -20,10 +20,14 @@ const DoughnutChart = () => {
     };
 
     return (
-        <div className="donut">
-            <Doughnut data={indexData} options={options} />
-            <Doughnut data={hoursData} options={options} />
-            <Bar data={interactionsData} options={options} />
+        <div className="charts_container">
+            <div className="donut_charts">
+                <Doughnut className="donut" data={indexData} options={options} />
+                <Doughnut data={hoursData} options={options} className="donut" />
+            </div>
+            <div className="bar_charts">
+                <Bar className='bar' data={interactionsData} options={options} />
+            </div>
         </div>
     );
 };
