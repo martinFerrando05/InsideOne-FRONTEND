@@ -23,23 +23,22 @@
   width: 60%;
 }
 
-.item-list{
+.item-list {
   display: flex;
   margin-bottom: 42px;
   cursor: pointer;
-  :hover{
+  :hover {
     color: rgb(100, 100, 100);
   }
 }
 
-.icon-size{
+.icon-size {
   margin-right: 15px;
 }
 
-.item-list p{
+.item-list p {
   font-size: 21px;
   font-weight: 900;
   font-family: sans-serif;
   color: rgb(120, 120, 120);
-
 }
