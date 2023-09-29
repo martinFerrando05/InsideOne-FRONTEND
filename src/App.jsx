@@ -1,6 +1,6 @@
-// estail
+//estail
 import "./App.scss";
-// riat
+//riat
 import React, { useEffect, useRef } from "react";
 import { Routes, Route } from "react-router";
 //firestore
@@ -11,10 +11,11 @@ import { useDispatch } from 'react-redux';
 import { setData } from './store/slice/firestore/firestoreSlice';
 //components
 import Sidebar from "./components/Sidebar/Sidebar";
-import { dateFormater } from "./utils/dateFormater";
 import EmotionAnalysis from "./components/Example/EmotionAnalysis";
 import Reports from "./components/Reports/Reports";
 import Metrics from "./components/Metrics/Metrics";
+//utils
+import { dateFormater } from "./utils/dateFormater";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,6 @@ function App() {
       });
       isFirstLoadRef.current = false;
     });
-
 
     return () => {
       unsub();

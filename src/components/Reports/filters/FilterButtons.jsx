@@ -13,35 +13,47 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
   const dispatch = useDispatch()
   const handleFilter =()=>{    
     let queryRef ;
-    const hasRating = filters.rating !== filtersInitialValues.rating;
-    const hasIndexSatisfaction = filters.indexSatisfaction !== filtersInitialValues.indexSatisfaction;
-    const hasEmotions = filters.emotion !== filtersInitialValues.emotion;
-    const hasInitialDate = filters.date.start !== filtersInitialValues.date.start;
-    const hasFinalDate = filters.date.end !== filtersInitialValues.date.end;
-    
+    const validations = {
+      hasRating: filters.rating !== filtersInitialValues.rating,
+      hasIndexSatisfaction: filters.indexSatisfaction !== filtersInitialValues.indexSatisfaction,
+      hasEmotions: filters.emotion !== filtersInitialValues.emotion,
+      hasInitialDate: filters.date.start !== filtersInitialValues.date.start,
+      hasFinalDate: filters.date.end !== filtersInitialValues.date.end,
+      hasPhoneNumber: filters.phoneNumber !== filtersInitialValues.phoneNumber,
+      hasDni: filters.dni !== filtersInitialValues.dni,
+      hasAgent: filters.agent !== filtersInitialValues.agent
+    }
     let queryConditions = [];
-  
-    if(hasInitialDate){
-      console.log(filters.date.start)
+    
+    if(validations.hasPhoneNumber){
+      queryConditions.push(where('client.phone_number' , '==' , filters.phoneNumber))
+    }
+    if(validations.hasDni){
+      console.log(filters.dni);
+      queryConditions.push(where('client.dni' , '==' , parseInt(filters.dni)))
+    }
+    if(validations.hasAgent){
+      queryConditions.push(where('agent' , '==' , filters.agent))
+    }
+    if (validations.hasRating) {
+      queryConditions.push(where('client.rating', '==', parseInt(filters.rating) , where('client.rating', '<', parseInt(filters.rating) + 10)));
+    }
 
+    if(validations.hasInitialDate){
+     
       queryConditions.push(where('date', '>=', filters.date.start) , 
       where('date', '<=', filters.date.end)
       );
     }
-
-    if (hasRating) {
-      queryConditions.push(where('client.rating', '==', parseInt(filters.rating) , where('client.rating', '<', parseInt(filters.rating) + 10)));
+    if (validations.hasRating) {
+      queryConditions.push(where('client.rating', '>=', parseInt(filters.rating) , where('client.rating', '<', parseInt(filters.rating) + 10)));
     }
-
-    if (hasIndexSatisfaction) {
-
+    if (validations.hasIndexSatisfaction) {
       queryConditions.push(where('client.satisfaction_index', '==', filters.indexSatisfaction));
     }
-
-    if (hasEmotions) {
-      queryConditions.push(where('client.emotions', '==', filters.emotion));
+    if (validations.hasEmotions) {
+      queryConditions.push(where('client.emotions', 'array-contains-any', [filters.emotion]));
     }
-
     if (queryConditions.length > 0) {
         queryRef = query(
         collection(db, "respuestas-reportes"),
@@ -55,24 +67,24 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       .then((res) => {
         const data = res.docs;
         const docs = data.map((doc) => {
-          const timestamp = doc.data().date
-              const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
-              
-                return {
-                    ...doc.data(),
-                    id: doc.id,  
-                    date,
-                    dateFormated: dateFormater(new Date(date))
-                };
-        });
-        queryConditions = []
-        dispatch(setData(docs))
-        console.log(docs);
+        const timestamp = doc.data().date
+        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
+
+          return {
+              ...doc.data(),
+              id: doc.id,  
+              date,
+              dateFormated: dateFormater(new Date(date))
+          };
+      });
+      queryConditions = []
+      dispatch(setData(docs))
+      
       })
       .catch((error) => {
         console.error('Error al obtener los documentos:', error);
       });
-    }
+  }
 
   const handleCleanFilter = () => {
       setFilters(filtersInitialValues);
