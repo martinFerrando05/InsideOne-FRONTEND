@@ -66,6 +66,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                   <ViewConversation
                     handleDisplayConversation={handleDisplayConversation}
                     selectedReport={selectedReport}
+                    onClose={onClose}
                   />
                 )}
 
