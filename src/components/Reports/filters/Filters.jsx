@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 //styles
 import "./scss/filters.scss";
@@ -30,15 +30,31 @@ const filtersInitialValues = {
 const Filters = () => {
   const [filters, setFilters] = useState(filtersInitialValues);
   const [showFilter, setShowFilter] = useState(false);
+  const [showEmotions, setShowEmotions] = useState(false);
 
-
-  const handleRemoveEmotions =(emotionToRemove)=>{
-    const newEmotionsList = filters.emotion.filter(emotion => emotion !== emotionToRemove);
+  const handleRemoveEmotions = (emotionToRemove) => {
+    const newEmotionsList = filters.emotion.filter(
+      (emotion) => emotion !== emotionToRemove
+    );
 
     setFilters({ ...filters, emotion: newEmotionsList });
+  };
+
+
+  const displayDescription =(someFilter)=>{
+    return someFilter.length >= 1 ? {opacity : 1} : {opacity : 0}
+ }
+
+  const classesIndexSatisfaction = {
+    alto: 'high',
+    medio: 'medium',
+    bajo: 'low',
+    index: ''
   }
   return (
-    <section className="filters__main">
+    <section 
+    onClick={()=>setShowEmotions(false)}
+    className="filters__main">
       <div
         onClick={() => setShowFilter(!showFilter)}
         className="filters__cont_icon"
@@ -61,36 +77,47 @@ const Filters = () => {
           <div className="filters__cont_emotions">
             <h5>Emociones: </h5>
             <ul className="filters__cont_emotions_ul">
-              {
-              
-              filters.emotion?.map((emotion, i) => (
+              {filters.emotion?.map((emotion, i) => (
                 <li key={i} className="filters__cont_emotions_li">
-                  <img onClick={()=>handleRemoveEmotions(emotion)} src={cross} alt="cross icon" />
+                  <img
+                    onClick={() => handleRemoveEmotions(emotion)}
+                    src={cross}
+                    alt="cross icon"
+                  />
                   <p>{emotion}</p>
                 </li>
-              ))
-              
-              }
+              ))}
             </ul>
           </div>
           <li className="filters__container_li">
-            <p>Índice de satisfacción: {filters.indexSatisfaction}</p>
+              <h5>Índice de satisfacción:</h5>
+            <p className={'filters__index_satisfaction_'+classesIndexSatisfaction[filters.indexSatisfaction.toLowerCase()]}>
+              
+              {filters.indexSatisfaction == "index"
+                ? "No seleccionado"
+                : filters.indexSatisfaction}
+            </p>
           </li>
         </div>
 
         <ul className="filters__container_inputs">
-          <li>
+          <li style={displayDescription(filters.phoneNumber)}>
             <h5>Teléfono: </h5>
             <p>{filters.phoneNumber}</p>
           </li>
-          <li>
+          <li style={displayDescription(filters.dni)}>
             <h5>DNI: </h5>
             <p>{filters.dni}</p>
           </li>
-          <li>
+          <li style={displayDescription(filters.agent)}>
             <h5>Agente: </h5>
             <p>{filters.agent}</p>
           </li>
+          <FilterButtons
+            filtersInitialValues={filtersInitialValues}
+            filters={filters}
+            setFilters={setFilters}
+          />
         </ul>
       </div>
 
@@ -106,17 +133,11 @@ const Filters = () => {
             <FilterRating filters={filters} setFilters={setFilters} />
           </div>
           <div className="filters__dropdown_cont second">
-            <FiltersSelects filters={filters} setFilters={setFilters} />
+            <FiltersSelects setShowEmotions={setShowEmotions} showEmotions={showEmotions} filters={filters} setFilters={setFilters} />
             <FilterInputsResoponse filters={filters} setFilters={setFilters} />
           </div>
         </section>
       </span>
-
-      <FilterButtons
-        filtersInitialValues={filtersInitialValues}
-        filters={filters}
-        setFilters={setFilters}
-      />
     </section>
   );
 };

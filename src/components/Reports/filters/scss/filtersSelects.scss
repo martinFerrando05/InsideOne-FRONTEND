@@ -79,6 +79,10 @@
       padding: 5px 5px 5px 20px;
       display: flex;
       align-items: center;
+
+      &_active{
+        background-color: #5ac3e2;
+      }
       p{
 
         text-align: start;
