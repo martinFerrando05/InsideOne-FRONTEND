@@ -1,0 +1,26 @@
+.totalizator_container {
+  width: 49%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(211, 211, 211, 0.4);
+  padding: 20px;
+
+  .data_container {
+    text-align: left;
+    color: rgb(66, 66, 66);
+    h3 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .interactions_quantity{
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+  }
+}

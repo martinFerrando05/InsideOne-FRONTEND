@@ -54,7 +54,6 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
           : obj["client"].rating >= 40 && obj["client"].rating < 70
           ? "Medio"
           : "Alto";
-          console.log(obj)
       res.send(obj);
     })
     .catch((err) => console.error(err));

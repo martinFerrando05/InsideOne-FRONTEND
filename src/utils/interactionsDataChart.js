@@ -1,53 +1,64 @@
-import { dateFormater } from "./dateFormater";
+  import { dateFormater } from "./dateFormater";
 
 export function interactionsDataChart(items) {
     const currentDate = new Date(); 
-    const weekStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 1); 
-    const weekEndDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 5); 
+    let weekStartDate;
+    let weekEndDate;
+
+    if(currentDate.getDay() == 0 || currentDate.getDay() == 6){
+      weekStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() - 6); 
+      weekEndDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() - 1);
+    }else{
+      weekStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 1);
+      weekEndDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 6);
+    }
+
     const formatedWeekendDate = dateFormater(weekEndDate)
     const formatedStartDate = dateFormater(weekStartDate)
-
+    
     const interactionsThisWeek = items?.filter((interaction) => {
-      
-      const interactionDate = interaction?.dateFormated
+      const interactionDate = interaction?.dateFormated 
       return interactionDate >= formatedStartDate && interactionDate < formatedWeekendDate;
     });
-    
-    
 
     const interactionsByDay = {};
     
     interactionsThisWeek?.forEach((interaction) => {
       const interactionDate = new Date(interaction?.date);
+      const dayKey = interactionDate.toLocaleDateString('es-ES');
       
-      const dayKey = interactionDate.toLocaleDateString();
-  
       if (interactionsByDay[dayKey]) {
         interactionsByDay[dayKey]++;
       } else {
         interactionsByDay[dayKey] = 1;
       }
     });
-   
-    const labels = Object.keys(interactionsByDay);
-    const data = Object.values(interactionsByDay); 
 
-    const fechasOrdenadas = labels.sort((a, b) => {
-        const fechaA = new Date(
-          a.split('/').reverse().join('-') 
-        );
-        const fechaB = new Date(
-          b.split('/').reverse().join('-') 
-        );
-        return fechaA - fechaB; 
-      });
+    // [["20/09/2023", 2], ["21/09/2023", 45]]
+    const datesAndInteractions = Object.entries(interactionsByDay).sort((a, b) => {
+      const fechaA = new Date(
+        a[0].split('/').reverse().join('-') 
+      );
+      const fechaB = new Date(
+        b[0].split('/').reverse().join('-') 
+      );
+      return fechaA - fechaB; 
+    });
+
+    let labels = [];
+    let data = []; 
+
+    datesAndInteractions.forEach(([date, interactions])=>{
+      labels.push(date)
+      data.push(interactions)
+    })
 
     const chartData = {
-        labels: [...fechasOrdenadas],
+        labels,
         datasets: [
           {
             label: "Interacciones semanales",
-            data: data,
+            data,
             backgroundColor: ["rgb(255, 123, 0)"],
             borderColor: ["rgb(255, 123, 0)"],
             borderWidth: 1
