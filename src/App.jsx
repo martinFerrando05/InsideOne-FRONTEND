@@ -64,7 +64,7 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path="/answers" element={<Reports />} />
-        <Route path="/reports" element={<Reports />} />
+        <Route path="/conversations" element={<Reports />} />
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} /> 
       </Routes>

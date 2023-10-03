@@ -11,12 +11,14 @@ const Table = ({ openModal }) => {
     <section className="table__body">
       <table>
         <thead>
-          {location.pathname === '/reports' ? 
+          {location.pathname === '/conversations' ? 
           <tr>
             <th style={{borderRadius:"10px 0px 0px 10px"}}>Fecha y Horario</th>
             <th>Calificación</th>
             <th className="table__cell center-text" >Índice</th>
-            <th className="table__cell" style={{borderRadius:"0px 10px 10px 0px", textAlign:"center"}}>Emociones</th>
+            <th style={{paddingLeft: "6%"}}>Teléfono</th>
+            <th >DNI</th>
+            <th style={{borderRadius:"0px 10px 10px 0px"}}>Agente</th>
           </tr> 
           :
           <tr>

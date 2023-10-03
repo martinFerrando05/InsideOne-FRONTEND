@@ -70,6 +70,7 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                   />
                 )}
 
+              <div className="container-options-all">
                 <div className="container-options">
                   <li className="options">
                     <img src={battery} alt="Battery" />
@@ -82,13 +83,20 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                   <li className="options">
                     <img src={face} alt="Face" />
                     <p>
-                      Emociones: {selectedReport?.client.emotions.join(", ")}
+                      Emociones: {selectedReport?.client.emotions.join(" ")}
                     </p>
                   </li>
                   <li className="options">
-                    <img src={key} alt="Key" />
-                    <p>Palabras clave: {selectedReport?.client.keywords}</p>
+                    <img src={message} alt="Message" />
+                    <p>Canal: {selectedReport?.channel}</p>
                   </li>
+                  <li className="options">
+                    <img src={key} alt="Key" />
+                    <p>Palabras clave: {selectedReport?.client.keywords.join(" ")}</p>
+                  </li>
+                  </div>
+
+                  <div className="container-options">
                   <li className="options">
                     <img src={calendar} alt="Calendar" />
                     <p>Fecha: {selectedReport?.dateFormated.split(" ")[0]}</p>
@@ -98,14 +106,24 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                     <p>Hora: {selectedReport?.dateFormated.split(" ")[1]}</p>
                   </li>
                   <li className="options">
+                    <img src={phone} alt="Phone" />
+                    <p>Teléfono: {selectedReport?.client.phone_number}</p>
+                  </li>
+                  <li className="options">
+                    <img src={dni} alt="Dni" />
+                    <p>DNI: {selectedReport?.client.dni}</p>
+                  </li>
+                  <li className="options">
+                    <img src={support} alt="Support" />
+                    <p>Agente: {selectedReport?.agent}</p>
+                  </li>
+                  </div>
+
+                  <li className="options option-summary">
                     <img src={paper} alt="Paper" />
                     <p>Resumen: {selectedReport?.client.summary}</p>
                   </li>
-                  <li className="options">
-                    <img src={message} alt="Message" />
-                    <p>Comentarios: {selectedReport?.client.question}</p>
-                  </li>
-                </div>
+                  </div> 
               </div>
             ) : (
               <div>

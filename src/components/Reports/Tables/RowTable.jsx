@@ -3,12 +3,13 @@ import './rowTable.scss';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { dateFormater } from '../../../utils/dateFormater';
+import truncateFunctions from '../../../utils/truncateFunctions';
 
 const RowTable = ({ openModal }) => {
 
     const items = useSelector((store) => store.firestoreReducer.data);
     const location = useLocation();
-    const isReportsView = location.pathname === '/reports';
+    const isReportsView = location.pathname === '/conversations';
 
     // Opciones para formatear la fecha y hora en español
     const opciones = {
@@ -28,17 +29,15 @@ const RowTable = ({ openModal }) => {
             {items && items?.map((el, i) => {
                 
                 return el.client && isReportsView ? (
-                    <tr key={i} className="item" onClick={() => openModal(el)}>
-                        <td>
-                            {
-                                el.dateFormated
-                            }
-                        </td>
-                        <td>{el.client.rating}%</td>
+                    <tr key={i}  onClick={() => openModal(el)}>
+                        <td className="item-date">{el.dateFormated}</td>
+                        <td className="item-rating">{el.client.rating}%</td>
                         <td>
                             <p className={parseInt(el.client.rating) < 40 ? 'status-negative' : parseInt(el.client.rating) >= 40 && parseInt(el.client.rating) < 70 ? 'status-medium' : 'status-positive'}>{el.client.satisfaction_index}</p>
                         </td>
-                        <td className="center-text">{el.client.emotions.join(", ")}</td>
+                        <td>{el.client.phone_number}</td>
+                        <td>{el.client.dni}</td>
+                        <td>{truncateFunctions(el.agent)}</td>
                     </tr>
                 ) : (
                     <tr onClick={()=>openModal(el)} key={i} className="item">

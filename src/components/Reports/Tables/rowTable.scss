@@ -1,9 +1,25 @@
-
-
 td {
   padding: 20px;
   border-bottom: 1px solid rgb(158, 158, 158);
-  // text-align: center;
+  &:nth-child(1) {
+    width: 17%;
+  }
+  &:nth-child(2) {
+    width: 10%;
+  }
+  &:nth-child(3) {
+    width: 10%;
+  }
+  &:nth-child(4) {
+    width: 17%;
+    padding-left: 6%;
+  }
+  &:nth-child(5) {
+    width: 13%;
+  }
+  &:nth-child(6) {
+    width: 15%;
+  }
 }
 
 .status-positive {
@@ -13,7 +29,6 @@ td {
   background-color: #86e49d;
   color: #006b21;
   font-weight: bold;
-
 }
 
 .status-negative {
