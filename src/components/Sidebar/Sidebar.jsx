@@ -25,10 +25,10 @@ const Sidebar = () => {
           </li>
         </Link>
 
-        <Link to={"/reports"}>
+        <Link to={"/conversations"}>
           <li className="item-list">
             <img src={reportsIcon} alt="" height={30} className="icon-size" />
-            <p>Reportes </p>
+            <p>Conversaciones </p>
           </li>
         </Link>
 
