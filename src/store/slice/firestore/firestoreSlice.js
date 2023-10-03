@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 export const firestoreSlice = createSlice({
     name: 'firestore',
 
@@ -7,8 +8,9 @@ export const firestoreSlice = createSlice({
         data: null,
     },
     reducers: {
-        setData: (state, action) => {
-            state.data = action.payload;
+        setData: (state, { payload }) => {
+            state.data = payload;
+            localStorage.setItem('data', JSON.stringify( payload ))
         },
     },
 });

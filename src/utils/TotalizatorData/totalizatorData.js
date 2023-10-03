@@ -64,6 +64,7 @@ export const predominantSatisfactionIndexWeek = () => {
   const currentDate = new Date();
   let weekStartDate;
   let weekEndDate;
+  
   let lowIndex = 0
   let mediumIndex = 0
   let highIndex = 0

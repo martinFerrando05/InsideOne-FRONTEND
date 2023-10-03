@@ -12,6 +12,7 @@ const FilterInputsResoponse = ({
     setFilters({ ...filters, [name]: value });
   };
 
+
   return (
     <div className="filterInputsResponse__main">
       <input
