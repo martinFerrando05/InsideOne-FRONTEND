@@ -25,9 +25,9 @@ function App() {
         const queryRef = collection(db, 'respuestas-reportes');
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const docs = snapshot.docs.map((doc) => {
+            
               const timestamp = doc.data().date
               const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString()
-              
                 return {
                     ...doc.data(),
                     id: doc.id,  
@@ -43,10 +43,10 @@ function App() {
         if (!isFirstLoadRef.current) {
           if (change.type === "added") {
             const newDoc = change.doc.data();
-           
+        
             if (newDoc.client.satisfaction_index === "Bajo") {
-              // alert('Documento nuevo con indice bajo');
-              console.log("DOCUMENTO NUEVO CON INDICE BAJO");
+/*              alert('Documento nuevo con indice bajo');
+ */              /* console.log("DOCUMENTO NUEVO CON INDICE BAJO"); */
             }
           }
         }
