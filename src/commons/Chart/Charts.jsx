@@ -17,7 +17,9 @@ import {
 
 const DoughnutChart = () => {
   const items = useSelector((store) => store.firestoreReducer.data);
+  const date = new Date()
   const indexData = indexDataChart(items);
+  const indexDataDay = indexDataChart(items, date);
   const hoursData = hoursDataChart(items);
   const interactionData = interactionsDataChart(items);
   const currentDay = dateFormater(new Date()).split(" ")[0];
@@ -65,6 +67,13 @@ const DoughnutChart = () => {
   ];
 
   const updatedTitle = (title, subtitle, boolean) => {
+    let titleFontSize = 26
+    let subtitleFontSize = 14
+
+    if (window.innerWidth <= 1440) {
+      titleFontSize = 20
+      subtitleFontSize = 12
+    }
     return {
       options,
       plugins: {
@@ -73,7 +82,7 @@ const DoughnutChart = () => {
           ...options.plugins.title,
           text: title,
           font: {
-            size: 26,
+            size: titleFontSize,
           },
         },
         subtitle: {
@@ -81,7 +90,7 @@ const DoughnutChart = () => {
           text: subtitle,
           display: boolean,
           font: {
-            size: 14,
+            size: subtitleFontSize,
           },
         },
       },
@@ -92,9 +101,10 @@ const DoughnutChart = () => {
     <div className="charts_container">
       <div className="totalizators_container">
         {totalizatorData[0].title &&
-          totalizatorData?.map((item) => {
+          totalizatorData?.map((item, i) => {
             return (
               <Totalizator
+                key={i}
                 title={item?.title}
                 subtitle={item?.subtitle}
                 quantity={item?.quantity}
@@ -112,11 +122,19 @@ const DoughnutChart = () => {
             true
           )}
         />
+          <Doughnut
+            className="donut"
+            data={indexDataDay}
+            options={updatedTitle(
+              "Indice de Satisfacción (hoy)",
+              "Bajo - Medio - Alto",
+              true
+            )}
+          />
         <Doughnut
           data={hoursData}
           options={updatedTitle(
             "Atención al cliente (general)",
-            "Derivado a un agente - Fuera de horario"
           )}
           className="donut"
         />
