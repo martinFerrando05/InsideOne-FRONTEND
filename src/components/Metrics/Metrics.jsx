@@ -1,13 +1,13 @@
 import React from 'react';
 import './metrics.scss';
-import DonutChart from '../../commons/Chart/Charts';
+import Charts from '../../commons/Chart/Charts';
 
 const Metrics = () => {
     return (
         <div className='metrics__main'>
-            <h1>METRICAS</h1>
+            <h1>MÉTRICAS</h1>
             <div className='chart__main'>
-            <DonutChart />
+            <Charts />
             </div>
         </div>
     );

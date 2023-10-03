@@ -24,7 +24,7 @@ export function hoursDataChart(items) {
   };
 
   const data = {
-    labels: ["En Horario", "Fuera de Horario"],
+    labels: ["Derivado a un agente", "Fuera de Horario"],
     datasets: [
       {
         data: [percentages.EnHorario, percentages.FueraDeHorario],

@@ -11,8 +11,8 @@ import Totalizator from "../totalizator/Totalizator";
 import {
   todayInteractionsData,
   weekInteractionsData,
-  predominantSatisfactionIndexWeek,
   predominantSatisfactionIndexDay,
+  predominantSatisfactionIndexWeek,
 } from "../../utils/TotalizatorData/totalizatorData";
 
 const DoughnutChart = () => {
@@ -25,6 +25,12 @@ const DoughnutChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: undefined,
+      },
+    },
   };
 
   const totalizatorData = [
@@ -58,6 +64,30 @@ const DoughnutChart = () => {
     },
   ];
 
+  const updatedTitle = (title, subtitle, boolean) => {
+    return {
+      options,
+      plugins: {
+        ...options.plugins,
+        title: {
+          ...options.plugins.title,
+          text: title,
+          font: {
+            size: 26,
+          },
+        },
+        subtitle: {
+          ...options.plugins.title,
+          text: subtitle,
+          display: boolean,
+          font: {
+            size: 14,
+          },
+        },
+      },
+    };
+  };
+
   return (
     <div className="charts_container">
       <div className="totalizators_container">
@@ -73,11 +103,34 @@ const DoughnutChart = () => {
           })}
       </div>
       <div className="donut_charts">
-        <Doughnut className="donut" data={indexData} options={options} />
-        <Doughnut data={hoursData} options={options} className="donut" />
+        <Doughnut
+          className="donut"
+          data={indexData}
+          options={updatedTitle(
+            "Indice de Satisfacción (general)",
+            "Bajo - Medio - Alto",
+            true
+          )}
+        />
+        <Doughnut
+          data={hoursData}
+          options={updatedTitle(
+            "Atención al cliente (general)",
+            "Derivado a un agente - Fuera de horario"
+          )}
+          className="donut"
+        />
       </div>
       <div className="bar_charts">
-        <Bar className="bar" data={interactionData} options={options} />
+        <Bar
+          className="bar"
+          data={interactionData}
+          options={updatedTitle(
+            "Interacciónes Semanales",
+            "Lunes a Viernes",
+            true
+          )}
+        />
       </div>
     </div>
   );

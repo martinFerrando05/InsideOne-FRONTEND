@@ -56,15 +56,14 @@ export function interactionsDataChart(items) {
     const chartData = {
         labels,
         datasets: [
-          {
-            label: "Interacciones semanales",
-            data,
-            backgroundColor: ["rgb(255, 123, 0)"],
-            borderColor: ["rgb(255, 123, 0)"],
-            borderWidth: 1
-          }
-        ]
+            {
+                label: 'Interacciónes semanales',
+                data,
+                backgroundColor: ['#ffb34a'],
+            },
+        ],
     };
-  
+
     return chartData;
-  }
+}
+

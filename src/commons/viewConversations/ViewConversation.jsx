@@ -1,11 +1,18 @@
-import React from "react";
-import leftArrow from "../../assets/icons/leftArrow.svg";
+import React, { useState } from "react";
+import leftArrow from "../../assets/icons/leftArrow.svg"
 import "./viewConversation.scss";
 import { conversacion } from "../../utils/fakeData"
 
-const viewConversation = ({ handleDisplayConversation, selectedReport }) => {
+const viewConversation = ({ handleDisplayConversation, selectedReport, onClose }) => {
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("modal-overlay-conversation")) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-overlay-conversation">
+    <div className="modal-overlay-conversation" onClick={handleOverlayClick}>
       <div className="modal-conversation" >
         <button className="close-button-conversation" onClick={handleDisplayConversation}>
           <img src={leftArrow} />
