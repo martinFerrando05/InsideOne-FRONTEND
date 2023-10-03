@@ -1,5 +1,17 @@
-export function indexDataChart(items) {
-    const length = items?.length;
+export function indexDataChart(items, date) {
+    let filteredItems = items
+    const length = filteredItems?.length;
+
+    if (items && date) {
+        const specificDate = new Date(date)
+
+        filteredItems = items?.filter((el) => {
+            const itemDate = new Date(el.date)
+            
+            return itemDate.getFullYear() === specificDate.getFullYear() && itemDate.getMonth() === specificDate.getMonth() && 
+            itemDate.getDate() === specificDate.getDate()
+        })
+    }
 
     const counts = {
         Alto: 0,
@@ -7,7 +19,7 @@ export function indexDataChart(items) {
         Bajo: 0,
     };
 
-    items?.forEach((el) => {
+    filteredItems?.forEach((el) => {
         if (el.client?.satisfaction_index in counts) {
             counts[el.client?.satisfaction_index]++;
         }

@@ -8,10 +8,13 @@
 
     .donut_charts {
         display: flex;
-        justify-content: space-evenly;
-        width: 90%;
+        justify-content: space-between;
+        width: 100%;
         height: 440px;
         padding: 30px;
+        @media screen and (max-width: 1440px) {
+            height: 370px;
+        }
         
         .donut {
             padding: 10px;
