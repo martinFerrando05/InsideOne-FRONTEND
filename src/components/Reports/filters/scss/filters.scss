@@ -1,23 +1,208 @@
 .filters__ {
   &main {
-     
-      height: 5rem;
+      height: 10rem;
       display: flex;
       flex-direction: row;
       margin: 0 auto;
-      padding: 10px;
-      align-items: center;
+      align-items: flex-end;
+      background: rgb(46,155,255);
+      background: linear-gradient(0deg, rgba(46,155,255,1) 0%, rgba(120,176,228,0.7679446778711485) 100%);
       justify-content: start;
-      min-height: 100px;     
-   
+      min-height: 100px;
+      width: 100%;
+      position: relative;
+
+      .filters__cont_icon{
+        user-select: none;
+        position: absolute;
+        top: 5px;
+        left:-5px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-content: center;
+        transition: ease background-color .3s;
+        border-radius: 50%;
+        z-index: 20;
+        &:hover{
+          background-color: rgba(218, 218, 218, 0.522);
+        } 
+      }
+
  input {
       background-color: rgb(229, 229, 229);
       color: black;
       outline: none;
       height: 2rem;
-      border-radius: 5px;
+      border-radius: 3x;
+    }
+
+    .filters__descriptions{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;      
+      padding: 5px;
+
+    .filters__container_inputs{
+      width: 100%;
+      height: 30%;
+
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      li{
+        padding: 5px;
+        height: 100%;
+        color: black;
+        width: calc(90% / 3);
+        background-color: rgb(227, 227, 227);
+        box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.196);
+        padding: 5px;
+        border-radius: 3px;
+        text-align: start;
+        p{
+          font-size: .9rem;
+
+        }
+      }
+    }
     }
   }
+
+  
+
+  &container{
+  width: 100%;
+  height: 70%;
+  display: flex;
+  color: black;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  
+  flex-wrap: wrap;
+  &_li{
+    padding: 5px;
+    width: 10rem;
+    height: 4.5;
+    min-height: 4.5rem;
+    list-style: none;
+    text-align: start;
+    background-color: rgb(227, 227, 227);
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p{
+      font-size: .9rem;
+
+    }
+  }
+
+
+  &_inputs{
+   
+    width: 100%;
+    height: 20%;
+  }
 }
+
+  &cont_emotions{
+    padding: 5px;
+    width: 12rem;
+    height: 4.5;
+    min-height: 4.5rem;
+    text-align: start;
+    background-color: rgb(227, 227, 227);
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.127);
+    overflow-y: auto;
+    max-height:4.5rem ;
+    &::-webkit-scrollbar {
+      width: 5px;
+      border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:active {
+      background-color: #62d6f9;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+      background-color: #5ac3e2;
+  }
+  &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #62d6f9;
+  }
+  &::-webkit-scrollbar-track {
+      border-radius: 5px;
+      background-color: #d5d0d0;
+      transition: all ease 0.3s;
+  }
+    
+    &_ul{
+      width: 100%;
+      height: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+    &_li{
+      position: relative;
+      padding: 7px;
+      height: 2rem;
+      box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.127);
+      list-style: none;
+      background-color: rgb(59, 189, 232);
+      border-radius: 5px;
+      margin: 1px 0;
+      img{
+        position: absolute;
+        top: -2px;
+        left: -3px;
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+    p{
+      font-size: .9rem;
+    }
+  }
+
+  &dropdown{
+    position: absolute;
+    flex-direction: column;
+    width: 100%;
+    background: rgb(4,55,87);
+    background: linear-gradient(0deg, rgba(4,55,87,1) 0%, rgba(46,155,255,0.7679446778711485) 100%);
+    z-index: 20;
+    height: 21rem;
+    bottom: -21rem;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.178);
+    border-radius: 0 0 7px 7px;
+    h4{
+      margin-top:.5rem;
+    }
+   
+    &_section{
+      width: 100%;
+      height: 100%;
+      display: flex;
+
+    }
+    
+    &_cont{
+      width: 50%;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    } 
+  }
+
+}
+
+
+
 
 

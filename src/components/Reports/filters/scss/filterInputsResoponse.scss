@@ -1,15 +1,19 @@
 .filterInputsResponse__main{
- 
   justify-content: space-around;
   display: flex;
+  flex-direction: column;    
+  height: 12rem;
+  align-items: center;
 
   input{ 
-    width: calc(90% / 3);
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.289);
+    width: 80%;
     text-align: center;
     outline: none;
     border: none;
     font-size: .9rem;
     height: 2.3rem;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.289);
   }
 
   /* Estilo para quitar las flechas del input tipo number */
@@ -19,10 +23,8 @@
       appearance: none;
       margin: 0;
   }
-  
   /* Estilo adicional para Firefox */
   input[type="number"] {
       -moz-appearance: textfield;
   }
-
 }

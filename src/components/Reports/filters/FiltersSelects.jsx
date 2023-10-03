@@ -1,42 +1,110 @@
+import { useState } from "react";
 //styles
-import './scss/filtersSelects.scss'
+import "./scss/filtersSelects.scss";
 //data
-const emotionsArr = ['Felicidad', 'Tristeza', 'Enojo', 'Miedo', 'Sorpresa', 'Amor', 'Alegría', 'Preocupación', 'Ansiedad', 'Desesperación', 'Culpa', 'Vergüenza', 'Aburrimiento', 'Confusión', 'Gratitud', 'Entusiasmo', 'Indiferencia', 'Aprecio', 'Empatía', 'Orgullo', 'Inseguridad', 'Alivio', 'Hostilidad', 'Esperanza', 'Asombro', 'Incredulidad', 'Irritación', 'Soledad', 'Confianza', 'Inquietud'];
-const satisfactionIndexArr = ['Alto', 'Medio', 'Bajo'];
+const emotionsArr = [
+  "Felicidad",
+  "Tristeza",
+  "Enojo",
+  "Miedo",
+  "Sorpresa",
+  "Amor",
+  "Alegría",
+  "Preocupación",
+  "Ansiedad",
+  "Desesperación",
+  "Culpa",
+  "Vergüenza",
+  "Aburrimiento",
+  "Confusión",
+  "Gratitud",
+  "Entusiasmo",
+  "Indiferencia",
+  "Aprecio",
+  "Empatía",
+  "Orgullo",
+  "Inseguridad",
+  "Alivio",
+  "Hostilidad",
+  "Esperanza",
+  "Asombro",
+  "Incredulidad",
+  "Irritación",
+  "Soledad",
+  "Confianza",
+  "Inquietud",
+];
+//icons
+import arrowDown from '../../../assets/icons/chevron-down.svg'
+
+const satisfactionIndexArr = ["Alto", "Medio", "Bajo"];
 const FiltersSelects = ({ filters, setFilters }) => {
+  const [showEmotions, setShowEmotions] = useState(false)
+  
   //satisfactionIndex
   const handleSatisfactionIndex = (event) => {
-      const value = event.target.value;
-      setFilters({ ...filters, indexSatisfaction: value });
+    const value = event.target.value;
+    setFilters({ ...filters, indexSatisfaction: value });
   };
   //emotions
-  const handleSelectEmotionChange = (event) => {
-      const value = event === 'Emociones' ? 'Emociones' : event.target.value;
-      setFilters({ ...filters, emotion: value });
+  const handleAddEmotion = (event ,emotion) => {
+    event.stopPropagation()
+    const includesEmotion = filters.emotion.includes(emotion)
+    
+    if(!includesEmotion){
+      const newArrayOfEmotions = filters.emotion
+      newArrayOfEmotions.push(emotion)
+
+      setFilters({...filters , emotion: newArrayOfEmotions})
+    }
+
+    return;
   };
 
-  return (
-      <div className="filterSelect__main">
-          <select className="filterSelect__select index-select" name="satisfaction-index" value={filters.indexSatisfaction} onChange={handleSatisfactionIndex}>
-              <option value="index">Índice de satisfacción</option>
-              {satisfactionIndexArr.map((indexSatisfaction, i) => (
-                  <option value={indexSatisfaction} key={i}>
-                      {indexSatisfaction}
-                  </option>
-              ))}
-          </select>
+  
 
-          <select className="filterSelect__select emotion-select" name="select-emotion" value={filters.emotion} onChange={handleSelectEmotionChange}>
-              <option value="emotions">Emociones</option>
-              {emotionsArr.map((emotion, i) => (
-                  <option key={i} value={emotion}>
-                      {emotion}
-                  </option>
-              ))}
-          </select>
+  return (
+    <div className="filterSelect__main">
+      <select
+        className="filterSelect__select index-select"
+        name="satisfaction-index"
+        value={filters.indexSatisfaction}
+        onChange={handleSatisfactionIndex}
+      >
+        <option value="index">Índice de satisfacción</option>
+        {satisfactionIndexArr.map((indexSatisfaction, i) => (
+          <option value={indexSatisfaction} key={i}>
+            {indexSatisfaction}
+          </option>
+        ))}
+      </select>
+
+
+      <div 
+        onClick={()=>setShowEmotions(!showEmotions)}
+        className="filterSelect__cont_emotions">
+        <p>Emociones</p>
+        <figure>
+
+          <img src={arrowDown}  />
+        </figure>
+        <ul
+          style={showEmotions ? {display: 'block' } : { display:'none'}}
+          className="filterSelect__select emotion_select_ul"
+          name="select-emotion"
+         
+        >
+          {emotionsArr.map((emotion, i) => (
+            <li
+            onClick={(event)=>handleAddEmotion(event, emotion)}
+            className="emotion_select_ul_li" key={i} value={emotion}>
+              <p>{emotion}</p>
+            </li>
+          ))}
+        </ul>
       </div>
+    </div>
   );
 };
-
 
 export default FiltersSelects;

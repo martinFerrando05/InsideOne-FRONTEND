@@ -2,6 +2,9 @@
   &main{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
+    
     .calendar{
       text-align: center;
       border: 1px solid;
@@ -11,14 +14,20 @@
       font-size: .9rem;
       background-color: rgb(237, 237, 237) !important;
     }
-
+    
     .container{
-      border-radius: 7px;
+      border-radius: 3px;
       margin: 10px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       background-color: rgb(237, 237, 237);
-
+      box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.289);
+      width: 12rem;
+      input{
+        width: 70%;
+        
+      }
       img{
         margin-right: 10px;
       }

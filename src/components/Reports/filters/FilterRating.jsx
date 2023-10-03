@@ -1,27 +1,53 @@
-import './scss/filterRating.scss'
+import { useState } from "react";
+import "./scss/filterRating.scss";
 
 const FilterRating = ({ filters, setFilters }) => {
-  const handleRatingChange = (event) => {
-      const value = event.target.value;
-      setFilters({ ...filters, rating: value });
+
+  const handleChange = (event) => {
+    event.stopPropagation();
+    const name = event.target.name;
+    const value = parseInt(event.target.value);
+    if (name === "min" && value > filters.rating.max) {
+      return;
+    }
+    if (name === "max" && value < filters.rating.min) {
+      return;
+    }
+    else{
+      console.log(name);
+      setFilters({ ...filters, rating:{...filters.rating, [name]:value } });
+    }
   };
 
-  const ratingValues = [];
-  for (let i = 0; i <= 100; i += 5) {
-      ratingValues.push(i);
-  }
-
   return (
-      <div className='filterRating__main'>
-          <select className="filterRating__select" onChange={handleRatingChange} value={filters.rating} name="rating">
-              <option value=''>Rating</option>
-              {ratingValues.map((optionValue) => (
-                  <option key={optionValue} value={optionValue}>
-                      {optionValue}
-                  </option>
-              ))}
-          </select>
+    <section 
+      className="filterRating__main">
+        <h4>Rating</h4>
+      <div
+        className="filterRating__cont_inputs">
+        <label htmlFor="filter__input_min_range"><p>Min: {filters.rating.min}%</p></label>
+        <input
+          id="filter__input_min_range"
+          className='filterRating__input'
+          min={0}
+          max={100}
+          onChange={handleChange}
+          value={filters.rating.min}
+          type="range"
+          name="min"
+        />
+        <label htmlFor="filter__input_min_range"> <p>Max: {filters.rating.max}%</p></label>
+        <input
+          className='filterRating__input'
+          min={0}
+          max={100}
+          onChange={handleChange}
+          value={filters.rating.max}
+          type="range"
+          name="max"
+        />
       </div>
+    </section>
   );
 };
 
