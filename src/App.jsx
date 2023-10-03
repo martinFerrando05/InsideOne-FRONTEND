@@ -14,6 +14,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import EmotionAnalysis from "./components/Example/EmotionAnalysis";
 import Reports from "./components/Reports/Reports";
 import Metrics from "./components/Metrics/Metrics";
+import Page404 from "./components/Page404";
 //utils
 import { dateFormater } from "./utils/dateFormater";
 import Settings from "./components/Settings/Settings";
@@ -70,6 +71,7 @@ function App() {
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} /> 
         <Route path="/settings" element={<Settings />} /> 
+        <Route path="/404" element={<Page404 />}/>
       </Routes>
     </main>
   );
