@@ -14,7 +14,7 @@ const FilterRating = ({ filters, setFilters }) => {
       return;
     }
     else{
-      console.log(name);
+     
       setFilters({ ...filters, rating:{...filters.rating, [name]:value } });
     }
   };

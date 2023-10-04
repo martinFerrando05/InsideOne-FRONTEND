@@ -11,6 +11,7 @@ db.collection("documentos").add({
  */
 
 function EmotionAnalysis() {
+
   const [state, setSatete] = useState(null);
   const [input, setInput] = useState("");
   const [question, setQuestion] = useState(null);
@@ -52,7 +53,6 @@ function EmotionAnalysis() {
     "https://i.postimg.cc/R0RvH3TJ/insideone-isologo.png";
   const imgLogoPlataforma5 =
     "https://www.plataforma5.la/static/media/LogoP5Mobile.a55e0d3ded6702e47da325ac762d2f5d.svg";
-
   const GIF_MONO_LOADING =
     "https://media.tenor.com/sG4pqSs5q9EAAAAC/monkey-smile.gif";
   const GIF_MONO_LOADING_2 =
@@ -60,8 +60,8 @@ function EmotionAnalysis() {
   const GIF_MONO_LOADING_BOCA =
     "https://media.tenor.com/4TPY1NQUL30AAAAC/botero-pimentero.gif";
 
-    const GIF_MONO_LOADING_ANALIZING =
-    "https://media.tenor.com/OF5TomrO-LsAAAAd/hellinheavns.gif";
+  const GIF_MONO_LOADING_ANALIZING =
+  "https://media.tenor.com/OF5TomrO-LsAAAAd/hellinheavns.gif";
 
   return (
     <main className="emotionAnalysis__main">
