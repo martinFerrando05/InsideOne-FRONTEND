@@ -5,7 +5,6 @@ const formatedCurrentDate = dateFormater(new Date()).split(" ")[0];
 
 export const todayInteractionsData = () => {
   const allItems = store.getState().firestoreReducer.data;
-
   const interactionsOfToday = allItems?.filter((item) => {
     return item?.dateFormated.split(" ")[0] == formatedCurrentDate;
   });

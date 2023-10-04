@@ -3,7 +3,7 @@ import "./Sidebar.scss";
 import logoInside from "../../assets/icons/Screenshot_from_2023-09-28_11-45-11-transformed.png";
 import donutIcon from "../../assets/icons/donut.svg";
 import reportsIcon from "../../assets/icons/reports.svg";
-import responsesIcon from "../../assets/icons/responses.svg";
+import agentsIcon from "../../assets/icons/support.svg";
 import demoIcon from "../../assets/icons/demo.svg";
 import { Link } from "react-router-dom";
 
@@ -25,17 +25,17 @@ const Sidebar = () => {
           </li>
         </Link>
 
-        <Link to={"/reports"}>
+        <Link to={"/conversations"}>
           <li className="item-list">
             <img src={reportsIcon} alt="" height={30} className="icon-size" />
             <p>Reportes </p>
           </li>
         </Link>
 
-        <Link to={"/answers"}>
+        <Link to={"/agents"}>
           <li className="item-list">
-            <img src={responsesIcon} alt="" height={30} className="icon-size" />
-            <p>Respuestas </p>
+            <img src={agentsIcon} alt="" height={30} className="icon-size" />
+            <p>Agentes </p>
           </li>
         </Link>
 
