@@ -2,6 +2,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { arrEmotions, agents } = require("./data");
 const OpenAI = require("openai");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const apiKey = process.env.APIKEY;
@@ -9,6 +10,7 @@ const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
 exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
   const { text } = req.body;
+
   openai.chat.completions
     .create({
       messages: [

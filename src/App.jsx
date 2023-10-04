@@ -22,6 +22,7 @@ function App() {
   const dispatch = useDispatch();
   const isFirstLoadRef = useRef(true);
 
+  
     useEffect(() => {     
         const queryRef = collection(db, 'respuestas-reportes');
         const unsub = onSnapshot(queryRef, (snapshot) => {
@@ -36,8 +37,8 @@ function App() {
                     dateFormated: dateFormater(new Date(date))
                 };
             });
-
-            
+          
+         
           dispatch(setData(docs))
 
       snapshot.docChanges().forEach((change) => {
