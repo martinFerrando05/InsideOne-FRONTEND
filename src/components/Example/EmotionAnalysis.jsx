@@ -34,12 +34,13 @@ function EmotionAnalysis() {
         setSatete(data);
         setQuestion(input);
         setLoading(false);
-        const queryRef = collection(db, "respuestas-reportes");
-        addDoc(queryRef, {
-          ...data,
-          question: input,
-          date: Timestamp.fromDate(new Date()),
-        });
+        console.log(data);
+        // const queryRef = collection(db, "respuestas-reportes");
+        // addDoc(queryRef, {
+        //   ...data,
+        //   question: input,
+        //   date: Timestamp.fromDate(new Date()),
+        // });
         setInput("");
       })
       .catch((err) => console.error(err));
