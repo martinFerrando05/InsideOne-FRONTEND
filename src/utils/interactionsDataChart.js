@@ -1,6 +1,5 @@
 import { setWeekStartAndEndDates } from "./weekOrWeekend";
 
-
 export function interactionsDataChart(items) {
     const { formatedStartDate, formatedWeekendDate } = setWeekStartAndEndDates()
     

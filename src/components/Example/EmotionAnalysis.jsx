@@ -16,6 +16,7 @@ import {
 } from "../../assets/imgs_logo/imgs";
 
 function EmotionAnalysis() {
+
   const [state, setSatete] = useState(null);
   const [input, setInput] = useState("");
   const [question, setQuestion] = useState(null);

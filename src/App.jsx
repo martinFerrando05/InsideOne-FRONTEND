@@ -29,6 +29,7 @@ function App() {
   const isFirstLoadRef = useRef(true);
   const settings = useSelector((store) => store.settingsReducer.value);
 
+
   useEffect(() => {
     const queryRef = collection(db, "respuestas-reportes");
     const unsub = onSnapshot(queryRef, (snapshot) => {

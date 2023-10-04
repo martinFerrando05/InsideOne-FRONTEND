@@ -2,6 +2,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { arrEmotions, agents } = require("./data");
 const OpenAI = require("openai");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const apiKey = process.env.APIKEY;
