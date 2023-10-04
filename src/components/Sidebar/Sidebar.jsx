@@ -5,6 +5,7 @@ import donutIcon from "../../assets/icons/donut.svg";
 import reportsIcon from "../../assets/icons/reports.svg";
 import responsesIcon from "../../assets/icons/responses.svg";
 import demoIcon from "../../assets/icons/demo.svg";
+import cogIcon from '../../assets/icons/cog.svg'
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -43,6 +44,12 @@ const Sidebar = () => {
           <li className="item-list">
             <img src={demoIcon} alt="" height={30} className="icon-size" />
             <p>Demo </p>
+          </li>
+        </Link>
+        <Link to={"/settings"}>
+          <li className="item-list">
+            <img src={cogIcon} alt="" height={30} className="icon-size" />
+            <p>Ajustes </p>
           </li>
         </Link>
       </ul>
