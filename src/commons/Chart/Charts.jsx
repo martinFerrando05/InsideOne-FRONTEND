@@ -52,16 +52,16 @@ const DoughnutChart = () => {
     },
     {
       title: "Indice Predominante",
-      subtitle: "Ultimos 7 dias",
+      subtitle: "Al " + currentDay,
       quantity: {
-        predominantSatisfactionIndexWeek: predominantSatisfactionIndexWeek(),
+        predominantSatisfactionIndexDay: predominantSatisfactionIndexDay(),
       },
     },
     {
       title: "Indice Predominante",
-      subtitle: "Al " + currentDay,
+      subtitle: "Ultimos 7 dias",
       quantity: {
-        predominantSatisfactionIndexDay: predominantSatisfactionIndexDay(),
+        predominantSatisfactionIndexWeek: predominantSatisfactionIndexWeek(),
       },
     },
   ];

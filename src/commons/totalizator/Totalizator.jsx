@@ -4,7 +4,7 @@ import "./Totalizator.scss";
 const Totalizator = ({ title, subtitle, quantity }) => {
   return (
     <div className="totalizator_container">
-      <div className="totalizator_data_container">
+      <div className="data_container">
         <h3>{title}</h3>
         <p>{subtitle}</p>
         <p>
@@ -17,7 +17,7 @@ const Totalizator = ({ title, subtitle, quantity }) => {
             : ""}
         </p>
       </div>
-      <p className="totalizator_interactions_quantity">
+      <p className="interactions_quantity">
         {quantity.todayInteractions
           ? quantity.todayInteractions
           : quantity.weekInteractions  
