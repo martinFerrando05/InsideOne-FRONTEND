@@ -17,20 +17,14 @@ const Table = ({ openModal }) => {
               </th>
               <th>Calificación</th>
               <th className="table__cell center-text">Índice</th>
-              <th
-                className="table__cell"
-                style={{
-                  borderRadius: "0px 10px 10px 0px",
-                  textAlign: "center",
-                }}
-              >
-                Emociones
-              </th>
+              <th style={{ paddingLeft: "6%" }}>Teléfono</th>
+              <th>DNI</th>
+              <th style={{ borderRadius: "0px 10px 10px 0px" }}>Agente</th>
             </tr>
           ) : (
             <tr>
               <th style={{ borderRadius: "10px 0px 0px 10px" }}>Nombre</th>
-              <th className="bold center-text">Interacciones</th>
+              <th className="bold table__cell center-text">Interacciones</th>
               <th className="center-text">Rating Promedio</th>
               <th
                 className="center-text"

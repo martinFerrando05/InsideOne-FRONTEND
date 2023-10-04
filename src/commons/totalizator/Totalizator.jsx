@@ -20,7 +20,7 @@ const Totalizator = ({ title, subtitle, quantity }) => {
       <p className="interactions_quantity">
         {quantity.todayInteractions || quantity.todayInteractions == 0
           ? quantity.todayInteractions
-          : quantity.weekInteractions
+          : quantity.weekInteractions  
           ? quantity.weekInteractions
           : quantity.predominantSatisfactionIndexWeek &&
             quantity.predominantSatisfactionIndexWeek.length <= 5

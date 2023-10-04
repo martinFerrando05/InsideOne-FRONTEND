@@ -9,6 +9,7 @@ const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
 exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
   const { text } = req.body;
+  
   openai.chat.completions
     .create({
       messages: [

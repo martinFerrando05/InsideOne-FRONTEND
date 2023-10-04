@@ -3,6 +3,7 @@ import "./rowTable.scss";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { dateFormater } from "../../../utils/dateFormater";
+import truncateFunctions from "../../../utils/truncateFunctions";
 import { specificAgentData } from "../../../utils/AgentsScreen/agents";
 
 const RowTable = ({ openModal }) => {
@@ -16,10 +17,14 @@ const RowTable = ({ openModal }) => {
     for (const key in agentsScreenData) {
       location.pathname != "/conversations"
         ? arrayRenderToAgentsData.push(
-            <tr key={key} style={{cursor:"auto"}}>
+            <tr key={key} style={{ cursor: "auto" }}>
               <td>{key.length > 20 ? key.slice(0, 20) + "..." : key}</td>
-              <td className="bold center-text">{agentsScreenData[key].totalInteractions}</td>
-              <td className="center-text">{agentsScreenData[key].promediumTotalRating + "%"}</td>
+              <td className="bold center-text">
+                {agentsScreenData[key].totalInteractions}
+              </td>
+              <td className="center-text">
+                {agentsScreenData[key].promediumTotalRating + "%"}
+              </td>
               <td className="center-text">
                 <p
                   style={{ width: "50%" }}
@@ -50,8 +55,8 @@ const RowTable = ({ openModal }) => {
           items?.map((el, i) => {
             return (
               <tr key={i} onClick={() => openModal(el)}>
-                <td>{el.dateFormated}</td>
-                <td>{el.client.rating}%</td>
+                <td className="item-date">{el.dateFormated}</td>
+                <td className="item-rating">{el.client.rating}%</td>
                 <td>
                   <p
                     className={
@@ -66,7 +71,9 @@ const RowTable = ({ openModal }) => {
                     {el.client.satisfaction_index}
                   </p>
                 </td>
-                <td className="center-text">{el.client.emotions.join(", ")}</td>
+                <td>{el.client.phone_number}</td>
+                <td>{el.client.dni}</td>
+                <td>{truncateFunctions(el.agent)}</td>
               </tr>
             );
           })
