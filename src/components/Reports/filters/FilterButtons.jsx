@@ -84,7 +84,7 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       queryRef = collection(db, "respuestas-reportes");
     }
 
-    getDocs(queryRef)
+    /* getDocs(queryRef)
       .then((res) => {
         const data = res.docs;
         const docs = data.map((doc) => {
@@ -105,7 +105,7 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       })
       .catch((error) => {
         console.error("Error al obtener los documentos:", error);
-      });
+      }); */
   };
 
   const handleCleanFilter = () => {

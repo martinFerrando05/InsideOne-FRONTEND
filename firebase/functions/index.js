@@ -7,11 +7,11 @@ dotenv.config();
 const apiKey = process.env.APIKEY;
 const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
-exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
+exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
   const { text } = req.body;
-  
-  openai.chat.completions
-    .create({
+
+  try {
+    const creatingQuery = await openai.chat.completions.create({
       messages: [
         {
           role: "system",
@@ -28,34 +28,35 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
       model: "gpt-3.5-turbo",
       temperature: 0.8,
       max_tokens: 200,
-    })
-    .then((completion) => {
-      const message = completion.choices[0].message.content;
-      const messageArr = message.split("\n");
-      let obj = { client: {} };
-      let random = Math.ceil(Math.random() * agents.length);
+    });
+    const message = creatingQuery.choices[0].message.content;
+    const messageArr = message.split("\n");
+    let obj = { client: {} };
+    let random = Math.ceil(Math.random() * agents.length);
 
-      messageArr.forEach((ele) => {
-        const clave = ele.split(":")[0].trim().toLowerCase();
-        const value = ele.split(":")[1].trim();
-        clave === "emotions" || clave === "keywords"
-          ? (obj.client[clave] = value.split(", "))
-          : clave === "rating"
-          ? (obj.client[clave] = parseInt(value))
-          : (obj.client[clave] = value);
-      });
+    messageArr.forEach((ele) => {
+      const clave = ele.split(":")[0].trim().toLowerCase();
+      const value = ele.split(":")[1].trim();
+      clave === "emotions" || clave === "keywords"
+        ? (obj.client[clave] = value.split(", "))
+        : clave === "rating"
+        ? (obj.client[clave] = parseInt(value))
+        : (obj.client[clave] = value);
+    });
 
-      obj["agent"] = agents[random].agent;
-      obj["channel"] = "Texto";
-      obj.client["dni"] = agents[random].dni;
-      obj.client["phone_number"] = agents[random].phone_number;
-      obj.client["satisfaction_index"] =
-        obj["client"].rating < 40
-          ? "Bajo"
-          : obj["client"].rating >= 40 && obj["client"].rating < 70
-          ? "Medio"
-          : "Alto";
-      res.send(obj);
-    })
-    .catch((err) => console.error(err));
+    obj["agent"] = agents[random].agent;
+    obj["channel"] = "Texto";
+    obj.client["dni"] = agents[random].dni;
+    obj.client["phone_number"] = agents[random].phone_number;
+    obj.client["satisfaction_index"] =
+      obj["client"].rating < 40
+        ? "Bajo"
+        : obj["client"].rating >= 40 && obj["client"].rating < 70
+        ? "Medio"
+        : "Alto";
+
+    res.send(obj);
+  } catch (error) {
+    console.error(error);
+  }
 });

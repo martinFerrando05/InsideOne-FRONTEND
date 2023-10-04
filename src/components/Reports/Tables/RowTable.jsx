@@ -18,7 +18,7 @@ const RowTable = ({ openModal }) => {
       location.pathname != "/conversations"
         ? arrayRenderToAgentsData.push(
             <tr key={key} style={{ cursor: "auto" }}>
-              <td>{key.length > 20 ? key.slice(0, 20) + "..." : key}</td>
+              <td>{truncateFunctions(key)}</td>
               <td className="bold center-text">
                 {agentsScreenData[key].totalInteractions}
               </td>
