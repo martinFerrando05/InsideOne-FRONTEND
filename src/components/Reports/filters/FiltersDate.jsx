@@ -10,35 +10,31 @@ setDefaultLocale("es");
 import calendar from "../../../assets/icons/calendar.svg";
 
 const FiltersDate = ({ filters, setFilters }) => {
-  const handleStartDateChange = (newDate) => {
-    setFilters({ ...filters, date: { ...filters.date, start: newDate } });
-  };
+//   const handleStartDateChange = (newDate) => {
+//     setFilters({ ...filters, date: { ...filters.date, start: newDate } });
+//   };
 
-  const handleEndDateChange = (newDate) => {
-    setFilters({ ...filters, date: { ...filters.date, end: newDate } });
-  };
+//   const handleEndDateChange = (newDate) => {
+//     setFilters({ ...filters, date: { ...filters.date, end: newDate } });
+//   };
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
+    const onChange = (dates) => {
+      const [start, end] = dates;
+      setStartDate(start);
+      setEndDate(end);
+    }
+
+
+    console.log('Start-->', startDate);
+    console.log('End-->', endDate);
 
   const currentDate = new Date();
   return (
     <div className="filterDate__main">
-      <div className="container">
-        <DatePicker
-          className="calendar"
-          selected={filters.date.start}
-          onSelect={() => new Date()} //when day is clicked
-          onChange={handleStartDateChange} //only when value has changed
-          maxDate={currentDate}
-          locale="es"
-          dateFormat="dd/MM/yyyy"
-          selectsStart
-          startDate={filters.date.start}
-          endDate={filters.date.end}
-        />
-        <img src={calendar} alt="" />
-      </div>
 
       <div className="container">
-        <DatePicker
+        {/* <DatePicker
           className="calendar"
           selected={filters.date.end}
           onSelect={() => new Date()} //when day is clicked
@@ -46,10 +42,20 @@ const FiltersDate = ({ filters, setFilters }) => {
           locale="es"
           maxDate={currentDate}
           dateFormat="dd/MM/yyyy"
-          selectsEnd
+          selectsRange
           startDate={filters.date.start}
           endDate={filters.date.end}
-          minDate={filters.date.start}
+          
+         
+        /> */}
+
+        <DatePicker
+          selected={startDate}
+          maxDate={currentDate}
+          onChange={onChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
         />
         <img src={calendar} alt="" />
       </div>

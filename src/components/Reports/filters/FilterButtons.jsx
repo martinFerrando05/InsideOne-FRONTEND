@@ -35,11 +35,18 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       const filterForRating = rating >= filters.rating.min && rating <= filters.rating.max
 
       const conditions = [filterForRating]
-
-      if(validations.hasInitialDate){
-        const filterDateStart = new Date(filters.date.start) 
-        const filterDateEnd = new Date(filters.date.end)
-        conditions.push(date >= filterDateStart && date <= filterDateEnd)
+      
+      if (validations.hasInitialDate) {
+        const filterDateStart = new Date(filters.date.start);
+        const filterDateEnd = new Date(filters.date.end);
+      
+        // Crear nuevas fechas solo con el año, mes y día de la fecha original
+        const dateYearMonthDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const filterDateStartYearMonthDay = new Date(filterDateStart.getFullYear(), filterDateStart.getMonth(), filterDateStart.getDate());
+        const filterDateEndYearMonthDay = new Date(filterDateEnd.getFullYear(), filterDateEnd.getMonth(), filterDateEnd.getDate());
+      
+        // Compara solo el año, mes y día de las fechas
+        conditions.push(dateYearMonthDay >= filterDateStartYearMonthDay && dateYearMonthDay <= filterDateEndYearMonthDay);
       }
 
        if(validations.hasEmotions){
@@ -77,8 +84,6 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
         const filterAgent = filters.agent.toLowerCase()
         conditions.push(agent.indexOf(filterAgent) !== -1)
       }
-
-     
 
       return  conditions.every(boolean=> boolean === true)
     })
