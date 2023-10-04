@@ -89,7 +89,7 @@ function App() {
     <main className="app__main">
       <Sidebar />
       <Routes>
-        <Route path="/answers" element={<Reports />} />
+        <Route path="/agents" element={<Reports />} />
         <Route path="/conversations" element={<Reports />} />
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} />

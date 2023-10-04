@@ -20,6 +20,7 @@ td {
   &:nth-child(6) {
     width: 15%;
   }
+  
 }
 
 .status-positive {
@@ -51,13 +52,15 @@ td {
 
 tbody {
   color: black;
+  
 }
 
 .center-text {
   text-align: center;
+  margin: 0 auto;
 }
 
-tr:hover{
+tr:hover {
   background-color: rgb(242, 242, 242);
   cursor: pointer;
 }
