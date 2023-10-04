@@ -71,7 +71,7 @@ const RowTable = ({ openModal }) => {
                     {el.client.satisfaction_index}
                   </p>
                 </td>
-                <td>{el.client.phone_number}</td>
+                <td style={{paddingLeft: "6%"}}>{el.client.phone_number}</td>
                 <td>{el.client.dni}</td>
                 <td>{truncateFunctions(el.agent)}</td>
               </tr>
