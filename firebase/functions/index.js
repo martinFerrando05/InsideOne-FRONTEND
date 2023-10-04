@@ -39,7 +39,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, (req, res) => {
         const clave = ele.split(":")[0].trim().toLowerCase();
         const value = ele.split(":")[1].trim();
         clave === "emotions" || clave === "keywords"
-          ? (obj.client[clave] = value.split(" "))
+          ? (obj.client[clave] = value.split(", "))
           : clave === "rating"
           ? (obj.client[clave] = parseInt(value))
           : (obj.client[clave] = value);

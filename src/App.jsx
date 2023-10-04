@@ -75,7 +75,7 @@ function App() {
         //     }
         //   }
         // }
-        console.log(change);
+        // console.log(change);
       })
       isFirstLoadRef.current = false;
     });
