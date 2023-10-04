@@ -3,8 +3,9 @@ import "./Sidebar.scss";
 import logoInside from "../../assets/icons/Screenshot_from_2023-09-28_11-45-11-transformed.png";
 import donutIcon from "../../assets/icons/donut.svg";
 import reportsIcon from "../../assets/icons/reports.svg";
-import responsesIcon from "../../assets/icons/responses.svg";
+import agentsIcon from "../../assets/icons/support.svg";
 import demoIcon from "../../assets/icons/demo.svg";
+import cogIcon from '../../assets/icons/cog.svg'
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -32,10 +33,10 @@ const Sidebar = () => {
           </li>
         </Link>
 
-        <Link to={"/answers"}>
+        <Link to={"/agents"}>
           <li className="item-list">
-            <img src={responsesIcon} alt="" height={30} className="icon-size" />
-            <p>Respuestas </p>
+            <img src={agentsIcon} alt="" height={30} className="icon-size" />
+            <p>Agentes </p>
           </li>
         </Link>
 
@@ -43,6 +44,12 @@ const Sidebar = () => {
           <li className="item-list">
             <img src={demoIcon} alt="" height={30} className="icon-size" />
             <p>Demo </p>
+          </li>
+        </Link>
+        <Link to={"/settings"}>
+          <li className="item-list">
+            <img src={cogIcon} alt="" height={30} className="icon-size" />
+            <p>Ajustes </p>
           </li>
         </Link>
       </ul>
