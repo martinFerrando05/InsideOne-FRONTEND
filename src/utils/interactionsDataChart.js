@@ -1,4 +1,4 @@
-  import { dateFormater } from "./dateFormater";
+import { dateFormater } from "./dateFormater";
 
 export function interactionsDataChart(items) {
     const currentDate = new Date(); 
