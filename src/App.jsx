@@ -95,7 +95,7 @@ function App() {
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/404" element={<Page404 />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </main>
   );
