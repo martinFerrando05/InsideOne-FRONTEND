@@ -1,0 +1,26 @@
+@import '../../assets/styles/mixins';
+
+.page404__ {
+    &main {
+        background: url('../../assets/backgrounds/404.png') center / cover no-repeat;
+        width: 100%;
+        margin-top: 20px;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &button-container {
+        height: 16%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        
+        button{
+            @include defaultButton;
+            text-transform: uppercase;
+            width: auto;
+        }
+    }
+}

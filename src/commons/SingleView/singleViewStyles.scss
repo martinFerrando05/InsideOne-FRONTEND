@@ -153,4 +153,5 @@
 
 .showConversationButton {
     @include defaultButton;
+    width: auto;
 }
