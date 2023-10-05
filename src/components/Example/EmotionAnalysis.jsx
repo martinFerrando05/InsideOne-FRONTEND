@@ -3,14 +3,20 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useState } from "react";
 import axios from "axios";
-
-/*    const fechaActual = new Date();
-db.collection("documentos").add({
-  fecha: firebase.firestore.Timestamp.fromDate(fechaActual)
-});
- */
+import {
+  GIF_MONO_LOADING,
+  GIF_MONO_LOADING_2,
+  GIF_MONO_LOADING_ANALIZING,
+  GIF_MONO_LOADING_BOCA,
+} from "../../assets/loadings/loadings";
+import {
+  imgLogoGalicia,
+  imgLogoInsideOne,
+  imgLogoPlataforma5,
+} from "../../assets/imgs_logo/imgs";
 
 function EmotionAnalysis() {
+
   const [state, setSatete] = useState(null);
   const [input, setInput] = useState("");
   const [question, setQuestion] = useState(null);
@@ -21,46 +27,28 @@ function EmotionAnalysis() {
     setInput(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    axios
-      .post(
+    try {
+      const botAnalize = await axios.post(
         "http://localhost:5000/prueba-97c35/us-central1/getEmotionsAnalysis",
         { text: input }
-      )
-      .then(({ data }) => {
-        setSatete(data);
-        setQuestion(input);
-        setLoading(false);
-        const queryRef = collection(db, "respuestas-reportes");
-        addDoc(queryRef, {
-          ...data,
-          question: input,
-          date: Timestamp.fromDate(new Date()),
-        });
-        setInput("");
-      })
-      .catch((err) => console.error(err));
+      );
+      const { data } = botAnalize;
+      const queryRef = collection(db, "respuestas-reportes");
+      setSatete(data);
+      setQuestion(input);
+      setLoading(false);
+      addDoc(queryRef, {
+        ...data,
+        question: input,
+        date: Timestamp.fromDate(new Date()),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  const imgLogoGalicia =
-    "https://www.galiciaseguros.com.ar/media-library/Templates/images/logo.png";
-  const imgLogoInsideOne =
-    "https://i.postimg.cc/R0RvH3TJ/insideone-isologo.png";
-  const imgLogoPlataforma5 =
-    "https://www.plataforma5.la/static/media/LogoP5Mobile.a55e0d3ded6702e47da325ac762d2f5d.svg";
-
-  const GIF_MONO_LOADING =
-    "https://media.tenor.com/sG4pqSs5q9EAAAAC/monkey-smile.gif";
-  const GIF_MONO_LOADING_2 =
-    "https://media.tenor.com/lER2_kKTywYAAAAC/monkey-adult-swim.gif";
-  const GIF_MONO_LOADING_BOCA =
-    "https://media.tenor.com/4TPY1NQUL30AAAAC/botero-pimentero.gif";
-
-    const GIF_MONO_LOADING_ANALIZING =
-    "https://media.tenor.com/OF5TomrO-LsAAAAd/hellinheavns.gif";
 
   return (
     <main className="emotionAnalysis__main">
@@ -88,7 +76,7 @@ function EmotionAnalysis() {
 
       <div className="emotionAnalysis__cont_text">
         {loading ? (
-          <div style={{ display: "flex", flexWrap:"wrap" }}>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
             <img src={GIF_MONO_LOADING_2} alt="loading" />
             <img src={GIF_MONO_LOADING_ANALIZING} alt="loading" />
             <img src={GIF_MONO_LOADING} alt="loading" />

@@ -6,18 +6,20 @@ import "./singleViewStyles.scss";
 //img
 import icon from "../../assets/icons/el_bichito.png";
 //icons
-import face from "../../assets/icons/face.svg";
-import battery from "../../assets/icons/battery.svg";
-import calendar from "../../assets/icons/calendar.svg";
-import chart from "../../assets/icons/chart.svg";
-import key from "../../assets/icons/key.svg";
-import message from "../../assets/icons/message.svg";
-import paper from "../../assets/icons/paper.svg";
-import cross from "../../assets/icons/cross.svg";
-import phone from "../../assets/icons/phone.svg";
-import dni from "../../assets/icons/dni.svg";
-import support from "../../assets/icons/support.svg";
-import clock from "../../assets/icons/clock.svg";
+import {
+  face,
+  battery,
+  calendar,
+  chart,
+  clock,
+  cross,
+  dni,
+  key,
+  message,
+  paper,
+  phone,
+  support,
+} from "../../assets/icons";
 
 const SingleView = ({ isOpen, onClose, selectedReport }) => {
   if (!isOpen) return null;
@@ -70,60 +72,63 @@ const SingleView = ({ isOpen, onClose, selectedReport }) => {
                   />
                 )}
 
-              <div className="container-options-all">
-                <div className="container-options">
-                  <li className="options">
-                    <img src={battery} alt="Battery" />
-                    <p>Indice: {selectedReport?.client.satisfaction_index}</p>
-                  </li>
-                  <li className="options">
-                    <img src={chart} alt="Chart" />
-                    <p>Rating: {selectedReport?.client.rating}</p>
-                  </li>
-                  <li className="options">
-                    <img src={face} alt="Face" />
-                    <p>
-                      Emociones: {selectedReport?.client.emotions.join(" ")}
-                    </p>
-                  </li>
-                  <li className="options">
-                    <img src={message} alt="Message" />
-                    <p>Canal: {selectedReport?.channel}</p>
-                  </li>
-                  <li className="options">
-                    <img src={key} alt="Key" />
-                    <p>Palabras clave: {selectedReport?.client.keywords.join(" ")}</p>
-                  </li>
+                <div className="container-options-all">
+                  <div className="container-options">
+                    <li className="options">
+                      <img src={battery} alt="Battery" />
+                      <p>Indice: {selectedReport?.client.satisfaction_index}</p>
+                    </li>
+                    <li className="options">
+                      <img src={chart} alt="Chart" />
+                      <p>Rating: {selectedReport?.client.rating}</p>
+                    </li>
+                    <li className="options">
+                      <img src={face} alt="Face" />
+                      <p>
+                        Emociones: {selectedReport?.client.emotions.join(" ")}
+                      </p>
+                    </li>
+                    <li className="options">
+                      <img src={message} alt="Message" />
+                      <p>Canal: {selectedReport?.channel}</p>
+                    </li>
+                    <li className="options">
+                      <img src={key} alt="Key" />
+                      <p>
+                        Palabras clave:{" "}
+                        {selectedReport?.client.keywords.join(" ")}
+                      </p>
+                    </li>
                   </div>
 
                   <div className="container-options">
-                  <li className="options">
-                    <img src={calendar} alt="Calendar" />
-                    <p>Fecha: {selectedReport?.dateFormated.split(" ")[0]}</p>
-                  </li>
-                  <li className="options">
-                    <img src={clock} alt="Calendar" />
-                    <p>Hora: {selectedReport?.dateFormated.split(" ")[1]}</p>
-                  </li>
-                  <li className="options">
-                    <img src={phone} alt="Phone" />
-                    <p>Teléfono: {selectedReport?.client.phone_number}</p>
-                  </li>
-                  <li className="options">
-                    <img src={dni} alt="Dni" />
-                    <p>DNI: {selectedReport?.client.dni}</p>
-                  </li>
-                  <li className="options">
-                    <img src={support} alt="Support" />
-                    <p>Agente: {selectedReport?.agent}</p>
-                  </li>
+                    <li className="options">
+                      <img src={calendar} alt="Calendar" />
+                      <p>Fecha: {selectedReport?.dateFormated.split(" ")[0]}</p>
+                    </li>
+                    <li className="options">
+                      <img src={clock} alt="Calendar" />
+                      <p>Hora: {selectedReport?.dateFormated.split(" ")[1]}</p>
+                    </li>
+                    <li className="options">
+                      <img src={phone} alt="Phone" />
+                      <p>Teléfono: {selectedReport?.client.phone_number}</p>
+                    </li>
+                    <li className="options">
+                      <img src={dni} alt="Dni" />
+                      <p>DNI: {selectedReport?.client.dni}</p>
+                    </li>
+                    <li className="options">
+                      <img src={support} alt="Support" />
+                      <p>Agente: {selectedReport?.agent}</p>
+                    </li>
                   </div>
 
                   <li className="options option-summary">
                     <img src={paper} alt="Paper" />
                     <p>Resumen: {selectedReport?.client.summary}</p>
                   </li>
-                  </div> 
+                </div>
               </div>
             ) : (
               <div>

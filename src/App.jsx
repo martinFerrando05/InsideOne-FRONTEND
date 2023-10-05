@@ -85,19 +85,19 @@ function App() {
         fetchCompleteData();
     }, []);
 
-    return (
-        <main className="app__main">
-            <Sidebar />
-            <Routes>
-                <Route path="/answers" element={<Reports />} />
-                <Route path="/conversations" element={<Reports />} />
-                <Route path="/metrics" element={<Metrics />} />
-                <Route path="/emotions" element={<EmotionAnalysis />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/404" element={<Page404 />} />
-            </Routes>
-        </main>
-    );
+  return (
+    <main className="app__main">
+      <Sidebar />
+      <Routes>
+        <Route path="/agents" element={<Reports />} />
+        <Route path="/conversations" element={<Reports />} />
+        <Route path="/metrics" element={<Metrics />} />
+        <Route path="/emotions" element={<EmotionAnalysis />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </main>
+  );
 }
 
 export default App;

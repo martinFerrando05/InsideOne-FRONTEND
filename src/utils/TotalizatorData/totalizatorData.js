@@ -1,11 +1,11 @@
 import { store } from "../../store/store";
 import { dateFormater } from "../dateFormater";
+import { setWeekStartAndEndDates } from "../weekOrWeekend";
 import { comparationIndexes } from "./comparation";
 const formatedCurrentDate = dateFormater(new Date()).split(" ")[0];
 
 export const todayInteractionsData = () => {
   const allItems = store.getState().firestoreReducer.data;
-
   const interactionsOfToday = allItems?.filter((item) => {
     return item?.dateFormated.split(" ")[0] == formatedCurrentDate;
   });
@@ -16,36 +16,7 @@ export const todayInteractionsData = () => {
 export const weekInteractionsData = () => {
   const allItems = store.getState().firestoreReducer.data;
 
-  const currentDate = new Date();
-  let weekStartDate;
-  let weekEndDate;
-
-  if (currentDate.getDay() == 0 || currentDate.getDay() == 6) {
-    weekStartDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() - 6
-    );
-    weekEndDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() - 1
-    );
-  } else {
-    weekStartDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() + 1
-    );
-    weekEndDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() + 6
-    );
-  }
-
-  const formatedWeekendDate = dateFormater(weekEndDate);
-  const formatedStartDate = dateFormater(weekStartDate);
+  const { formatedStartDate, formatedWeekendDate } = setWeekStartAndEndDates()
 
   const interactionsThisWeek = allItems?.filter((interaction) => {
     const interactionDate = interaction?.dateFormated;
@@ -60,41 +31,11 @@ export const weekInteractionsData = () => {
 
 export const predominantSatisfactionIndexWeek = () => {
   const allItems = store.getState().firestoreReducer.data;
+  const { formatedStartDate, formatedWeekendDate } = setWeekStartAndEndDates()
 
-  const currentDate = new Date();
-  let weekStartDate;
-  let weekEndDate;
-  
   let lowIndex = 0
   let mediumIndex = 0
   let highIndex = 0
-
-  if (currentDate.getDay() == 0 || currentDate.getDay() == 6) {
-    weekStartDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() - 6
-    );
-    weekEndDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() - 1
-    );
-  } else {
-    weekStartDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() + 1
-    );
-    weekEndDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() - currentDate.getDay() + 6
-    );
-  }
-
-  const formatedWeekendDate = dateFormater(weekEndDate);
-  const formatedStartDate = dateFormater(weekStartDate);
 
   const interactionsThisWeek = allItems?.filter((interaction) => {
     const interactionDate = interaction?.dateFormated;

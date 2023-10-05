@@ -1,117 +1,99 @@
+import { useEffect, useState } from "react";
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { setData } from "../../../store/slice/firestore/firestoreSlice";
 //styles
 import "./scss/filterButtons.scss";
-//Firestore
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../../config/firebase";
 //utils
 import { dateFormater } from "../../../utils/dateFormater";
 
 const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
-  const dispatch = useDispatch();
+  const dataFirestore = useSelector(store=> store.firestoreReducer)
+  const [data , setData] = useState(null)
+  
   const handleFilter = () => {
-    let queryRef;
     const validations = {
       hasRating: filters.rating !== filtersInitialValues.rating,
       hasIndexSatisfaction:
         filters.indexSatisfaction !== filtersInitialValues.indexSatisfaction,
-      hasEmotions: filters.emotion !== filtersInitialValues.emotion,
+      hasEmotions:  filters.emotion.length >= 1 ? true : false ,
       hasInitialDate: filters.date.start !== filtersInitialValues.date.start,
       hasFinalDate: filters.date.end !== filtersInitialValues.date.end,
       hasPhoneNumber: filters.phoneNumber !== filtersInitialValues.phoneNumber,
       hasDni: filters.dni !== filtersInitialValues.dni,
       hasAgent: filters.agent !== filtersInitialValues.agent,
     };
-    let queryConditions = [];
 
-    if (validations.hasPhoneNumber) {
-      queryConditions.push(
-        where("client.phone_number", "==", filters.phoneNumber)
-      );
-    }
-    if (validations.hasDni) {
-      console.log(filters.dni);
-      queryConditions.push(where("client.dni", "==", parseInt(filters.dni)));
-    }
-    if (validations.hasAgent) {
-      queryConditions.push(where("agent", "==", filters.agent));
-    }
-    if (validations.hasRating) {
-      queryConditions.push(
-        where(
-          "client.rating",
-          "==",
-          parseInt(filters.rating),
-          where("client.rating", "<", parseInt(filters.rating) + 10)
-        )
-      );
-    }
+    const dataFiltered= data.filter((obj , i , array)=>{
+      const date =  new Date(obj.date)
+      const dni = obj.client.dni
+      const phoneNumber = obj.client.phone_number
+      const emotions = obj.client.emotions
+      const rating = obj.client.rating
+      const satisfactionIndex = obj.client.satisfaction_index
+      const agent = obj.agent
+      const filterForRating = rating >= filters.rating.min && rating <= filters.rating.max
 
-    if (validations.hasInitialDate) {
-      queryConditions.push(
-        where("date", ">=", filters.date.start),
-        where("date", "<=", filters.date.end)
-      );
-    }
-    if (validations.hasRating) {
-      queryConditions.push(
-        where(
-          "client.rating",
-          ">=",
-          parseInt(filters.rating),
-          where("client.rating", "<", parseInt(filters.rating) + 10)
-        )
-      );
-    }
-    if (validations.hasIndexSatisfaction) {
-      queryConditions.push(
-        where("client.satisfaction_index", "==", filters.indexSatisfaction)
-      );
-    }
-    if (validations.hasEmotions) {
-      queryConditions.push(
-        where("client.emotions", "array-contains-any", [filters.emotion])
-      );
-    }
-    if (queryConditions.length > 0) {
-      queryRef = query(
-        collection(db, "respuestas-reportes"),
-        ...queryConditions
-      );
-    } else {
-      queryRef = collection(db, "respuestas-reportes");
-    }
+      const conditions = [filterForRating]
 
-    getDocs(queryRef)
-      .then((res) => {
-        const data = res.docs;
-        const docs = data.map((doc) => {
-          const timestamp = doc.data().date;
-          const date = new Date(
-            timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-          ).toString();
+      if(validations.hasInitialDate){
+        const filterDateStart = new Date(filters.date.start) 
+        const filterDateEnd = new Date(filters.date.end)
+        conditions.push(date >= filterDateStart && date <= filterDateEnd)
+      }
 
-          return {
-            ...doc.data(),
-            id: doc.id,
-            date,
-            dateFormated: dateFormater(new Date(date)),
-          };
-        });
-        queryConditions = [];
-        dispatch(setData(docs));
-      })
-      .catch((error) => {
-        console.error("Error al obtener los documentos:", error);
-      });
-  };
+       if(validations.hasEmotions){
+        const filterEmotionsArray = filters.emotion
+        const validateEmotions = []
+        for (const emotion of emotions) {
+          let emotionWithOutComma = emotion.replace(/,/g, '');
+
+          validateEmotions.push(filterEmotionsArray.includes(emotionWithOutComma))
+        }
+        const hasSomeEmotion = validateEmotions.some(bolean => bolean === true)
+
+        conditions.push(hasSomeEmotion)
+      }
+
+      if(validations.hasIndexSatisfaction){
+        const filterIndexSatisfaction = filters.indexSatisfaction
+        conditions.push(filterIndexSatisfaction === satisfactionIndex)
+      }
+
+      if(validations.hasPhoneNumber){
+        const numberWithOutPlusSign = phoneNumber.replace(/\+/g, '');
+        const filterPhoneNumber = filters.phoneNumber
+
+        conditions.push(numberWithOutPlusSign.indexOf(filterPhoneNumber) !== -1)
+      }
+
+      if(validations.hasDni){
+        const filterDni = filters.dni
+        
+        conditions.push(dni.indexOf(filterDni) !== -1)
+      }
+
+      if(validations.hasAgent){
+        const filterAgent = filters.agent.toLowerCase()
+        conditions.push(agent.indexOf(filterAgent) !== -1)
+      }
+
+     
+
+      return  conditions.every(boolean=> boolean === true)
+    })
+    console.log(dataFiltered)
+  }
 
   const handleCleanFilter = () => {
     setFilters({...filtersInitialValues , emotion: []});
   };
 
+
+  useEffect(()=>{
+     setData(JSON.parse(localStorage.getItem('data')))
+
+  },[dataFirestore.data])
   return (
     <div className="filterButtons__main">
       <button onClick={handleFilter} className="filterButtons__buttons">

@@ -12,7 +12,6 @@ td {
   }
   &:nth-child(4) {
     width: 17%;
-    padding-left: 6%;
   }
   &:nth-child(5) {
     width: 13%;
@@ -55,9 +54,10 @@ tbody {
 
 .center-text {
   text-align: center;
+  margin: 0 auto;
 }
 
-tr:hover{
+tr:hover {
   background-color: rgb(242, 242, 242);
   cursor: pointer;
 }

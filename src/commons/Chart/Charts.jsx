@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { indexDataChart } from "../../utils/indexDataChart";
 import { hoursDataChart } from "../../utils/hoursDataChart";
 import { interactionsDataChart } from "../../utils/interactionsDataChart";
+import { indexPerDayDataChart } from "../../utils/indexPerDayDataChart";
 import { dateFormater } from "../../utils/dateFormater";
 import Totalizator from "../totalizator/Totalizator";
 import {
@@ -22,6 +23,7 @@ const DoughnutChart = () => {
   const indexDataDay = indexDataChart(items, date);
   const hoursData = hoursDataChart(items);
   const interactionData = interactionsDataChart(items);
+  const indexPerDayData = indexPerDayDataChart(items)
   const currentDay = dateFormater(new Date()).split(" ")[0];
 
   const options = {
@@ -66,7 +68,7 @@ const DoughnutChart = () => {
     },
   ];
 
-  const updatedTitle = (title, subtitle, boolean) => {
+  const updatedTitle = (title, subtitle, boolean, legendBoolean) => {
     let titleFontSize = 26
     let subtitleFontSize = 14
 
@@ -92,6 +94,9 @@ const DoughnutChart = () => {
           font: {
             size: subtitleFontSize,
           },
+        },
+        legend: {
+          display: legendBoolean,
         },
       },
     };
@@ -119,7 +124,7 @@ const DoughnutChart = () => {
           options={updatedTitle(
             "Indice de Satisfacción (general)",
             "Bajo - Medio - Alto",
-            true
+            true, true
           )}
         />
           <Doughnut
@@ -128,7 +133,7 @@ const DoughnutChart = () => {
             options={updatedTitle(
               "Indice de Satisfacción (hoy)",
               "Bajo - Medio - Alto",
-              true
+              true, true
             )}
           />
         <Doughnut
@@ -142,11 +147,20 @@ const DoughnutChart = () => {
       <div className="bar_charts">
         <Bar
           className="bar"
+          data={indexPerDayData}
+          options={updatedTitle(
+            "Promedio de índice de satisfacción",
+            "Lunes a Viernes",
+            true, false
+          )}
+        />
+        <Bar
+          className="bar"
           data={interactionData}
           options={updatedTitle(
             "Interacciónes Semanales",
             "Lunes a Viernes",
-            true
+            true, true
           )}
         />
       </div>

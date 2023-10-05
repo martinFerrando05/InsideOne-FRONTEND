@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const firestoreSlice = createSlice({
-    name: 'firestore',
-
+  name: "firestore",
+  
     initialState: {
         data: null,
         paginatedData: null,
@@ -33,8 +33,7 @@ export const firestoreSlice = createSlice({
         setLastDocId: (state, { payload }) => {
             state.lastDocId = payload;
         },
-    },
+     },
 });
 
-// Action creators are generated for each case reducer function
 export const { setData, setPaginatedData, setCurrentPage, setLatestDocId, setFirstDocId, setLastDocId } = firestoreSlice.actions;
