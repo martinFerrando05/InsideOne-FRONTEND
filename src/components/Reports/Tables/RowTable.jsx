@@ -10,6 +10,7 @@ const RowTable = ({ openModal }) => {
   const paginatedItems = useSelector((store) => store.firestoreReducer.paginatedData);
   const location = useLocation();
   const isConversationsView = location.pathname === "/conversations";
+
   const agentsScreenData = specificAgentData(paginatedItems);
   const arrayRenderToAgentsData = [];
 

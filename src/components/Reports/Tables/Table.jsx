@@ -12,11 +12,11 @@ const Table = ({ openModal }) => {
     <section className="table__body">
       
       <DownloadTableExcel
-        filename="users table"
-        sheet="users"
+        filename="OneReport"
+        sheet="OneReport"
         currentTableRef={tableRef.current}
       >
-        <button> Export excel </button>
+        <button> Export Excel </button>
       </DownloadTableExcel>
 
       <table ref={tableRef}>

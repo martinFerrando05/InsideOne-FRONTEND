@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { setData } from "../../../store/slice/firestore/firestoreSlice";
+import {
+  setFilter,
+  setCurrentPage,
+} from "../../../store/slice/firestore/firestoreSlice";
+
 //styles
 import "./scss/filterButtons.scss";
 //utils
-import { dateFormater } from "../../../utils/dateFormater";
 
-const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
+const FilterButtons = ({
+  filters,
+  setFilters,
+  filtersInitialValues,
+  setShowFilter,
+}) => {
   const dataFirestore = useSelector((store) => store.firestoreReducer);
   const [data, setData] = useState(null);
-
+  const dispatch = useDispatch();
   const handleFilter = () => {
     const validations = {
       hasRating: filters.rating !== filtersInitialValues.rating,
       hasIndexSatisfaction:
         filters.indexSatisfaction !== filtersInitialValues.indexSatisfaction,
       hasEmotions: filters.emotion.length >= 1 ? true : false,
-      
+
       hasPhoneNumber: filters.phoneNumber !== filtersInitialValues.phoneNumber,
       hasDni: filters.dni !== filtersInitialValues.dni,
       hasAgent: filters.agent !== filtersInitialValues.agent,
@@ -32,7 +40,10 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       const emotions = obj.client.emotions;
       const rating = obj.client.rating;
       const satisfactionIndex = obj.client.satisfaction_index;
-      const agent = obj.agent;
+      const agent = obj.agent
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
       const filterForRating =
         rating >= filters.rating.min && rating <= filters.rating.max;
 
@@ -66,11 +77,8 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
             ? dateYearMonthDay >= filterDateStartYearMonthDay &&
                 dateYearMonthDay <= filterDateEndYearMonthDay
             : dateYearMonthDay >= filterDateStartYearMonthDay &&
-            dateYearMonthDay <= filterDateStartYearMonthDay
+                dateYearMonthDay <= filterDateStartYearMonthDay
         );
-
-
-        
       }
 
       if (validations.hasEmotions) {
@@ -98,31 +106,39 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
       if (validations.hasPhoneNumber) {
         const numberWithOutPlusSign = phoneNumber.replace(/\+/g, "");
         const filterPhoneNumber = filters.phoneNumber;
-
+        const phoneNumberStartWith = numberWithOutPlusSign.startsWith(filterPhoneNumber);
         conditions.push(
-          numberWithOutPlusSign.indexOf(filterPhoneNumber) !== -1
+          numberWithOutPlusSign.indexOf(filterPhoneNumber) !== -1 && phoneNumberStartWith
         );
       }
 
       if (validations.hasDni) {
         const filterDni = filters.dni;
-
-        conditions.push(dni.indexOf(filterDni) !== -1);
+        const dniStartWith = dni.startsWith(filterDni);
+        conditions.push(dni.indexOf(filterDni) !== -1 && dniStartWith);
       }
 
       if (validations.hasAgent) {
         const filterAgent = filters.agent.toLowerCase();
+
         conditions.push(agent.indexOf(filterAgent) !== -1);
       }
 
       return conditions.every((boolean) => boolean === true);
     });
-    console.log(dataFiltered);
+
+    if (dataFirestore.data.length === dataFiltered.length) {
+      dispatch(setFilter(null));
+      setShowFilter(false);
+    } else {
+      dispatch(setFilter(dataFiltered));
+      setShowFilter(false);
+    }
   };
-
-
   const handleCleanFilter = () => {
     setFilters({ ...filtersInitialValues, emotion: [] });
+    setShowFilter(false);
+    dispatch(setFilter(null));
   };
 
   useEffect(() => {
