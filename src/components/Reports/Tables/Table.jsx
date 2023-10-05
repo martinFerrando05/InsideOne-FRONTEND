@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./table.scss";
 import RowTable from "./RowTable";
 import { useLocation } from "react-router";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const Table = ({ openModal }) => {
   const location = useLocation();
+  const tableRef = useRef(null);
 
   return (
     <section className="table__body">
-      <table>
+      
+      <DownloadTableExcel
+        filename="OneReport"
+        sheet="OneReport"
+        currentTableRef={tableRef.current}
+      >
+        <button> Export Excel </button>
+      </DownloadTableExcel>
+
+      <table ref={tableRef}>
         <thead>
           {location.pathname === "/conversations" ? (
             <tr>
