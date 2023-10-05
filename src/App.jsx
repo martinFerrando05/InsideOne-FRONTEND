@@ -1,90 +1,89 @@
 //estail
-import "./App.scss";
+import './App.scss';
 //riat
-import React, { useEffect, useRef } from "react";
-import { Routes, Route } from "react-router";
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router';
 //firestore
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "./config/firebase";
+import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { db } from './config/firebase';
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { setData } from "./store/slice/firestore/firestoreSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { setData, setLatestDocId} from './store/slice/firestore/firestoreSlice';
 //components
-import Sidebar from "./components/Sidebar/Sidebar";
-import EmotionAnalysis from "./components/Example/EmotionAnalysis";
-import Reports from "./components/Reports/Reports";
-import Metrics from "./components/Metrics/Metrics";
-import Page404 from "./components/Page404";
-import emailjs from "emailjs-com";
+import Sidebar from './components/Sidebar/Sidebar';
+import EmotionAnalysis from './components/Example/EmotionAnalysis';
+import Reports from './components/Reports/Reports';
+import Metrics from './components/Metrics/Metrics';
+import Page404 from './components/Page404';
+import emailjs from 'emailjs-com';
 
 //utils
-import { dateFormater } from "./utils/dateFormater";
-import Settings from "./components/Settings/Settings";
+import { dateFormater } from './utils/dateFormater';
+import Settings from './components/Settings/Settings';
 const SERVICE_ID = import.meta.env.VITE_APP_SERVICEKEY;
 const TEMPLATE_ID = import.meta.env.VITE_APP_TEMPLATEID;
 const EMAIL_ID = import.meta.env.VITE_APP_EMAILKEY;
 
 function App() {
-  const dispatch = useDispatch();
-  const isFirstLoadRef = useRef(true);
-  const settings = useSelector((store) => store.settingsReducer.value);
+    const dispatch = useDispatch();
+    const settings = useSelector((store) => store.settingsReducer.value);
 
+    const fetchCompleteData = () => {
+        const queryRef = query(collection(db, 'respuestas-reportes'), orderBy('date', 'desc'));
+        const unsub = onSnapshot(queryRef, (snapshot) => {
+            const docs = snapshot.docs.map((doc) => {
+                const timestamp = doc.data().date;
+                const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toString();
+                return {
+                    ...doc.data(),
+                    id: doc.id,
+                    date,
+                    dateFormated: dateFormater(new Date(date)),
+                };
+            });
 
-  useEffect(() => {
-    const queryRef = collection(db, "respuestas-reportes");
-    const unsub = onSnapshot(queryRef, (snapshot) => {
-      const docs = snapshot.docs.map((doc) => {
-        const timestamp = doc.data().date;
-        const date = new Date(
-          timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-        ).toString();
-        return {
-          ...doc.data(),
-          id: doc.id,
-          date,
-          dateFormated: dateFormater(new Date(date)),
+            dispatch(setData(docs));
+
+            const newLatestDocId = snapshot.docs.length > 0 ? snapshot.docs[0].id : null;
+            if (newLatestDocId) {
+                const lastDocRef = doc(db, 'respuestas-reportes', newLatestDocId);
+                getDoc(lastDocRef)
+                    .then((doc) => {
+                        if (doc.exists()) {
+                            const lastDocData = doc.data();
+
+                            if (lastDocData.client.rating <= settings) {
+                                const templateParams = {
+                                    to_email: 'isidromolina268@gmail.com',
+                                    message: `Nuevo documento con rating ${lastDocData.client.rating} agregado. Tu ajuste: ${settings}`,
+                                };
+                                emailjs
+                                    .send(SERVICE_ID, TEMPLATE_ID, templateParams, EMAIL_ID)
+                                    .then((response) => {
+                                        //alert(Nuevo doc con indice menor a ${settings} agregado)
+                                        console.log('Email sent successfully:', response);
+                                    })
+                                    .catch((error) => {
+                                        console.error('Email failed to send:', error);
+                                    });
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al traer el ultimo doc', error);
+                    });
+                dispatch(setLatestDocId(newLatestDocId));
+            }
+        });
+
+        return () => {
+            unsub();
         };
-      });
-
-      dispatch(setData(docs));
-
-      snapshot.docChanges().forEach((change) => {
-        // if (!isFirstLoadRef.current) {
-        //   if (change.type === "added") {
-        //     const newDoc = change.doc.data();
-
-        //     if (newDoc.client.rating <= settings) {
-        //       // Email sending logic
-        //       const templateParams = {
-        //         to_email: "isidromolina268@gmail.com", // Recipient email address
-        //         message: `New document with rating ${newDoc.client.rating} added. Threshold: ${settings}`,
-        //       };
-
-        //       emailjs
-        //         .send(SERVICE_ID, TEMPLATE_ID, templateParams, EMAIL_ID)
-        //         .then((response) => {
-        //           //alert(Nuevo doc con indice menor a ${settings} agregado)
-        //           console.log("Email sent successfully:", response);
-        //         })
-        //         .catch((error) => {
-        //           console.error("Email failed to send:", error);
-        //         });
-
-        //       console.log(
-        //         `New doc with rating ${newDoc.client.rating} added. Threshold: ${settings}`
-        //       );
-        //     }
-        //   }
-        // }
-        // console.log(change);
-      })
-      isFirstLoadRef.current = false;
-    });
-
-    return () => {
-      unsub();
     };
-  }, []);
+
+    useEffect(() => {
+        fetchCompleteData();
+    }, []);
 
   return (
     <main className="app__main">
@@ -95,7 +94,7 @@ function App() {
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/404" element={<Page404 />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </main>
   );

@@ -9,39 +9,39 @@
   position: fixed;
   left: 0;
   background-color: white;
-}
 
-.bar {
-  margin: 35px 0px;
-  color: rgba(0, 0, 0, 0.1);
-}
-
-.list {
-  color: rgb(120, 120, 120);
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.item-list {
-  display: flex;
-  margin-bottom: 42px;
-  cursor: pointer;
-  :hover {
-    color: rgb(100, 100, 100);
+  .bar {
+    margin: 35px 0px;
+    color: rgba(0, 0, 0, 0.1);
   }
-}
 
-.icon-size {
-  margin-right: 15px;
-}
+  .list {
+    color: rgb(120, 120, 120);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 90%;
+    margin: 0 auto;
 
-.item-list p {
-  font-size: 21px;
-  font-weight: 900;
-  font-family: sans-serif;
-  color: rgb(120, 120, 120);
+    .item-list {
+      display: flex;
+      margin-bottom: 42px;
+      cursor: pointer;
+      :hover {
+        color: rgb(100, 100, 100);
+      }
+
+      .icon-size {
+        margin-right: 15px;
+      }
+    }
+
+    .item-list p {
+      font-size: 21px;
+      font-weight: 900;
+      font-family: sans-serif;
+      color: rgb(120, 120, 120);
+    }
+  }
 }

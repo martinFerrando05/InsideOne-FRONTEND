@@ -7,10 +7,10 @@ import truncateFunctions from "../../../utils/truncateFunctions";
 import { specificAgentData } from "../../../utils/AgentsScreen/agents";
 
 const RowTable = ({ openModal }) => {
+  const paginatedItems = useSelector((store) => store.firestoreReducer.paginatedData);
   const location = useLocation();
-  const items = useSelector((store) => store.firestoreReducer.data);
   const isConversationsView = location.pathname === "/conversations";
-  const agentsScreenData = specificAgentData(items);
+  const agentsScreenData = specificAgentData(paginatedItems);
   const arrayRenderToAgentsData = [];
 
   const renderObjectWithAgentsProperties = () => {
@@ -18,7 +18,7 @@ const RowTable = ({ openModal }) => {
       location.pathname != "/conversations"
         ? arrayRenderToAgentsData.push(
             <tr key={key} style={{ cursor: "auto" }}>
-              <td>{key.length > 20 ? key.slice(0, 20) + "..." : key}</td>
+              <td>{truncateFunctions(key)}</td>
               <td className="bold center-text">
                 {agentsScreenData[key].totalInteractions}
               </td>
@@ -51,8 +51,8 @@ const RowTable = ({ openModal }) => {
   return (
     <tbody>
       {isConversationsView
-        ? items &&
-          items?.map((el, i) => {
+        ? paginatedItems &&
+          paginatedItems?.map((el, i) => {
             return (
               <tr key={i} onClick={() => openModal(el)}>
                 <td className="item-date">{el.dateFormated}</td>

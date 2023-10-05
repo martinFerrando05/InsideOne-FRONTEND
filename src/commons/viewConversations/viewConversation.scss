@@ -1,13 +1,3 @@
-.modal-conversation {
-  position: relative;
-  width: 55%;
-  height: 90%;
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  color: black;
-}
-
 .modal-overlay-conversation {
   position: fixed;
   top: 0;
@@ -19,33 +9,43 @@
   justify-content: center;
   align-items: center;
   z-index: 100;
-}
 
-.box-conversation p {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
+  .modal-conversation {
+    position: relative;
+    width: 55%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    color: black;
 
-.box-conversation {
-  padding: 40px;
-}
+    .close-button-conversation {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: absolute;
+      top: 5px;
+      left: -8px;
+      color: #555;
+      &:active {
+        border: none;
+      }
+    }
 
-.close-button-conversation {
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  position: absolute;
-  top: 5px;
-  left: -8px;
-  color: #555;
-  &:active {
-    border: none;
+    .box-conversation {
+      padding: 40px;
+
+      span {
+        font-weight: bold;
+        color: #62d6f9;
+      }
+
+      p {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+    }
   }
-}
-
-span {
-  font-weight: bold;
-  color: #62d6f9;
 }

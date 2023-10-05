@@ -120,6 +120,7 @@ const FilterButtons = ({ filters, setFilters, filtersInitialValues }) => {
     console.log(dataFiltered);
   };
 
+
   const handleCleanFilter = () => {
     setFilters({ ...filtersInitialValues, emotion: [] });
   };
