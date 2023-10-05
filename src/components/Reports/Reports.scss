@@ -1,11 +1,26 @@
+@import '../../assets/styles/variables';
 
-.container-reports{
-  width: 80%;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  position: absolute;
- 
+.container-reports {
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+}
+
+.buttons__ {
+    &main {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+        border: 2px solid gray;
+        width: 80%;
+        
+        button {
+            background-color: $lightBlueInsideOne;
+            margin: 10px;
+        }
+    }
 }

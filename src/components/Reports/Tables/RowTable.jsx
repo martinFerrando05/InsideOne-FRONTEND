@@ -6,8 +6,8 @@ import { dateFormater } from '../../../utils/dateFormater';
 import truncateFunctions from '../../../utils/truncateFunctions';
 
 const RowTable = ({ openModal }) => {
+    const paginatedItems = useSelector((store) => store.firestoreReducer.paginatedData);
 
-    const items = useSelector((store) => store.firestoreReducer.data);
     const location = useLocation();
     const isReportsView = location.pathname === '/conversations';
 
@@ -25,31 +25,33 @@ const RowTable = ({ openModal }) => {
     };
 
     return (
-        <tbody>
-            {items && items?.map((el, i) => {
-                
-                return el.client && isReportsView ? (
-                    <tr key={i}  onClick={() => openModal(el)}>
-                        <td className="item-date">{el.dateFormated}</td>
-                        <td className="item-rating">{el.client.rating}%</td>
-                        <td>
-                            <p className={parseInt(el.client.rating) < 40 ? 'status-negative' : parseInt(el.client.rating) >= 40 && parseInt(el.client.rating) < 70 ? 'status-medium' : 'status-positive'}>{el.client.satisfaction_index}</p>
-                        </td>
-                        <td>{el.client.phone_number}</td>
-                        <td>{el.client.dni}</td>
-                        <td>{truncateFunctions(el.agent)}</td>
-                    </tr>
-                ) : (
-                    <tr onClick={()=>openModal(el)} key={i} className="item">
-                        <td>{el.dateFormated}</td>
-                        <td>{el.client.phone_number}</td>
-                        <td>{el.client.dni}</td>
-                        <td>{el.agent}</td>
-                        <td>{el.channel}</td>
-                    </tr>
-                );
-            })}
-        </tbody>
+        <>
+            <tbody>
+                {paginatedItems &&
+                    paginatedItems?.map((el, i) => {
+                        return el.client && isReportsView ? (
+                            <tr key={i} onClick={() => openModal(el)}>
+                                <td className="item-date">{el.dateFormated}</td>
+                                <td className="item-rating">{el.client.rating}%</td>
+                                <td>
+                                    <p className={parseInt(el.client.rating) < 40 ? 'status-negative' : parseInt(el.client.rating) >= 40 && parseInt(el.client.rating) < 70 ? 'status-medium' : 'status-positive'}>{el.client.satisfaction_index}</p>
+                                </td>
+                                <td>{el.client.phone_number}</td>
+                                <td>{el.client.dni}</td>
+                                <td>{truncateFunctions(el.agent)}</td>
+                            </tr>
+                        ) : (
+                            <tr onClick={() => openModal(el)} key={i} className="item">
+                                <td>{el.dateFormated}</td>
+                                <td>{el.client.phone_number}</td>
+                                <td>{el.client.dni}</td>
+                                <td>{el.agent}</td>
+                                <td>{el.channel}</td>
+                            </tr>
+                        );
+                    })}
+            </tbody>
+        </>
     );
 };
 
