@@ -1,8 +1,8 @@
-//estail
-import './App.scss';
-//riat
-import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router';
+//styles
+import "./App.scss";
+//react
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router";
 //firestore
 import { collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from './config/firebase';
@@ -27,6 +27,7 @@ const EMAIL_ID = import.meta.env.VITE_APP_EMAILKEY;
 function App() {
     const dispatch = useDispatch();
     const settings = useSelector((store) => store.settingsReducer.value);
+    const location = useLocation();
 
     const fetchCompleteData = () => {
         const queryRef = query(collection(db, 'respuestas-reportes'), orderBy('date', 'desc'));
@@ -87,14 +88,16 @@ function App() {
 
   return (
     <main className="app__main">
-      <Sidebar />
+      {location.pathname !== "/404" && 
+      <Sidebar />}
       <Routes>
         <Route path="/agents" element={<Reports />} />
         <Route path="/conversations" element={<Reports />} />
         <Route path="/metrics" element={<Metrics />} />
         <Route path="/emotions" element={<EmotionAnalysis />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<Page404 />} />
+        <Route path="404" element={<Page404 />} />
+        <Route path="*" element={<Navigate to="404" />} />
       </Routes>
     </main>
   );
