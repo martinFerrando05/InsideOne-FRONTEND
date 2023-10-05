@@ -143,6 +143,7 @@ const Filters = () => {
             filtersInitialValues={filtersInitialValues}
             filters={filters}
             setFilters={setFilters}
+            setShowFilter={setShowFilter}
           />
         </ul>
       </div>
