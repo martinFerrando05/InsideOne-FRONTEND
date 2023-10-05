@@ -15,7 +15,7 @@ import cross from "../../../assets/icons/cross.svg";
 //utils
 import { dateFormater } from "../../../utils/dateFormater";
 const filtersInitialValues = {
-  date: { start: new Date(), end: new Date() },
+  date: { start:null, end: null },
   rating: {
     min: 0,
     max: 100,
@@ -51,6 +51,30 @@ const Filters = () => {
     bajo: 'low',
     index: ''
   }
+  
+  let conditionsDates 
+  
+    if(filters.date.start && filters.date.end) {
+      conditionsDates = 'hasBothDates'
+    }
+    else if (filters.date.start && !filters.date.end){
+      conditionsDates = 'hasOnlyStartDate'
+    }else{
+      conditionsDates = 'hasNotDates'
+    }
+ 
+
+  const showText = {
+    hasBothDates:  <>
+    <p>Desde: {filters.date.start &&  dateFormater(filters.date.start, false)} </p>
+    <p>Hasta: {filters.date.end && dateFormater(filters.date.end, false)}</p>
+   </> ,
+    hasOnlyStartDate:
+    <p>De la fecha: {filters.date.start &&  dateFormater(filters.date.start, false)} </p>
+ ,
+    hasNotDates: 
+    <p>Todas las fechas</p>
+  }
   return (
     <section 
     onClick={()=>setShowEmotions(false)}
@@ -66,8 +90,10 @@ const Filters = () => {
         <div className="filters__container">
           <li className="filters__container_li">
             <h5>Fecha:</h5>
-            <p>Desde: {dateFormater(filters.date.start, false)} </p>
-            <p>Hasta: {dateFormater(filters.date.end, false)}</p>
+
+            {
+              showText[conditionsDates]
+            }
           </li>
           <li className="filters__container_li">
             <h5>Rating: </h5>
