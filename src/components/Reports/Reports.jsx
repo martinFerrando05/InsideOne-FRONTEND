@@ -31,7 +31,7 @@ const Reports = () => {
       : isConversationView
       ? data?.length / itemsPerPage
       : agentsState?.length / itemsPerPage
-  );
+  )
 
   const handleOpenModal = (report) => {
     setSelectedReport(report);
