@@ -1,0 +1,17 @@
+@import '../../assets/styles/variables';
+
+.home__ {
+    &main {
+        width: 78vw;
+        margin: 0 auto;
+        margin-left: 300px;
+        margin-top: 10px;
+        color: black;
+
+        h1 {
+            padding: 10px;
+            margin-top: 30px;
+            color: $lightBlueInsideOne;
+        }
+    }
+}

@@ -1,11 +1,38 @@
-.settings__ {
+@import '../../assets/styles/mixins';
 
-    &main{
-        width: 74vw;
+.settings__ {
+    &main {
+        width: 78vw;
         margin: 0 auto;
         margin-left: 300px;
         margin-top: 10px;
         color: black;
-        border: 2px solid black;
+
+        h1{
+            margin-top: 20px;
+        }
+    }
+
+    &container {
+        margin-top: 10px;
+        padding: 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        span {
+            margin: 30px;
+        }
+
+        label {
+            display: flex;
+            margin-left: 40px
+        }
+
+        button {
+            @include defaultButton;
+            width: auto;
+        }
     }
 }

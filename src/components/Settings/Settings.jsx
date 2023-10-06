@@ -18,14 +18,16 @@ const Settings = () => {
 
     return (
         <div className="settings__main">
-            <h1>Settings</h1>
-            <label>
-                Selecciona el rating
-                <input className="" min={0} max={100} value={settings} type="range" onChange={handleRatingUpdate} name="max" />
-            </label>
-            {settings}
+            <h1>Ajustes</h1>
 
-            <button onClick={handleReset}>Resetear</button>
+            <div className="settings__container">
+                <label>
+                    <span>Índice de rating para notificaciones</span>
+                    <input className="" min={0} max={100} value={settings} type="range" onChange={handleRatingUpdate} name="max" />
+                </label>
+                {settings}
+                <button onClick={handleReset}>Resetear</button>
+            </div>
         </div>
     );
 };
