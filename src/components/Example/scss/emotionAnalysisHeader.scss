@@ -1,0 +1,51 @@
+.emotionAnalysisHeader__{
+
+  &main{
+
+    width: 100%;
+    height: 6rem;
+    position: relative;
+    h1 {
+      margin: 20px 0;
+      color: rgb(12, 45, 58);
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.239);
+    }
+  
+    .emotionAnalysisHeader__logo_p5 {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      width: 52px;
+    }
+  }
+
+  &cont_logo {
+    position: absolute;
+  
+    display: flex;
+    align-items: center;
+    top: 10px;
+    left: 20px;
+  
+
+  
+      h2 {
+        margin: 0 10px;
+      
+        color: #ec56a8;
+      }
+    }
+    &logo {
+      width: 100px;
+
+     
+    }
+    &logo:nth-child(1) {
+      top: 0;
+      
+      width: 60px;
+    }
+  }
+  
