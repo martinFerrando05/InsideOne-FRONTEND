@@ -1,0 +1,32 @@
+.emotionAnalysis__ {
+  &main {
+    width: 90%;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-left: 260px;
+
+    p {
+      color: black;
+      span {
+        color: #4dc2f1;
+        font-weight: bold;
+      }
+    }
+  } 
+  
+  
+  &container{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+  }
+
+}
