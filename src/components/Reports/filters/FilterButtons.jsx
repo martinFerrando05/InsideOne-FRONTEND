@@ -8,6 +8,7 @@ import {
 
 //styles
 import "./scss/filterButtons.scss";
+import { useLocation } from "react-router";
 //utils
 
 const FilterButtons = ({
@@ -19,6 +20,9 @@ const FilterButtons = ({
   const dataFirestore = useSelector((store) => store.firestoreReducer);
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const isConversationView = location.pathname;
+
   const handleFilter = () => {
     const validations = {
       hasRating: filters.rating !== filtersInitialValues.rating,
@@ -106,9 +110,11 @@ const FilterButtons = ({
       if (validations.hasPhoneNumber) {
         const numberWithOutPlusSign = phoneNumber.replace(/\+/g, "");
         const filterPhoneNumber = filters.phoneNumber;
-        const phoneNumberStartWith = numberWithOutPlusSign.startsWith(filterPhoneNumber);
+        const phoneNumberStartWith =
+          numberWithOutPlusSign.startsWith(filterPhoneNumber);
         conditions.push(
-          numberWithOutPlusSign.indexOf(filterPhoneNumber) !== -1 && phoneNumberStartWith
+          numberWithOutPlusSign.indexOf(filterPhoneNumber) !== -1 &&
+            phoneNumberStartWith
         );
       }
 
@@ -143,7 +149,8 @@ const FilterButtons = ({
 
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("data")));
-  }, [dataFirestore.data]);
+    handleCleanFilter()
+  }, [dataFirestore.data, isConversationView]);
   return (
     <div className="filterButtons__main">
       <button onClick={handleFilter} className="filterButtons__buttons">

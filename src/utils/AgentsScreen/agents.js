@@ -1,11 +1,13 @@
 export const specificAgentData = (items) => {
   let agents_stats = {};
   let agents = {};
+  const arr = []
 
   items?.map((el) => {
     if (!agents[el.agent]) agents[el.agent] = [];
     agents[el.agent].push(el);
   });
+
 
   for (const name in agents) {
     let suma = 0;
@@ -14,7 +16,8 @@ export const specificAgentData = (items) => {
     let largo = agents[name].length;
 
     
-    agents_stats[name] = { promediumTotalRating: Math.ceil(suma / largo) };
+    agents_stats[name] = { agentName: name}
+    agents_stats[name] = { ...agents_stats[name], promediumTotalRating: Math.ceil(suma / largo) };
     agents_stats[name] = {...agents_stats[name], totalInteractions: largo};
     agents_stats[name].promediumTotalRating < 40
       ? (agents_stats[name] = {
@@ -31,7 +34,9 @@ export const specificAgentData = (items) => {
           ...agents_stats[name],
           satisfactionPromediumIndex: "Alto",
         });
+
+      arr.push(agents_stats[name])
   }
 
-  return agents_stats;
+  return arr;
 };

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { specificAgentData } from "../../../utils/AgentsScreen/agents";
 
 export const firestoreSlice = createSlice({
   name: "firestore",
@@ -12,10 +13,12 @@ export const firestoreSlice = createSlice({
     firstDocId: null,
     lastDocId: null,
     filter: null,
+    agentsState: null
   },
   reducers: {
     setData: (state, { payload }) => {
       state.data = payload;
+      state.agentsState = specificAgentData(payload)
       localStorage.setItem("data", JSON.stringify(payload));
     },
     setPaginatedData: (state, { payload }) => {
