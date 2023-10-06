@@ -78,7 +78,8 @@ const Filters = () => {
   return (
     <section 
     onClick={()=>setShowEmotions(false)}
-    className="filters__main">
+    className="filters__main" >
+      
       <div
         onClick={() => setShowFilter(!showFilter)}
         className="filters__cont_icon"

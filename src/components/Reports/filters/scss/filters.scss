@@ -5,12 +5,8 @@
     flex-direction: row;
     margin: 0 auto;
     align-items: flex-end;
-    background: rgb(46, 155, 255);
-    background: linear-gradient(
-      0deg,
-      rgba(46, 155, 255, 1) 0%,
-      rgba(120, 176, 228, 0.7679446778711485) 100%
-    );
+    background: #fff;
+    
     justify-content: start;
     min-height: 100px;
     width: 100%;
@@ -175,18 +171,14 @@
     position: absolute;
     flex-direction: column;
     width: 100%;
-    background: rgb(4, 55, 87);
-    background: linear-gradient(
-      0deg,
-      rgba(4, 55, 87, 1) 0%,
-      rgb(46, 154, 255) 100%
-    );
+    background: #fff;
     z-index: 20;
     height: 21rem;
     bottom: -21rem;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.178);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.178);
     border-radius: 0 0 7px 7px;
     user-select: none;
+    color: black;
     h4 {
       margin-top: 0.5rem;
     }

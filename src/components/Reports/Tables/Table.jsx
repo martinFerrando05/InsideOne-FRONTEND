@@ -16,7 +16,7 @@ const Table = ({ openModal }) => {
         sheet="OneReport"
         currentTableRef={tableRef.current}
       >
-        <button> Export Excel </button>
+        <button> Exportar Excel </button>
       </DownloadTableExcel>
 
       <table ref={tableRef}>

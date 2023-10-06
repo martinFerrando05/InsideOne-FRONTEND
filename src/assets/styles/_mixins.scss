@@ -2,7 +2,7 @@
 
 @mixin defaultButton {
     background-color: $lightBlueInsideOne;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.127);
+    box-shadow: 2px -3px 10px rgba(0, 0, 0, 0.127);
     font-weight: bold;
     outline: none;
     border: transparent;

@@ -23,11 +23,15 @@ const Reports = () => {
   const { data, currentPage, itemsPerPage, filter, agentsState } = useSelector(
     (store) => store.firestoreReducer
   );
+  const isConversationView = location.pathname === "/conversations";
+
   const totalPages = Math.ceil(
-    filter ? filter?.length / itemsPerPage : data?.length / itemsPerPage
+    filter
+      ? filter?.length / itemsPerPage
+      : isConversationView
+      ? data?.length / itemsPerPage
+      : agentsState?.length / itemsPerPage
   );
-  const isConversationView =
-    location.pathname === "/conversations" ? "conversation" : "agent";
 
   const handleOpenModal = (report) => {
     setSelectedReport(report);
