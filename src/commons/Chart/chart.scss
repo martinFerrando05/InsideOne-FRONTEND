@@ -16,14 +16,14 @@
         @media screen and (max-width: 1440px) {
             height: 370px;
         }
-        
+
         .donut {
             padding: 10px;
             border-radius: 7px;
             background-color: rgba(211, 211, 211, 0.338);
         }
     }
-    
+
     .bar_charts {
         border-radius: 7px;
         width: 100%;
@@ -32,17 +32,21 @@
         padding: 30px;
         display: flex;
         gap: 20px;
-        
-        .bar{
+
+        .bar {
             background-color: rgba(211, 211, 211, 0.338);
             padding: 10px;
             width: 800px;
+            width: 10%;
             margin: 0 auto;
             border-radius: 7px;
+            @media screen and (max-width: 1440px) {
+                width: 100% !important;
+            }
         }
     }
 
-      .totalizators_container{
+    .totalizators_container {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -50,6 +54,5 @@
         align-items: center;
         justify-content: center;
         margin-top: 3%;
-      }
-
+    }
 }

@@ -20,6 +20,7 @@ import emailjs from 'emailjs-com';
 //utils
 import { dateFormater } from './utils/dateFormater';
 import Settings from './components/Settings/Settings';
+import Home from './components/Home/Home';
 const SERVICE_ID = import.meta.env.VITE_APP_SERVICEKEY;
 const TEMPLATE_ID = import.meta.env.VITE_APP_TEMPLATEID;
 const EMAIL_ID = import.meta.env.VITE_APP_EMAILKEY;
@@ -90,6 +91,7 @@ function App() {
         <main className="app__main">
             {location.pathname !== '/404' && <Sidebar />}
             <Routes>
+                <Route path="/" element={<Metrics />} />
                 <Route path="/agents" element={<Reports />} />
                 <Route path="/conversations" element={<Reports />} />
                 <Route path="/metrics" element={<Metrics />} />
