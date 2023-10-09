@@ -16,6 +16,9 @@ import Reports from './components/Reports/Reports';
 import Metrics from './components/Metrics/Metrics';
 import Page404 from './components/Page404/Page404';
 import emailjs from 'emailjs-com';
+//toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //utils
 import { dateFormater } from './utils/dateFormater';
@@ -46,36 +49,36 @@ function App() {
 
             dispatch(setData(docs));
 
-            const newLatestDocId = snapshot.docs.length > 0 ? snapshot.docs[0].id : null;
-            if (newLatestDocId) {
-                const lastDocRef = doc(db, 'respuestas-reportes', newLatestDocId);
-                getDoc(lastDocRef)
-                    .then((doc) => {
-                        if (doc.exists()) {
-                            const lastDocData = doc.data();
+            // const newLatestDocId = snapshot.docs.length > 0 ? snapshot.docs[0].id : null;
+            // if (newLatestDocId) {
+            //     const lastDocRef = doc(db, 'respuestas-reportes', newLatestDocId);
+            //     getDoc(lastDocRef)
+            //         .then((doc) => {
+            //             if (doc.exists()) {
+            //                 const lastDocData = doc.data();
 
-                            if (lastDocData.client.rating <= settings) {
-                                const templateParams = {
-                                    to_email: 'isidromolina268@gmail.com',
-                                    message: `Nuevo documento con rating ${lastDocData.client.rating} agregado. Tu ajuste: ${settings}`,
-                                };
-                                emailjs
-                                    .send(SERVICE_ID, TEMPLATE_ID, templateParams, EMAIL_ID)
-                                    .then((response) => {
-                                        //alert(Nuevo doc con indice menor a ${settings} agregado)
-                                        console.log('Email sent successfully:', response);
-                                    })
-                                    .catch((error) => {
-                                        console.error('Email failed to send:', error);
-                                    });
-                            }
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error al traer el ultimo doc', error);
-                    });
-                dispatch(setLatestDocId(newLatestDocId));
-            }
+            //                 if (lastDocData.client.rating <= settings) {
+            //                     const templateParams = {
+            //                         to_email: 'isidromolina268@gmail.com',
+            //                         message: `Nuevo documento con rating ${lastDocData.client.rating} agregado. Tu ajuste: ${settings}`,
+            //                     };
+            //                     emailjs
+            //                         .send(SERVICE_ID, TEMPLATE_ID, templateParams, EMAIL_ID)
+            //                         .then((response) => {
+            //                             //alert(Nuevo doc con indice menor a ${settings} agregado)
+            //                             console.log('Email sent successfully:', response);
+            //                         })
+            //                         .catch((error) => {
+            //                             console.error('Email failed to send:', error);
+            //                         });
+            //                 }
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             console.error('Error al traer el ultimo doc', error);
+            //         });
+            //     dispatch(setLatestDocId(newLatestDocId));
+            // }
         });
 
         return () => {
@@ -89,6 +92,7 @@ function App() {
 
     return (
         <main className="app__main">
+            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
             {location.pathname !== '/404' && <Sidebar />}
             <Routes>
                 <Route path="/" element={<Metrics />} />

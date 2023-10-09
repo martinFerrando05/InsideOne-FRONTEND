@@ -11,8 +11,12 @@ import sendIcon from "../../assets/icons/send.svg";
 const EmotionAnalysisChatBot = () => {
   const dataBot = useSelector((store) => store.demoEmotionAnalysisReducer);
   const [messageToSend, setMessageToSend] = useState("");
-
   const dispatch = useDispatch();
+
+  // const settings = JSON.parse(localStorage.getItem('settings'));
+  const settings = useSelector((store) => store.settingsReducer.value);
+  console.log('SETTINGS --->', settings);
+
   const handleChangeText = (e) => {
     const value = e.target.value;
     setMessageToSend(value);
@@ -34,6 +38,7 @@ const EmotionAnalysisChatBot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const typeChatbot = "chatbot";
     const mode = dataBot.mode 
     dispatch(setCoversation({role: 'user', content: messageToSend}))
@@ -51,8 +56,9 @@ const EmotionAnalysisChatBot = () => {
 
 
     dispatch(thunkDemoEmotionAnalysis(conversation, typeChatbot));
-    dispatch(thunkDemoEmotionAnalysis(modes[mode], "emotionAnalysis" , false , true));
+    dispatch(thunkDemoEmotionAnalysis(modes[mode], "emotionAnalysis" , false , settings));
     setMessageToSend("");
+
   };
 
 

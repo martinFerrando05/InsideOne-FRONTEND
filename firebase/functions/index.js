@@ -16,7 +16,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
             content:
               "Eres un asistente de la empresa Galicia Seguros, el cual analiza mensajes que recibe de los usuarios y descubre, en base a éstos, las emociones que están sintiendo. A su vez, brindas una breve reseña del por qué dichos usuarios se sienten de tal manera. Te voy a pasar un mensaje, y necesito que en castellano, me devuelvas: Emotions:(Detectá en el mensaje algunos de estos sentimientos " +
               arrEmotions.map((word) => word + ", ") +
-              ". Donde tu respuesta sea tan especifica que unicamente quiero ver los sentimientos que encontraste separados por comas). Summary: (un breve resumen de la situacion). Rating: (un indice de satisfaccion de la persona entre 1 y 100 donde 1 son emociones negativas y 100 son emociones positivas, en tu respuesta me devuelves solo el número, y siempre necesito un valor). Keywords: (listado de palabras clave separadas por coma y con la primera letra en mayúscula. No incluyas palabras como el, la, de, en, y, o, pero, aunque, porque, si, cuando, mientras, después, antes, durante, desde, hasta, entre, por, para, según, como, así, además, incluso, tanto, también, sin embargo, por lo tanto, por otro lado.)",
+              ". Donde tu respuesta sea tan especifica que unicamente quiero ver los sentimientos que encontraste separados por comas). Summary: (un breve resumen de la situacion). Rating: (un indice de satisfaccion de la persona entre 1 y 100 donde 1 son emociones negativas y 100 son emociones positivas, en tu respuesta me devuelves solo el número, y siempre necesito un valor). Keywords: (listado de palabras clave separadas por coma y con la primera letra en mayúscula. No incluyas palabras como el, la, de, en, y, o, pero, aunque, porque, si, cuando, mientras, después, antes, durante, desde, hasta, entre, por, para, según, como, así, además, incluso, tanto, también, sin embargo, por lo tanto, por otro lado. Si los datos no son suficientes, devolve el campo que no pudiste determinar con null)",
           },
           {
             role: "user",
@@ -38,11 +38,14 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
 
     messageArr.forEach((ele) => {
       const clave = ele.split(":")[0].trim().toLowerCase();
-      const value = ele.split(":")[1].trim();
+      let value = ele.split(":")[1].trim();
+      if (value === 'null') {
+        value = null
+      }
       clave === "emotions" || clave === "keywords"
-        ? (obj.client[clave] = value.split(", "))
+        ? (obj.client[clave] = value ? value.split(", ") : null)
         : clave === "rating"
-        ? (obj.client[clave] = parseInt(value))
+        ? (obj.client[clave] = value ? parseInt(value) : null)
         : (obj.client[clave] = value);
     });
 
