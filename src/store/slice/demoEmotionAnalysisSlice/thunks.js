@@ -1,3 +1,6 @@
+
+//MESSI THUNK ⭐⭐⭐
+
 //firestore
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
@@ -16,9 +19,11 @@ const SERVICE_ID = import.meta.env.VITE_APP_SERVICEKEY;
 const TEMPLATE_ID = import.meta.env.VITE_APP_TEMPLATEID;
 const EMAIL_ID = import.meta.env.VITE_APP_EMAILKEY;
 
+
 // toastify
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export function thunkDemoEmotionAnalysis(messageToSend, type = 'chatbot', reset = false, settings) {
     const typesFunctions = {
@@ -34,7 +39,7 @@ export function thunkDemoEmotionAnalysis(messageToSend, type = 'chatbot', reset 
             const { data } = response;
 
             if (type === 'chatbot') {
-                dispatch(setCoversation(data));
+                dispatch(setCoversation({role: 'assistant' , content: data }));
             } else {
               let test = data.client
               console.log('------>', test);

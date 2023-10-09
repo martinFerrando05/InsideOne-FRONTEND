@@ -6,7 +6,10 @@ export const demoEmotionAnalysisSlice = createSlice({
   initialState: {
     singleEmotionAnalysis: null,
     allSingleAnalysis: [],
-    conversation: null,
+    conversation: [{
+      role: 'system',
+      content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
+    }],
     allConversationAnalyis: null,
     mode: 'singleMessage',
     loadingConversation: false,
@@ -14,8 +17,7 @@ export const demoEmotionAnalysisSlice = createSlice({
   },
   reducers: {
     setCoversation: (state, { payload }) => {
-      
-      state.conversation = payload?.conversationChatBot.slice(1)
+      state.conversation.push(payload)
       state.loadingConversation = false
     },
     setSingleEmotionAnalisys: (state, { payload }) => {

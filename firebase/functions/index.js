@@ -7,10 +7,9 @@ dotenv.config();
 const apiKey = process.env.APIKEY;
 const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
-
-
 exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
-  const { text } = req.body;
+  const { text  } = req.body;
+
   const singleAnalysis = [
      {
             role: "system",
@@ -21,7 +20,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
           },
           {
             role: "user",
-            content: text,
+            content: text ,
           },
   ]
 
@@ -35,7 +34,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
     const message = creatingQuery.choices[0].message.content;
     const messageArr = message.split("\n");
     let obj = { client: {} };
-    let random = Math.ceil(Math.random() * agents.length);
+    let random = Math.floor(Math.random() * agents.length -1);
 
     messageArr.forEach((ele) => {
       const clave = ele.split(":")[0].trim().toLowerCase();
@@ -69,51 +68,25 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
 
 // — 06/10/2023 9:10
 
-let conversationChatBot = [{
-  role: 'system',
-  content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
-
-}]
 
 exports.chatAssistantBotGalicia = onRequest({ cors: true }, async (req, res) => {
-  const { text , reset = false } = req.body;
-  
-  if(!reset){
-  
-      conversationChatBot.push(
-        {
-          role: "user",
-          content: text
-        }
-        )
+  const { text: conversation , reset = false } = req.body;
+
+
+
+
     openai.chat.completions
       .create({
-        messages:conversationChatBot,
+        messages:conversation,
         model: "gpt-3.5-turbo",
         temperature: 0.8,
         max_tokens: 100,
       })
       .then((completion) => {
         const message = completion.choices[0].message.content;
-        conversationChatBot.push(
-          {
-            role: "assistant",
-            content: message
-          }
-        )
-      res.send({ conversationChatBot }) 
+        
+      res.send( message ) 
       })
       .catch((err) => console.error(err));
-  }else{
-    conversationChatBot = [{
-      role: 'system',
-      content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
-    }]
 
-
-    console.log(conversationChatBot);
-
-
-    res.send({ conversationChatBot })
-  }
 });
