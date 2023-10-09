@@ -1,6 +1,6 @@
 import { useState } from "react";
 //redux
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkDemoEmotionAnalysis } from "../../store/slice/demoEmotionAnalysisSlice";
 import { setCoversation } from "../../store/slice/demoEmotionAnalysisSlice";
 //styles
@@ -9,30 +9,54 @@ import "./scss/emotionAnalysisChatBot.scss";
 import sendIcon from "../../assets/icons/send.svg";
 
 const EmotionAnalysisChatBot = () => {
-  const dataBot = useSelector(store=> store.demoEmotionAnalysisReducer)
+  const dataBot = useSelector((store) => store.demoEmotionAnalysisReducer);
   const [messageToSend, setMessageToSend] = useState("");
- 
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
   const handleChangeText = (e) => {
     const value = e.target.value;
-    console.log(value);
     setMessageToSend(value);
   };
 
-  const handleReset = () =>{
-    const TYPE = 'chatbot'
-    dispatch(thunkDemoEmotionAnalysis( messageToSend ,  TYPE , true))
-    
-    dispatch(setCoversation(null))
-  }
+
+
+  const handleReset = () => {
+    const TYPE = "chatbot";
+    dataBot.mode 
+    dispatch(thunkDemoEmotionAnalysis(messageToSend, TYPE, true));
+    dispatch(setCoversation([{
+      role: 'system',
+      content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
+    }]));
+  };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const TYPE = 'chatbot'
-    dispatch(thunkDemoEmotionAnalysis( messageToSend ,  TYPE ))
-    dispatch(thunkDemoEmotionAnalysis(messageToSend, 'emotionAnalysis'))
-    setMessageToSend('')
+    const typeChatbot = "chatbot";
+    const mode = dataBot.mode 
+    dispatch(setCoversation({role: 'user', content: messageToSend}))
+    const conversation = [...dataBot.conversation]
+    
+    conversation.push({role: 'user', content: messageToSend})
+    let conversationJoined = conversation.slice(1).map(({role, content})=>`${role}: ${content}`).join('\n');
+
+    
+    const modes = {
+      singleMessage: messageToSend,
+      duringTheConversation: conversationJoined,
+      toFinishTheChat: "Analisis al finalizar el chat",
+    };
+
+
+    dispatch(thunkDemoEmotionAnalysis(conversation, typeChatbot));
+    dispatch(thunkDemoEmotionAnalysis(modes[mode], "emotionAnalysis" , false , true));
+    setMessageToSend("");
   };
+
+
+
 
   return (
     <section className="emotionAnalysisChatBot__main">
@@ -45,31 +69,28 @@ const EmotionAnalysisChatBot = () => {
         <button onClick={handleReset}>Reiniciar</button>
       </header>
       <ul className="emotionAnalysisChatBot__chat">
-        {
-        dataBot.conversation &&
-        dataBot.conversation?.map((e, i) => {
-          const role = e.role
-          const message = e.content
+        {dataBot.conversation &&
+          dataBot.conversation?.slice(1).map((e, i) => {
+            const role = e.role;
+            const message = e.content;
 
-          const changeRoleToEnglish = {
-            user: "client",
-            assistant: "assistant",
-          }; 
+            const changeRoleToEnglish = {
+              user: "client",
+              assistant: "assistant",
+            };
 
-          return (
-            <li
-              key={i}
-              
-              className={
-                "emotionAnalysisChatBot__chat_single_message_" +
-                changeRoleToEnglish[role]
-              }
-            >
-              <p>{message}</p>
-            </li>
-           
-          )
-        })}
+            return (
+              <li
+                key={i}
+                className={
+                  "emotionAnalysisChatBot__chat_single_message_" +
+                  changeRoleToEnglish[role]
+                }
+              >
+                <p>{message}</p>
+              </li>
+            );
+          })}
       </ul>
 
       <form className="emotionAnalysisChatBot__form" onSubmit={handleSubmit}>

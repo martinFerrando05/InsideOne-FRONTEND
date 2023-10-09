@@ -8,14 +8,12 @@ export const specificAgentData = (items) => {
     agents[el.agent].push(el);
   });
 
-
   for (const name in agents) {
     let suma = 0;
-    let valuesRating = agents[name].map((el) => el.client.rating);
+    let valuesRating = agents[name]?.map((el) => el.client.rating);
     valuesRating.forEach((rating) => (suma += rating));
     let largo = agents[name].length;
 
-    
     agents_stats[name] = { agentName: name}
     agents_stats[name] = { ...agents_stats[name], promediumTotalRating: Math.ceil(suma / largo) };
     agents_stats[name] = {...agents_stats[name], totalInteractions: largo};

@@ -22,11 +22,10 @@ const EmotionAnalysisConversation = () => {
   const dispatch = useDispatch();
   const modes = {
     singleMessage: "Analisis en vivo por mensaje individual",
-    duringTheConversation: "Analisis en vivo de la conversación",
+    duringTheConversation: "Analisis en vivo de toda la conversación",
     toFinishTheChat: "Analisis al finalizar el chat",
   };
 
-  console.log(singleEmotionAnalysis);
   const handleOpenSelectMode = () => {
     setOpenSelect(!openSelect);
   };
@@ -34,7 +33,18 @@ const EmotionAnalysisConversation = () => {
     dispatch(setMode(mode));
   };
 
-  console.log(loadingAnalysis);
+  const switchModes = {
+    singleMessage: (
+      <EmotionAnalysisConversationSingleLifeMessage
+        loadingAnalysis={loadingAnalysis}
+        singleEmotionAnalysis={singleEmotionAnalysis}
+      />
+    ),
+    duringTheConversation: <EmotionAnalysisConversationDuringConversation  loadingAnalysis={loadingAnalysis}
+    singleEmotionAnalysis={singleEmotionAnalysis}/>,
+    toFinishTheChat:<EmotionAnalysisConversationToFinishTheChat />,
+  };
+
   return (
     <section className="emotionAnalysisConversation__main">
       <EmotionAnalysisConversationHeader
@@ -47,49 +57,7 @@ const EmotionAnalysisConversation = () => {
 
       <article className="emotionAnalysisConversation__container">
         <div className="emotionAnalysisConversation__container_analysis">
-          {loadingAnalysis ? (
-            <h2>Loading...</h2>
-          ) : (
-            singleEmotionAnalysis && (
-              <>
-                <li>
-                  <h3>Resumen:</h3>
-                  <p>{singleEmotionAnalysis.client.summary}</p>
-                </li>
-                {singleEmotionAnalysis.client.rating && 
-                
-                
-                  <li>
-                    <h3>Rating:</h3>
-                    <p>{singleEmotionAnalysis.client.rating}%</p>
-                  </li>
-                }
-                <li>
-                  <h3>Indice de satisfacción:</h3>
-                  <p>{singleEmotionAnalysis.client.satisfaction_index}</p>
-                </li>
-                <li>
-                  <h3>Emociones:</h3>
-                  <p>
-                    {singleEmotionAnalysis.client.emotions.map(
-                      (emotion, i, arr) =>
-                        arr[i + 1] ? emotion + ", " : emotion + "."
-                    )}
-                  </p>
-                </li>
-                <li>
-                
-                  <h3>Palabras clave:</h3>
-                  <p>
-                    {singleEmotionAnalysis.client.keywords.map(
-                      (emotion, i, arr) =>
-                        arr[i + 1] ? emotion + ", " : emotion + "."
-                    )}
-                  </p>
-                </li>
-              </>
-            )
-          )}
+          {switchModes[mode]}
         </div>
       </article>
     </section>
@@ -133,6 +101,150 @@ const EmotionAnalysisConversationHeader = ({
         })}
       </ul>
     </header>
+  );
+};
+
+const EmotionAnalysisConversationSingleLifeMessage = ({
+  loadingAnalysis,
+  singleEmotionAnalysis,
+}) => {
+  return (
+    <>
+      {loadingAnalysis ? (
+        <h2>Loading...</h2>
+      ) : (
+        singleEmotionAnalysis && (
+          <>
+            <li>
+              <h3>Resumen:</h3>
+              <p>{singleEmotionAnalysis.client.summary}</p>
+            </li>
+            {singleEmotionAnalysis.client?.rating && (
+              <li>
+                <h3>Rating:</h3>
+                <p>{singleEmotionAnalysis.client?.rating}%</p>
+              </li>
+            )}
+            <li>
+              <h3>Indice de satisfacción:</h3>
+              <p>{singleEmotionAnalysis.client?.satisfaction_index}</p>
+            </li>
+            <li>
+              <h3>Emociones:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.emotions.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+            <li>
+              <h3>Palabras clave:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+          </>
+        )
+      )}
+    </>
+  );
+};
+
+const EmotionAnalysisConversationToFinishTheChat = ({
+  loadingAnalysis,
+  singleEmotionAnalysis,
+}) => {
+  return (
+    <>
+      {loadingAnalysis ? (
+        <h2>Loading...</h2>
+      ) : (
+        singleEmotionAnalysis && (
+          <>
+            <li>
+              <h3>Resumen:</h3>
+              <p>{singleEmotionAnalysis.client.summary}</p>
+            </li>
+            {singleEmotionAnalysis.client?.rating && (
+              <li>
+                <h3>Rating:</h3>
+                <p>{singleEmotionAnalysis.client?.rating}%</p>
+              </li>
+            )}
+            <li>
+              <h3>Indice de satisfacción:</h3>
+              <p>{singleEmotionAnalysis.client?.satisfaction_index}</p>
+            </li>
+            <li>
+              <h3>Emociones:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.emotions.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+            <li>
+              <h3>Palabras clave:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+          </>
+        )
+      )}
+    </>
+  );
+};
+
+const EmotionAnalysisConversationDuringConversation = ({
+  loadingAnalysis,
+  singleEmotionAnalysis,
+}) => {
+  return (
+    <>
+      {loadingAnalysis ? (
+        <h2>Loading...</h2>
+      ) : (
+        singleEmotionAnalysis && (
+          <>
+            <li>
+              <h3>Resumen:</h3>
+              <p>{singleEmotionAnalysis.client.summary}</p>
+            </li>
+            {singleEmotionAnalysis.client?.rating && (
+              <li>
+                <h3>Rating:</h3>
+                <p>{singleEmotionAnalysis.client?.rating}%</p>
+              </li>
+            )}
+            <li>
+              <h3>Indice de satisfacción:</h3>
+              <p>{singleEmotionAnalysis.client?.satisfaction_index}</p>
+            </li>
+            <li>
+              <h3>Emociones:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.emotions.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+            <li>
+              <h3>Palabras clave:</h3>
+              <p>
+                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
+                  arr[i + 1] ? emotion + ", " : emotion + "."
+                )}
+              </p>
+            </li>
+          </>
+        )
+      )}
+    </>
   );
 };
 
