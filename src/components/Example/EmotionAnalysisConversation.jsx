@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import "./scss/emotionAnalysisConversation.scss";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setMode } from "../../store/slice/demoEmotionAnalysisSlice";
+import {
+  setMode,
+  thunkDemoEmotionAnalysis,
+} from "../../store/slice/demoEmotionAnalysisSlice";
 //assets - gifs
 import {
   GIF_MONO_LOADING,
@@ -40,9 +43,18 @@ const EmotionAnalysisConversation = () => {
         singleEmotionAnalysis={singleEmotionAnalysis}
       />
     ),
-    duringTheConversation: <EmotionAnalysisConversationDuringConversation  loadingAnalysis={loadingAnalysis}
-    singleEmotionAnalysis={singleEmotionAnalysis}/>,
-    toFinishTheChat:<EmotionAnalysisConversationToFinishTheChat />,
+    duringTheConversation: (
+      <EmotionAnalysisConversationDuringConversation
+        loadingAnalysis={loadingAnalysis}
+        singleEmotionAnalysis={singleEmotionAnalysis}
+      />
+    ),
+    toFinishTheChat: (
+      <EmotionAnalysisConversationToFinishTheChat
+        loadingAnalysis={loadingAnalysis}
+        singleEmotionAnalysis={singleEmotionAnalysis}
+      />
+    ),
   };
 
   return (
@@ -140,8 +152,9 @@ const EmotionAnalysisConversationSingleLifeMessage = ({
             <li>
               <h3>Palabras clave:</h3>
               <p>
-                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
-                  arr[i + 1] ? emotion + ", " : emotion + "."
+                {singleEmotionAnalysis.client?.keywords?.map(
+                  (emotion, i, arr) =>
+                    arr[i + 1] ? emotion + ", " : emotion + "."
                 )}
               </p>
             </li>
@@ -156,6 +169,25 @@ const EmotionAnalysisConversationToFinishTheChat = ({
   loadingAnalysis,
   singleEmotionAnalysis,
 }) => {
+  const { conversation } = useSelector(
+    (store) => store.demoEmotionAnalysisReducer
+  );
+  const settings = useSelector((store) => store.settingsReducer.value);
+
+  const dispatch = useDispatch();
+
+  const handleAnalize = () => {
+    let conversationJoined = conversation
+      .slice(1)
+      .map(({ role, content }) => `${role}: ${content}`)
+      .join("\n");
+    const type = "emotionAnalysis";
+    const reset = false;
+    dispatch(
+      thunkDemoEmotionAnalysis(conversationJoined, type, reset, settings)
+    );
+  };
+
   return (
     <>
       {loadingAnalysis ? (
@@ -188,14 +220,19 @@ const EmotionAnalysisConversationToFinishTheChat = ({
             <li>
               <h3>Palabras clave:</h3>
               <p>
-                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
-                  arr[i + 1] ? emotion + ", " : emotion + "."
+                {singleEmotionAnalysis.client?.keywords?.map(
+                  (emotion, i, arr) =>
+                    arr[i + 1] ? emotion + ", " : emotion + "."
                 )}
               </p>
             </li>
           </>
         )
       )}
+
+      <button onClick={handleAnalize} type="button">
+        Analizar
+      </button>
     </>
   );
 };
@@ -236,8 +273,9 @@ const EmotionAnalysisConversationDuringConversation = ({
             <li>
               <h3>Palabras clave:</h3>
               <p>
-                {singleEmotionAnalysis.client?.keywords?.map((emotion, i, arr) =>
-                  arr[i + 1] ? emotion + ", " : emotion + "."
+                {singleEmotionAnalysis.client?.keywords?.map(
+                  (emotion, i, arr) =>
+                    arr[i + 1] ? emotion + ", " : emotion + "."
                 )}
               </p>
             </li>

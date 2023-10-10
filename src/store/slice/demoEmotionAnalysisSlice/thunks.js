@@ -31,18 +31,23 @@ export function thunkDemoEmotionAnalysis(messageToSend, type = 'chatbot', reset 
         chatbot: URL_CHATBOT,
     };
 
+
+    console.log(messageToSend);
+  
     return async (dispatch) => {
         dispatch(setLoadingConversation(true));
-        dispatch(setLoadingAnalysis(true));
+        
         try {
             const response = await axios.post(typesFunctions[type], { text: messageToSend, reset });
             const { data } = response;
-
+    
             if (type === 'chatbot') {
                 dispatch(setCoversation({role: 'assistant' , content: data }));
             } else {
               let test = data.client
-              console.log('------>', test);
+              dispatch(setLoadingAnalysis(true));
+              dispatch(setSingleEmotionAnalisys(data));
+              console.log(data);
               for (const key in test) {
                 if (test[key] === null || test[key] === '') {
                   console.log('Datos no validos');
@@ -51,12 +56,12 @@ export function thunkDemoEmotionAnalysis(messageToSend, type = 'chatbot', reset 
               }
                 const rating = data.client.rating;
                 if (rating) {
-                    const queryRef = collection(db, 'respuestas-reportes');
-                    addDoc(queryRef, {
-                        ...data,
-                        question: input,
-                        date: Timestamp.fromDate(new Date()),
-                    });
+                    // const queryRef = collection(db, 'respuestas-reportes');
+                    // addDoc(queryRef, {
+                    //     ...data,
+                    //     question: messageToSend,
+                    //     date: Timestamp.fromDate(new Date()),
+                    // });
                     if (rating <= settings) {
                         const templateParams = {
                             to_email: 'isidromolina268@gmail.com',
@@ -75,8 +80,6 @@ export function thunkDemoEmotionAnalysis(messageToSend, type = 'chatbot', reset 
                 } else {
                     console.log('FALLO');
                 }
-
-                dispatch(setSingleEmotionAnalisys(data));
             }
         } catch (error) {
             console.error(error);

@@ -15,7 +15,7 @@ const EmotionAnalysisChatBot = () => {
 
   // const settings = JSON.parse(localStorage.getItem('settings'));
   const settings = useSelector((store) => store.settingsReducer.value);
-  console.log('SETTINGS --->', settings);
+  
 
   const handleChangeText = (e) => {
     const value = e.target.value;
