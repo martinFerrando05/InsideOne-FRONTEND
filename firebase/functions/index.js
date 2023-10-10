@@ -72,9 +72,6 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
 exports.chatAssistantBotGalicia = onRequest({ cors: true }, async (req, res) => {
   const { text: conversation , reset = false } = req.body;
 
-
-
-
     openai.chat.completions
       .create({
         messages:conversation,

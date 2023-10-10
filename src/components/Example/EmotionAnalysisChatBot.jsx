@@ -2,7 +2,7 @@ import { useState } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { thunkDemoEmotionAnalysis } from "../../store/slice/demoEmotionAnalysisSlice";
-import { setCoversation } from "../../store/slice/demoEmotionAnalysisSlice";
+import { setCoversation ,setIdConversation } from "../../store/slice/demoEmotionAnalysisSlice";
 //styles
 import "./scss/emotionAnalysisChatBot.scss";
 //assets - icons
@@ -15,50 +15,40 @@ const EmotionAnalysisChatBot = () => {
 
   // const settings = JSON.parse(localStorage.getItem('settings'));
   const settings = useSelector((store) => store.settingsReducer.value);
-  
 
   const handleChangeText = (e) => {
     const value = e.target.value;
     setMessageToSend(value);
   };
 
-
-
   const handleReset = () => {
-    const TYPE = "chatbot";
-    dataBot.mode 
-    dispatch(thunkDemoEmotionAnalysis(messageToSend, TYPE, true));
     dispatch(setCoversation([{
       role: 'system',
       content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
     }]));
+
+    dispatch(setIdConversation(null))
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const typeChatbot = "chatbot";
     const mode = dataBot.mode 
-    dispatch(setCoversation({role: 'user', content: messageToSend}))
+    const idConversation = dataBot.idConversation
+    dispatch(setCoversation({role: 'user', content: messageToSend, rating:null}))
     const conversation = [...dataBot.conversation]
     
-    conversation.push({role: 'user', content: messageToSend})
+    conversation.push({role: 'user', content: messageToSend,  rating:null})
     let conversationJoined = conversation.slice(1).map(({role, content})=>`${role}: ${content}`).join('\n');
 
-    
     const modes = {
       singleMessage: messageToSend,
       duringTheConversation: conversationJoined,
       toFinishTheChat: "Analisis al finalizar el chat",
     };
 
-
-    dispatch(thunkDemoEmotionAnalysis(conversation, typeChatbot));
-    dispatch(thunkDemoEmotionAnalysis(modes[mode], "emotionAnalysis" , false , settings));
+    dispatch(thunkDemoEmotionAnalysis( modes[mode] , conversation, settings , idConversation));
     setMessageToSend("");
-
   };
 
 
