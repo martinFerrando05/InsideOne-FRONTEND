@@ -144,7 +144,7 @@ const EmotionAnalysisConversationSingleLifeMessage = ({
             <li>
               <h3>Emociones:</h3>
               <p>
-                {singleEmotionAnalysis.client?.emotions.map((emotion, i, arr) =>
+                {singleEmotionAnalysis.client?.emotions?.map((emotion, i, arr) =>
                   arr[i + 1] ? emotion + ", " : emotion + "."
                 )}
               </p>
@@ -174,8 +174,10 @@ const EmotionAnalysisConversationToFinishTheChat = ({
   );
   const settings = useSelector((store) => store.settingsReducer.value);
 
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch(conversation
+    .slice(1)
+    .map(({ role, content }) => `${role}: ${content}`));
+    console.log();
   const handleAnalize = () => {
     let conversationJoined = conversation
       .slice(1)
@@ -209,14 +211,17 @@ const EmotionAnalysisConversationToFinishTheChat = ({
               <h3>Indice de satisfacción:</h3>
               <p>{singleEmotionAnalysis.client?.satisfaction_index}</p>
             </li>
+            {singleEmotionAnalysis.client.emotions && 
+            
             <li>
               <h3>Emociones:</h3>
               <p>
-                {singleEmotionAnalysis.client?.emotions.map((emotion, i, arr) =>
+                {singleEmotionAnalysis.client?.emotions?.map((emotion, i, arr) =>
                   arr[i + 1] ? emotion + ", " : emotion + "."
                 )}
               </p>
             </li>
+            }
             <li>
               <h3>Palabras clave:</h3>
               <p>

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 
 export const demoEmotionAnalysisSlice = createSlice({
   name: "demoEmotionAnalisys",
@@ -18,10 +17,25 @@ export const demoEmotionAnalysisSlice = createSlice({
     mode: "singleMessage",
     loadingConversation: false,
     loadingAnalysis: false,
-  },
+    idConversation: null 
+    },
   reducers: {
     setCoversation: (state, { payload }) => {
-      state.conversation.push(payload);
+      const rating = payload.rating
+      const emotions = payload.emotions
+      const keywords = payload.keywords
+      const objToPush = payload.role == 'assistant' ? {role: payload.role , content: payload.content} : payload
+    
+      if(rating){
+        let lastElement = state.conversation.pop()
+        lastElement.rating = rating
+        lastElement.emotions = emotions
+        lastElement.keywords = keywords
+        state.conversation.push(lastElement);
+      }
+
+
+      state.conversation.push(objToPush);
       state.loadingConversation = false;
     },
     setSingleEmotionAnalisys: (state, { payload }) => {
@@ -38,6 +52,9 @@ export const demoEmotionAnalysisSlice = createSlice({
     setLoadingAnalysis: (state, { payload }) => {
       state.loadingAnalysis = payload;
     },
+    setIdConversation: (state , { payload })=>{
+      state.idConversation = payload
+    }
   },
 });
 
@@ -48,4 +65,5 @@ export const {
   setMode,
   setLoadingConversation,
   setLoadingAnalysis,
+  setIdConversation
 } = demoEmotionAnalysisSlice.actions;
