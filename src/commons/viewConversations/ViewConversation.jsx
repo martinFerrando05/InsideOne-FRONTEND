@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import leftArrow from "../../assets/icons/leftArrow.svg"
 import "./viewConversation.scss";
-import { conversacion } from "../../utils/fakeData"
 
 const viewConversation = ({ handleDisplayConversation, selectedReport, onClose }) => {
 
@@ -24,11 +23,15 @@ const viewConversation = ({ handleDisplayConversation, selectedReport, onClose }
             <h3>Agente</h3>
           </div>
           <div className="conversation">
-            {conversacion.map((dialogo, i) => {
+            {selectedReport.conversation.slice(1).map(({ role, content }, i) => {
+              const roles = {
+                user: 'Cliente',
+                assistant: 'Asistente'
+              }
               return (
                   <p key={i} style={{ marginTop: '40px' }}>
-                      <span >{dialogo.split(':')[0]}:</span>
-                      {dialogo.split(':')[1]}
+                      <span >{roles[role]}:</span>
+                      {content}
                   </p>
               );
             })}

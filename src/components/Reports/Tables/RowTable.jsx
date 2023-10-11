@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./rowTable.scss";
 import { useLocation } from "react-router";
 import truncateFunctions from "../../../utils/truncateFunctions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const RowTable = ({ openModal }) => {
-  const dispatch = useDispatch();
-
   const location = useLocation();
   const isConversationsView = location.pathname === "/conversations";
   const { paginatedData } = useSelector((store) => store.firestoreReducer);
