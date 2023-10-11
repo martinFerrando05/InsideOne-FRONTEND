@@ -25,6 +25,7 @@ const URL_GET_EMOTION_ANALYSIS =
   "http://localhost:5000/prueba-97c35/us-central1/getEmotionsAnalysis";
 const URL_CHATBOT =
   "http://localhost:5000/prueba-97c35/us-central1/chatAssistantBotGalicia";
+const URL_MAIL = "http://localhost:5000/prueba-97c35/us-central1/emailSender";
 // email
 import emailjs from "emailjs-com";
 
@@ -142,21 +143,12 @@ export function thunkDemoEmotionAnalysis(
 
       if (rating) {
         if (rating <= settings) {
-          const templateParams = {
-            to_email: "isidromolina268@gmail.com",
-            message: `Nuevo documento con rating ${rating} agregado. Tu ajuste: ${settings}`,
-          };
-          emailjs
-            .send(SERVICE_ID, TEMPLATE_ID, templateParams, EMAIL_ID)
-            .then((response) => {
-              toast.success(
-                `Nuevo doc con indice menor a ${settings} agregado`
-              );
-              console.log("Email sent successfully:", response);
+          toast.error("Conversación con índice bajo");
+          axios.post(URL_MAIL, {rating, settings})
+            .then(() => {
+              console.log('Aentrooooo');
             })
-            .catch((error) => {
-              console.error("Email failed to send:", error);
-            });
+            .catch((err) => console.error(err));
         }
       } else {
         console.log("FALLO");

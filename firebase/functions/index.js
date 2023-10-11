@@ -2,6 +2,9 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { arrEmotions, agents } = require("./data");
 const OpenAI = require("openai");
 const dotenv = require("dotenv");
+const {Resend} = require("resend")
+
+const resend = new Resend('re_jK5qWkJh_Gs2xfFiGopV9qYGY9bAHoexw');
 
 dotenv.config();
 const apiKey = process.env.APIKEY;
@@ -86,3 +89,17 @@ exports.chatAssistantBotGalicia = onRequest({ cors: true }, async (req, res) => 
       .catch((err) => console.error(err));
 
 });
+
+exports.emailSender = onRequest({ cors: true }, async (req, res) => {
+  const {settings, rating} = req.body
+  try {
+    resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: 'isidromolina268@gmail.com',
+    subject: 'Hello World',
+    html: `<p>Se ha detectado una nueva conversación con índice ${rating}. Su ajuste es ${settings}</p>`
+  });
+  } catch (error) {
+    console.error(error);
+  } 
+})
