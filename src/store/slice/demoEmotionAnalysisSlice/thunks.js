@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 //axios
-import axios, { all } from "axios";
+import axios from "axios";
 //actions
 import {
   setLoadingAnalysis,
@@ -40,48 +40,75 @@ export function thunkDemoEmotionAnalysis(
   messageToSend,
   conversation,
   settings,
-  idConversation
+  idConversation,
+  analyzeAllConversation = false
 ) {
-  let conversationForChatbot = conversation.map(conv => {
-
-    return {role: conv.role, content: conv.content}
-  })
+  let conversationForChatbot = conversation.map((conv) => {
+    return { role: conv.role, content: conv.content };
+  });
 
   const endpoints = [
     { url: URL_GET_EMOTION_ANALYSIS, send: messageToSend },
     { url: URL_CHATBOT, send: conversationForChatbot },
   ];
 
+  if (analyzeAllConversation) {
+    endpoints.pop();
+  }
+
   return async (dispatch) => {
     dispatch(setLoadingConversation(true));
     dispatch(setLoadingAnalysis(true));
 
     try {
-      const [responseAnalysis, responseChatbot , responseAllConversation] = await axios.all(
+      const [responseAnalysis, responseChatbot] = await axios.all(
         endpoints.map((endpoint) =>
           axios.post(endpoint.url, { text: endpoint.send }).then((data) => data)
         )
       );
 
-      console.log('Response all conversation------> ',responseAllConversation.data)
       const rating = responseAnalysis.data.client.rating;
       const emotions = responseAnalysis.data.client.emotions;
       const keywords = responseAnalysis.data.client.keywords;
-      dispatch(
-        setCoversation({ role: "assistant", content: responseChatbot.data , rating: rating ,emotions ,keywords })
-      );
-      dispatch(setSingleEmotionAnalisys(responseAnalysis.data));  
+      const satisfaction_index =
+        responseAnalysis.data.client.satisfaction_index;
+      const summary = responseAnalysis.data.client.summary;
+      if (!analyzeAllConversation) {
+        dispatch(
+          setCoversation({
+            role: "assistant",
+            content: responseChatbot.data,
+            rating: rating,
+            emotions,
+            keywords,
+          })
+        );
+      }
+      dispatch(setSingleEmotionAnalisys(responseAnalysis.data));
 
-      const dbConversation = [...conversation];
-      let lastElement = dbConversation.pop()
-      lastElement.rating = rating
-      lastElement.emotions = emotions
-      lastElement.keywords = keywords
-      dbConversation.push(lastElement)
+      let dbConversation;
+      if (!analyzeAllConversation) {
+        dbConversation = [...conversation];
 
-      
-      dbConversation.push({ role: "assistant", content: responseChatbot.data });
+        let lastElement = dbConversation.pop();
+        lastElement.rating = rating;
+        lastElement.emotions = emotions;
+        lastElement.keywords = keywords;
+        dbConversation.push(lastElement);
 
+        dbConversation.push({
+          role: "assistant",
+          content: responseChatbot.data,
+        });
+      } else {
+        dbConversation = {
+          "client.rating": rating,
+          "client.keywords": keywords,
+          "client.emotions": emotions,
+          "client.summary": summary,
+          "client.satisfaction_index": satisfaction_index,
+        };
+      }
 
       let test = responseAnalysis.data.client;
       let queryRef = collection(db, "isi");
@@ -97,7 +124,13 @@ export function thunkDemoEmotionAnalysis(
       } else {
         console.log(idConversation);
         queryRef = doc(db, "isi", idConversation);
-        updateDoc(queryRef, { conversation: dbConversation });
+
+        updateDoc(
+          queryRef,
+          analyzeAllConversation
+            ? dbConversation
+            : { conversation: dbConversation }
+        );
       }
 
       for (const key in test) {
@@ -107,7 +140,6 @@ export function thunkDemoEmotionAnalysis(
         }
       }
 
-   
       if (rating) {
         if (rating <= settings) {
           const templateParams = {

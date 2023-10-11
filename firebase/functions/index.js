@@ -37,8 +37,8 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
     let random = Math.floor(Math.random() * agents.length -1);
 
     messageArr.forEach((ele) => {
-      const clave = ele.split(":")[0].trim().toLowerCase();
-      let value = ele.split(":")[1].trim();
+      const clave = ele.split(":")[0]?.trim().toLowerCase();
+      let value = ele.split(":")[1]?.trim();
       if (value === 'null') {
         value = null
       }
@@ -49,10 +49,11 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
         : (obj.client[clave] = value);
     });
 
-    obj["agent"] = agents[random].agent;
+    console.log(agents[random].agent);
+    obj["agent"] = agents[random]?.agent;
     obj["channel"] = "Texto";
-    obj.client["dni"] = agents[random].dni;
-    obj.client["phone_number"] = agents[random].phone_number;
+    obj.client["dni"] = agents[random]?.dni;
+    obj.client["phone_number"] = agents[random]?.phone_number;
     obj.client["satisfaction_index"] =
       obj["client"].rating < 40
         ? "Bajo"
