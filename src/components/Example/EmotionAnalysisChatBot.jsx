@@ -2,11 +2,12 @@ import { useState } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { thunkDemoEmotionAnalysis } from "../../store/slice/demoEmotionAnalysisSlice";
-import { setCoversation ,setIdConversation } from "../../store/slice/demoEmotionAnalysisSlice";
+import { setCoversation ,setIdConversation , resetConversation } from "../../store/slice/demoEmotionAnalysisSlice";
 //styles
 import "./scss/emotionAnalysisChatBot.scss";
 //assets - icons
 import sendIcon from "../../assets/icons/send.svg";
+import { toast } from "react-toastify";
 
 const EmotionAnalysisChatBot = () => {
   const dataBot = useSelector((store) => store.demoEmotionAnalysisReducer);
@@ -22,37 +23,36 @@ const EmotionAnalysisChatBot = () => {
   };
 
   const handleReset = () => {
-    dispatch(setCoversation([{
-      role: 'system',
-      content: 'Eres un asistente por chat de Galicia Seguros que brinda atención al cliente por chat para dar respuesta a preguntas sobre seguros. Podes dar información sobre tipos de seguros, hacer cotizaciones, ayudarte con trámites y responder preguntas comunes. Es como hablar con un experto en seguros en línea para obtener ayuda rápida y fácil.'
-    }]));
-
-    dispatch(setIdConversation(null))
+    dispatch(resetConversation());
   };
+  const handleAnalyzeConversation = ()=>{
+    const idConversation = dataBot.idConversation
+    const conversationLength = dataBot.conversation.length
+    if(conversationLength > 1 && idConversation){
+      const conversation = [...dataBot.conversation]
+      const idConversation = dataBot.idConversation
+      const analyzeAllConversation = true
+      conversation.push({role: 'user', content: messageToSend,  rating:null})
+      let conversationJoined = conversation.slice(1).map(({role, content})=>`${role}: ${content}`).join('\n');
+      dispatch(thunkDemoEmotionAnalysis(conversationJoined ,  conversation, settings , idConversation , analyzeAllConversation))
+    }else{
+      toast.info('debes iniciar una conversación')
+    }
+
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const mode = dataBot.mode 
     const idConversation = dataBot.idConversation
     dispatch(setCoversation({role: 'user', content: messageToSend, rating:null}))
+
     const conversation = [...dataBot.conversation]
     
     conversation.push({role: 'user', content: messageToSend,  rating:null})
-    let conversationJoined = conversation.slice(1).map(({role, content})=>`${role}: ${content}`).join('\n');
 
-    const modes = {
-      singleMessage: messageToSend,
-      duringTheConversation: conversationJoined,
-      toFinishTheChat: "Analisis al finalizar el chat",
-    };
-
-    dispatch(thunkDemoEmotionAnalysis( modes[mode] , conversation, settings , idConversation));
+    dispatch(thunkDemoEmotionAnalysis( messageToSend, conversation, settings , idConversation));
     setMessageToSend("");
   };
-
-
-
 
   return (
     <section className="emotionAnalysisChatBot__main">
@@ -62,6 +62,7 @@ const EmotionAnalysisChatBot = () => {
           <h3>Asistente</h3>
           <p>En línea</p>
         </div>
+        <button onClick={handleAnalyzeConversation}>Analizar</button>
         <button onClick={handleReset}>Reiniciar</button>
       </header>
       <ul className="emotionAnalysisChatBot__chat">
