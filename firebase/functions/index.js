@@ -34,7 +34,7 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
     const message = creatingQuery.choices[0].message.content;
     const messageArr = message.split("\n");
     let obj = { client: {} };
-    let random = Math.floor(Math.random() * agents.length -1);
+    let random = Math.floor(Math.random() * (agents.length -1));
 
     messageArr.forEach((ele) => {
       const clave = ele.split(":")[0]?.trim().toLowerCase();
@@ -68,8 +68,6 @@ exports.getEmotionsAnalysis = onRequest({ cors: true }, async (req, res) => {
 });
 
 // — 06/10/2023 9:10
-
-
 exports.chatAssistantBotGalicia = onRequest({ cors: true }, async (req, res) => {
   const { text: conversation , reset = false } = req.body;
 
